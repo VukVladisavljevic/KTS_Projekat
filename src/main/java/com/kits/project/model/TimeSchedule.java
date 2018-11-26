@@ -19,11 +19,15 @@ public class TimeSchedule {
     @Column(name = "time")
     private Time time;
 
+    @Column(name = "station")
+    private Station station;
+
     public TimeSchedule() { }
 
-    public TimeSchedule(Line line, Time time) {
+    public TimeSchedule(Line line, Time time, Station station) {
         this.line = line;
         this.time = time;
+        this.station = station;
     }
 
     public Long getId() {
@@ -48,5 +52,13 @@ public class TimeSchedule {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 }
