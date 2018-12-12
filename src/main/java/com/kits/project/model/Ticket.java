@@ -28,6 +28,9 @@ public class Ticket {
     @Column
     private boolean active;
 
+    @Enumerated(EnumType.STRING)
+    private TicketType ticketType;
+
     public Ticket() {
     }
 
@@ -76,5 +79,13 @@ public class Ticket {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
     }
 }
