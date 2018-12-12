@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.UserDTO;
+
 import javax.persistence.*;
 
 /**
@@ -31,6 +33,13 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public User(UserDTO userDTO) {
+        this.username = userDTO.username;
+        this.password = userDTO.password;
+        this.firstName = userDTO.firstName;
+        this.lastName = userDTO.lastName;
     }
 
     public Long getId() {
