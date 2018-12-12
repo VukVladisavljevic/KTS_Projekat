@@ -22,6 +22,9 @@ public class TimeSchedule {
     @Column(name = "station")
     private Station station;
 
+    @Enumerated(EnumType.STRING)
+    private Day day;
+
     public TimeSchedule() { }
 
     public TimeSchedule(Line line, Time time, Station station) {
@@ -60,5 +63,13 @@ public class TimeSchedule {
 
     public void setStation(Station station) {
         this.station = station;
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    public Day getDay() {
+        return day;
     }
 }
