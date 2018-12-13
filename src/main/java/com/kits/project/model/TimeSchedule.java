@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.TimeScheduleDTO;
+
 import javax.persistence.*;
 import java.sql.Time;
 
@@ -28,6 +30,12 @@ public class TimeSchedule {
         this.line = line;
         this.time = time;
         this.station = station;
+    }
+
+    public TimeSchedule(TimeScheduleDTO timeScheduleDTO) {
+        this.line = null;
+        this.time = null;
+        this.station = null;
     }
 
     public Long getId() {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public interface LineServiceInterface {
@@ -15,7 +16,7 @@ public interface LineServiceInterface {
     public Line addNewLine(LineDTO lineDTO);
 
 
-    public ArrayList<Line> getAllLines();
+    public List<Line> getAllLines();
 
 
     public ArrayList<Station> getStationForLine(Long lineID);
