@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.TicketDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -36,6 +38,13 @@ public class Ticket {
         this.startTime = startTime;
         this.endTime = endTime;
         this.active = active;
+    }
+
+    public Ticket(TicketDTO ticketDTO) {
+        this.user = null;
+        this.startTime = ticketDTO.startTime;
+        this.endTime = ticketDTO.endTime;
+        this.active = ticketDTO.active;
     }
 
     public Long getId() {

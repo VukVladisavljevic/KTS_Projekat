@@ -1,6 +1,10 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.LineDTO;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name="LINES")
 public class Line {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
@@ -22,17 +27,34 @@ public class Line {
     private boolean active;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Set<Station> stations;
+    private Collection<Station> stations;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<TimeSchedule> schedules;
+    private Collection<TimeSchedule> schedules;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Ticket> tickets;
+    private Collection<Ticket> tickets;
 
     public Line() {
         super();
         this.active = true;
+    }
+
+    public Line(Long id, String name, boolean active, Collection<Station> stations, Collection<TimeSchedule> schedules, Collection<Ticket> tickets) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+        this.stations = stations;
+        this.schedules = schedules;
+        this.tickets = tickets;
+    }
+
+    public Line(LineDTO lineDTO) {
+        this.name = lineDTO.name;
+        this.active = lineDTO.active;
+        this.stations = new ArrayList<>();
+        this.schedules = new ArrayList<>();
+        this.tickets = new ArrayList<>();
     }
 
     public Long getId() {
@@ -59,27 +81,27 @@ public class Line {
         this.active = active;
     }
 
-    public Set<Station> getStations() {
+    public Collection<Station> getStations() {
         return stations;
     }
 
-    public void setStations(Set<Station> stations) {
+    public void setStations(Collection<Station> stations) {
         this.stations = stations;
     }
 
-    public List<TimeSchedule> getSchedules() {
+    public Collection<TimeSchedule> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(List<TimeSchedule> schedules) {
+    public void setSchedules(Collection<TimeSchedule> schedules) {
         this.schedules = schedules;
     }
 
-    public List<Ticket> getTickets() {
+    public Collection<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
+    public void setTickets(Collection<Ticket> tickets) {
         this.tickets = tickets;
     }
 }

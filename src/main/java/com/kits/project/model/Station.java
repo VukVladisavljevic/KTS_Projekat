@@ -1,6 +1,10 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.StationDTO;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -34,6 +38,13 @@ public class Station {
         this.name = name;
         this.lines = lines;
         this.active = active;
+    }
+
+    public Station(StationDTO stationDTO) {
+        this.address = stationDTO.address;
+        this.name = stationDTO.name;
+        this.lines = new HashSet<>();
+        this.active = stationDTO.active;
     }
 
     public Long getId() {
