@@ -20,6 +20,8 @@ public class Schedule {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
+    //Getters and Setters
+
     public void setStartDate(Date startDate){
         this.startDate = startDate;
     }

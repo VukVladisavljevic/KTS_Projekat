@@ -12,8 +12,8 @@ import java.util.Set;
 public class Line {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    @Column(name = "idline", updatable = false, nullable = false)
+    private Long idline;
 
     @Column(name = "name")
     private String name;
@@ -21,13 +21,14 @@ public class Line {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lines")   //  proveri naziv kolone da se ne ponavlja
     private Set<Station> stations;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<TimeSchedule> schedules;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="line") // proveri
+    private List<TimeSchedule> timeSchedules;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//, mappedBy = "TICKETS")
     private List<Ticket> tickets;
 
     public Line() {
@@ -35,12 +36,12 @@ public class Line {
         this.active = true;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLine() {
+        return idline;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLine(Long id) {
+        this.idline = id;
     }
 
     public String getName() {
@@ -67,12 +68,12 @@ public class Line {
         this.stations = stations;
     }
 
-    public List<TimeSchedule> getSchedules() {
-        return schedules;
+    public List<TimeSchedule> getTimeSchedules() {
+        return timeSchedules;
     }
 
-    public void setSchedules(List<TimeSchedule> schedules) {
-        this.schedules = schedules;
+    public void setTimeSchedules(List<TimeSchedule> schedules) {
+        this.timeSchedules = schedules;
     }
 
     public List<Ticket> getTickets() {
