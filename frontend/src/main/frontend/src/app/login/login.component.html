@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <div class="panel-login">
+      <div class="panel">
+        <span class="fa-stack fa-5x">
+            <i class="fa fa-circle fa-stack-2x icon-background" style="color: beige;"></i>
+            <i class="fa fa-train fa-stack-1x" style="color: black;"></i>
+          </span>                
+        <h3 class="panel-title" style="">LOG IN</h3>
+        <form [formGroup]="form" (ngSubmit)="login()" accept-charset="UTF-8">
+            <!-- start of Username -->
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-user icon"></i>
+                <input
+                  formControlName="username"
+                  id="username"
+                  placeholder="username..."
+                  type="text"
+                  class="form-control input">
+                <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+                  <div id="usernameRequiredError" *ngIf="username.errors.required; else containSpace">
+                    The username is required!
+                  </div>
+                  <ng-template #containSpace>
+                    <ng-container *ngIf="username.errors.cannotContainSpace">
+                      <div id="usernameContainSpaceError">
+                        The username can't contain space!
+                      </div>
+                    </ng-container>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <!-- end of Username -->
+
+            <!-- start of Passwords -->
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-lock icon"></i>
+                <input
+                  formControlName="password"
+                  id="password"
+                  placeholder="password..."
+                  type="password"
+                  class="form-control input">
+                <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                  <div id="passwordRequiredError" *ngIf="password.errors.required">
+                    The password is required!
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end of Password -->
+          <button class="btn" type="submit" [disabled]="!form.valid">Login</button>
+        </form>
+
+        <div class="forgot-pw">
+          <a class="forgot-pw" href="google.com">Forgot password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
