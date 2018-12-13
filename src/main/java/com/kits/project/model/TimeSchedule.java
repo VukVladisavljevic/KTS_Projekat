@@ -6,20 +6,23 @@ import java.sql.Time;
 /**
  * Created by Lupus on 10/30/2018.
  */
-@Entity
+@Entity(name = "TIMESCHEDULE")
 public class TimeSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "line")
+    //@Column(name = "line")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idline", nullable = false)
     private Line line;
 
     @Column(name = "time")
     private Time time;
 
-    @Column(name = "station")
+    //@Column(name = "station")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Station station;
 
     @Enumerated(EnumType.STRING)

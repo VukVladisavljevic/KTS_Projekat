@@ -15,6 +15,7 @@ public class Ticket {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //@JoinColumn(name = "idline", nullable = false)
     private User user;
 
     @Column

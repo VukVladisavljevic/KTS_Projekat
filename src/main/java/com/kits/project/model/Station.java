@@ -21,7 +21,8 @@ public class Station {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idline", nullable = false)
     private Set<Line> lines;
 
     @Column

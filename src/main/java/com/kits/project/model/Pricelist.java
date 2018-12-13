@@ -6,6 +6,11 @@ import javax.persistence.*;
 @Table(name="PRICELIST")
 public class Pricelist {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Schedule schedule;
 
@@ -13,7 +18,7 @@ public class Pricelist {
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
 
-    @Column
+    @Column(name = "price")
     private double price;
 
     // Getters and setters
