@@ -1,9 +1,12 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.kits.project.DTOs.TimeScheduleDTO;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Created by Lupus on 10/30/2018.
@@ -15,27 +18,26 @@ public class TimeSchedule {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "line")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "line_id")
     private Line line;
 
     @Column(name = "time")
     private Time time;
 
-    @Column(name = "station")
-    private Station station;
+    @OneToMany
+    private Collection<TimeScheduleItem> timeScheduleItems;
 
     public TimeSchedule() { }
 
-    public TimeSchedule(Line line, Time time, Station station) {
+    public TimeSchedule(Line line, Time time) {
         this.line = line;
         this.time = time;
-        this.station = station;
     }
 
     public TimeSchedule(TimeScheduleDTO timeScheduleDTO) {
         this.line = null;
         this.time = null;
-        this.station = null;
     }
 
     public Long getId() {
@@ -62,11 +64,4 @@ public class TimeSchedule {
         this.time = time;
     }
 
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
 }

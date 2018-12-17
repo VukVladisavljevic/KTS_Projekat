@@ -25,8 +25,8 @@ public class Station {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Line> lines;
+  //  @ManyToMany(fetch = FetchType.LAZY)
+  //  private Set<Line> lines;
 
     @Column
     private boolean active;
@@ -36,14 +36,14 @@ public class Station {
     public Station(String address, String name, Set<Line> lines, boolean active) {
         this.address = address;
         this.name = name;
-        this.lines = lines;
+     //   this.lines = lines;
         this.active = active;
     }
 
     public Station(StationDTO stationDTO) {
         this.address = stationDTO.address;
         this.name = stationDTO.name;
-        this.lines = new HashSet<>();
+      //  this.lines = new HashSet<>();
         this.active = stationDTO.active;
     }
 
@@ -71,13 +71,13 @@ public class Station {
         this.name = name;
     }
 
-    public Set<Line> getLines() {
-        return lines;
-    }
-
-    public void setLines(Set<Line> lines) {
-        this.lines = lines;
-    }
+//    public Set<Line> getLines() {
+//        return lines;
+//    }
+//
+//    public void setLines(Set<Line> lines) {
+//        this.lines = lines;
+//    }
 
     public boolean isActive() {
         return active;

@@ -26,13 +26,14 @@ public class Line {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+  //  @ManyToOne(fetch = FetchType.LAZY)
     private Collection<Station> stations;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<TimeSchedule> schedules;
+    @OneToOne(mappedBy = "line", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private TimeSchedule schedule;
 
-    @OneToMany(fetch = FetchType.LAZY)
+   // @OneToMany(fetch = FetchType.LAZY)
     private Collection<Ticket> tickets;
 
     public Line() {
@@ -45,7 +46,7 @@ public class Line {
         this.name = name;
         this.active = active;
         this.stations = stations;
-        this.schedules = schedules;
+       // this.schedules = schedules;
         this.tickets = tickets;
     }
 
@@ -53,7 +54,7 @@ public class Line {
         this.name = lineDTO.name;
         this.active = lineDTO.active;
         this.stations = new ArrayList<>();
-        this.schedules = new ArrayList<>();
+       // this.schedules = new ArrayList<>();
         this.tickets = new ArrayList<>();
     }
 
@@ -89,12 +90,12 @@ public class Line {
         this.stations = stations;
     }
 
-    public Collection<TimeSchedule> getSchedules() {
-        return schedules;
+    public TimeSchedule getSchedules() {
+        return schedule;
     }
 
-    public void setSchedules(Collection<TimeSchedule> schedules) {
-        this.schedules = schedules;
+    public void setSchedules(TimeSchedule schedule) {
+        this.schedule = schedule;
     }
 
     public Collection<Ticket> getTickets() {
