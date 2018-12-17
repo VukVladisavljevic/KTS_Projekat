@@ -10,6 +10,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { RouterModule } from "@angular/router";
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { ReactiveFormsModule } from "@angular/forms";
+import { TimetableComponent } from './timetable/timetable.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    TimetableComponent
   ],
   imports: [
     BrowserModule,

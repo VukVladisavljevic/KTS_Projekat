@@ -16,7 +16,7 @@ public class Ticket {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+   // @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
     @Column

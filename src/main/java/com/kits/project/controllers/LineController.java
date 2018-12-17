@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping("api")
 @RestController
@@ -29,8 +30,8 @@ public class LineController {
 
     @RequestMapping(value = "/lines", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Line>> index(){
-        ArrayList<Line> allLines = lineServiceInterface.getAllLines();
+    public ResponseEntity<List<Line>> index(){
+        List<Line> allLines = lineServiceInterface.getAllLines();
         return new ResponseEntity<>(allLines, HttpStatus.OK);
     }
 
