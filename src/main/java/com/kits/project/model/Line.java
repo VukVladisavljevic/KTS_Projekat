@@ -1,10 +1,10 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kits.project.DTOs.LineDTO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -12,13 +12,12 @@ import java.util.Set;
  * Created by Lupus on 10/30/2018.
  */
 @Entity
-@Table(name="LINES")
 public class Line {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    @Column(name = "idline", updatable = false, nullable = false)
+    private Long idline;
 
     @Column(name = "name")
     private String name;
@@ -26,44 +25,33 @@ public class Line {
     @Column(name = "active")
     private boolean active;
 
-  //  @ManyToOne(fetch = FetchType.LAZY)
-    private Collection<Station> stations;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lines")   //  proveri naziv kolone da se ne ponavlja
+    private List<Station> stations;
 
-    @OneToOne(mappedBy = "line", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private TimeSchedule schedule;
+    @JsonManagedReference(value="line_timeSchedule")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy ="line") // proveri
+    private TimeSchedule timeSchedule;
 
-   // @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Ticket> tickets;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//, mappedBy = "TICKETS")
+    private List<Ticket> tickets;
 
     public Line() {
         super();
         this.active = true;
     }
 
-    public Line(Long id, String name, boolean active, Collection<Station> stations, Collection<TimeSchedule> schedules, Collection<Ticket> tickets) {
-        this.id = id;
-        this.name = name;
-        this.active = active;
-        this.stations = stations;
-       // this.schedules = schedules;
-        this.tickets = tickets;
-    }
-
     public Line(LineDTO lineDTO) {
+        this.active = true;
         this.name = lineDTO.name;
-        this.active = lineDTO.active;
-        this.stations = new ArrayList<>();
-       // this.schedules = new ArrayList<>();
-        this.tickets = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLine() {
+        return idline;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLine(Long id) {
+        this.idline = id;
     }
 
     public String getName() {
@@ -82,27 +70,32 @@ public class Line {
         this.active = active;
     }
 
-    public Collection<Station> getStations() {
+    public List<Station> getStations() {
         return stations;
     }
 
-    public void setStations(Collection<Station> stations) {
+    public void setStations(List<Station> stations) {
         this.stations = stations;
     }
 
-    public TimeSchedule getSchedules() {
-        return schedule;
+    public TimeSchedule getTimeSchedule() {
+        return timeSchedule;
     }
 
-    public void setSchedules(TimeSchedule schedule) {
-        this.schedule = schedule;
+    public void setTimeSchedules(TimeSchedule schedule) {
+        this.timeSchedule = schedule;
     }
 
-    public Collection<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Collection<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public void addTimeSchedule(TimeSchedule timeSchedule) {
+        timeSchedule.setLine(this);
+        this.timeSchedule = timeSchedule;
     }
 }
