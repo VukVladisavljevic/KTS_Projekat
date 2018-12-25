@@ -3,8 +3,6 @@ package com.kits.project.model;
 import com.kits.project.DTOs.StationDTO;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,8 +23,9 @@ public class Station {
     @Column(nullable = false)
     private String name;
 
-  //  @ManyToMany(fetch = FetchType.LAZY)
-  //  private Set<Line> lines;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idline", nullable = false)
+    private Set<Line> lines;
 
     @Column
     private boolean active;
@@ -36,15 +35,11 @@ public class Station {
     public Station(String address, String name, Set<Line> lines, boolean active) {
         this.address = address;
         this.name = name;
-     //   this.lines = lines;
+        this.lines = lines;
         this.active = active;
     }
 
     public Station(StationDTO stationDTO) {
-        this.address = stationDTO.address;
-        this.name = stationDTO.name;
-      //  this.lines = new HashSet<>();
-        this.active = stationDTO.active;
     }
 
     public Long getId() {
@@ -71,13 +66,13 @@ public class Station {
         this.name = name;
     }
 
-//    public Set<Line> getLines() {
-//        return lines;
-//    }
-//
-//    public void setLines(Set<Line> lines) {
-//        this.lines = lines;
-//    }
+    public Set<Line> getLines() {
+        return lines;
+    }
+
+    public void setLines(Set<Line> lines) {
+        this.lines = lines;
+    }
 
     public boolean isActive() {
         return active;

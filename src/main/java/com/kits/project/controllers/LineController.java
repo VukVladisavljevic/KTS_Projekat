@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("api")
 @RestController
 public class LineController {
@@ -30,9 +31,13 @@ public class LineController {
 
     @RequestMapping(value = "/lines", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Line>> index(){
-        List<Line> allLines = lineServiceInterface.getAllLines();
-        return new ResponseEntity<>(allLines, HttpStatus.OK);
+    public ResponseEntity<ArrayList<Line>> index(){
+        List<Line> allLinesList = lineServiceInterface.getAllLines();
+        ArrayList<Line> allLines = new ArrayList<Line>();
+        for (Line l : allLinesList){
+            allLines.add(l);
+        }
+        return new ResponseEntity<ArrayList<Line>>(allLines, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/line/station/{stationId}", method = RequestMethod.GET,
