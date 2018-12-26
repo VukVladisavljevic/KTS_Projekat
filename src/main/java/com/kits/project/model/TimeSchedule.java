@@ -6,7 +6,6 @@ import com.kits.project.DTOs.TimeScheduleDTO;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,13 +30,35 @@ public class TimeSchedule {
     private Time time;
 
     @ElementCollection
-    private List<Date> workingDaySchedule;
+    private List<String> workingDaySchedule;
 
-    public List<Date> getWorkingDaySchedule() {
+    @ElementCollection
+    private List<String> saturdaySchedule;
+
+    @ElementCollection
+    private List<String> sundaySchedule;
+
+    public List<String> getSaturdaySchedule() {
+        return saturdaySchedule;
+    }
+
+    public void setSaturdaySchedule(List<String> saturdaySchedule) {
+        this.saturdaySchedule = saturdaySchedule;
+    }
+
+    public List<String> getSundaySchedule() {
+        return sundaySchedule;
+    }
+
+    public void setSundaySchedule(List<String> sundaySchedule) {
+        this.sundaySchedule = sundaySchedule;
+    }
+
+    public List<String> getWorkingDaySchedule() {
         return workingDaySchedule;
     }
 
-    public void setWorkingDaySchedule(List<Date> workingDaySchedule) {
+    public void setWorkingDaySchedule(List<String> workingDaySchedule) {
         this.workingDaySchedule = workingDaySchedule;
     }
 
@@ -100,5 +121,36 @@ public class TimeSchedule {
 
     public Day getDay() {
         return day;
+    }
+
+    public boolean addDeparture(String time, String dayOfWeek) {
+        switch (dayOfWeek){
+            case "1":
+                this.getWorkingDaySchedule().add(time);
+                return true;
+            case "2":
+                this.getSaturdaySchedule().add(time);
+                return true;
+            case "3":
+                this.getSundaySchedule().add(time);
+                return true;
+        }
+        return false;
+    }
+
+    public boolean deleteDeparture(String dayOfWeek, String index) {
+        int depIndex = Integer.parseInt(index);
+        switch (dayOfWeek){
+            case "1":
+                this.getWorkingDaySchedule().remove(depIndex);
+                return true;
+            case "2":
+                this.getSaturdaySchedule().remove(depIndex);
+                return true;
+            case "3":
+                this.getSundaySchedule().remove(depIndex);
+                return true;
+        }
+        return false;
     }
 }

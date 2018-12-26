@@ -13,12 +13,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Service
+
 public interface TimeScheduleServiceInterface {
 
     public TimeSchedule addDeparture(DepartureDTO departureDTO);
 
-    public List<Date> getDepartures(String lineName, String day);
+    public TimeSchedule deleteDeparture(String lineName, String day, String index);
+
+    public List<String> getDepartures(String lineName, String day);
 
     public TimeSchedule getAllDepartures(String day);
 

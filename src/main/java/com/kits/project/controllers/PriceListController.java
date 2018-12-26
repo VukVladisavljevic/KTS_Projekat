@@ -28,6 +28,4 @@ public class PriceListController {
             Pricelist newPricelist = pricelistService.addPricelist(pricelist);
         return new ResponseEntity<>(newPricelist, HttpStatus.OK);
     }
-
-
 }
