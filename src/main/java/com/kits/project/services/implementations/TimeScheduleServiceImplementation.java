@@ -11,6 +11,7 @@ import com.kits.project.repositories.TimeScheduleRepository;
 import com.kits.project.services.interfaces.TimeScheduleServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.DateUtils;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -39,27 +40,18 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
             return null;
         }
 
-        //konvertuj string datuma u date
-        DateFormat formatter = new SimpleDateFormat("hh:mm");
-
-        Date date = null;
-        try {
-            date = formatter.parse(departureDTO.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         //dodaj taj date u odgovarajucu listu odgovarajuceg TimeSchedule objekta
 
         if(selectedLine.getTimeSchedule() == null) {
             TimeSchedule newTimeSchedule = new TimeSchedule();
-            newTimeSchedule.getWorkingDaySchedule().add(date);
+            newTimeSchedule.addDeparture(departureDTO.getTime(), departureDTO.getDayOfWeek());
 
             selectedLine.addTimeSchedule(newTimeSchedule);
             lineRepository.flush();
         } else {
             TimeSchedule newTimeSchedule = selectedLine.getTimeSchedule();
-            newTimeSchedule.getWorkingDaySchedule().add(date);
+            newTimeSchedule.addDeparture(departureDTO.getTime(), departureDTO.getDayOfWeek());
 
             selectedLine.addTimeSchedule(newTimeSchedule);
             lineRepository.flush();
@@ -69,12 +61,36 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
     }
 
     @Override
-    public List<Date> getDepartures(String lineName, String day) {
+    public TimeSchedule deleteDeparture(String lineName, String day, String index) {
+        Line selectedLine = lineRepository.findByName(lineName);
+
+        if (selectedLine == null) {
+            return null;
+        }
+
+        TimeSchedule newTimeSchedule = selectedLine.getTimeSchedule();
+        newTimeSchedule.deleteDeparture(day, index);
+
+        lineRepository.flush();
+
+
+        return newTimeSchedule;
+    }
+
+    @Override
+    public List<String> getDepartures(String lineName, String day) {
         Line line = lineRepository.findByName(lineName);
 
         TimeSchedule timeSchedule = line.getTimeSchedule();
 
-        return timeSchedule.getWorkingDaySchedule();
+        if(day.equals("1")) {
+            return timeSchedule.getWorkingDaySchedule();
+        } else if (day.equals("2")) {
+            return timeSchedule.getSaturdaySchedule();
+        } else {
+            return timeSchedule.getSundaySchedule();
+        }
+
     }
 
     @Override

@@ -50,14 +50,23 @@ public class TimeScheduleController {
 
     @RequestMapping(value = "/time-schedule/line/{lineName}/{day}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Date>> getTimeScheduleForLine(@PathVariable String lineName, @PathVariable String day ){
-        List<Date> scheduleForLine = timeScheduleService.getDepartures(lineName, day);
+    public ResponseEntity<ArrayList<String>> getTimeScheduleForLine(@PathVariable String lineName, @PathVariable String day ){
+        List<String> scheduleForLine = timeScheduleService.getDepartures(lineName, day);
 
-        ArrayList<Date> departures = new ArrayList<Date>();
-        for (Date l : scheduleForLine){
+        ArrayList<String> departures = new ArrayList<String>();
+        for (String l : scheduleForLine){
             departures.add(l);
         }
-        return new ResponseEntity<ArrayList<Date>>(departures, HttpStatus.OK);
+        return new ResponseEntity<ArrayList<String>>(departures, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/time-schedule/line/{lineName}/{day}/{index}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TimeSchedule> deleteDepartureForLine(@PathVariable String lineName, @PathVariable String day, @PathVariable String index ){
+
+        System.out.println(lineName + " " + day + " " + index);
+        TimeSchedule newSchedule = timeScheduleService.deleteDeparture(lineName, day, index);
+        return new ResponseEntity<>(newSchedule, HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/time-schedule/station/{stationId}", method = RequestMethod.GET,
