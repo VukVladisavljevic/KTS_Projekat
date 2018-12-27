@@ -3,7 +3,6 @@ package com.kits.project.model;
 import com.kits.project.DTOs.StationDTO;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +22,12 @@ public class Station {
     private String address;
 
     @Column(nullable = false)
+    private float lat;
+
+    @Column(nullable = false)
+    private float lng;
+
+    @Column(nullable = false)
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -33,11 +38,13 @@ public class Station {
 
     public Station() { }
 
-    public Station(String address, String name, Set<Line> lines, boolean active) {
+    public Station(String address, String name, Set<Line> lines,float lat, float lng, boolean active) {
         this.address = address;
         this.name = name;
         this.lines = lines;
         this.active = active;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public Station(StationDTO stationDTO) {
@@ -45,6 +52,8 @@ public class Station {
         this.name = stationDTO.name;
         this.lines = new HashSet<>();
         this.active = stationDTO.active;
+        this.lat = stationDTO.lat;
+        this.lng = stationDTO.lng;
     }
 
     public Long getId() {
@@ -85,5 +94,21 @@ public class Station {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public float getLat() {
+        return this.lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public float getLng() {
+        return this.lng;
+    }
+
+    public void setLng(float lng) {
+        this.lng = lng;
     }
 }

@@ -2,13 +2,18 @@ package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.LineDTO;
 import com.kits.project.model.Line;
+import com.kits.project.model.LineStationsOrder;
 import com.kits.project.model.Station;
 import com.kits.project.repositories.LineRepository;
+import com.kits.project.repositories.LineStationsOrderRepository;
+import com.kits.project.repositories.StationRepository;
 import com.kits.project.services.interfaces.LineServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -17,6 +22,12 @@ public class LineServiceImplementation implements LineServiceInterface {
 
     @Autowired
     private LineRepository lineRepository;
+
+    @Autowired
+    private LineStationsOrderRepository lineStationsRepository;
+
+    @Autowired
+    private StationRepository stationRepository;
 
     @Override
     public Line addNewLine(LineDTO lineDTO) {
@@ -39,7 +50,15 @@ public class LineServiceImplementation implements LineServiceInterface {
 
     @Override
     public ArrayList<Station> getStationForLine(Long lineID) {
-        return null;
+        ArrayList<LineStationsOrder> orderedStations = lineStationsRepository.findByLineOrderByOrderAsc(new Line(lineID));
+        System.out.println(orderedStations);
+        ArrayList<Station> stations = new ArrayList<>();
+        for(LineStationsOrder order:orderedStations){
+           Station s = stationRepository.findById(order.getStation().getId()).orElse(null);
+           stations.add(s);
+        }
+        System.out.println(stations);
+        return stations;
     }
 
     @Override

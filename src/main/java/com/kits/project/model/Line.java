@@ -26,21 +26,27 @@ public class Line {
     @Column(name = "active")
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Collection<Station> stations;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Station> stations;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Collection<TimeSchedule> schedules;
+    private List<TimeSchedule> schedules;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Ticket> tickets;
+    private List<Ticket> tickets;
 
     public Line() {
         super();
         this.active = true;
     }
 
-    public Line(Long id, String name, boolean active, Collection<Station> stations, Collection<TimeSchedule> schedules, Collection<Ticket> tickets) {
+    public Line(long id) {
+        super();
+        this.id = id;
+    }
+
+
+    public Line(Long id, String name, boolean active, List<Station> stations, List<TimeSchedule> schedules, List<Ticket> tickets) {
         this.id = id;
         this.name = name;
         this.active = active;
@@ -81,19 +87,19 @@ public class Line {
         this.active = active;
     }
 
-    public Collection<Station> getStations() {
+    public List<Station> getStations() {
         return stations;
     }
 
-    public void setStations(Collection<Station> stations) {
+    public void setStations(List<Station> stations) {
         this.stations = stations;
     }
 
-    public Collection<TimeSchedule> getSchedules() {
+    public List<TimeSchedule> getSchedules() {
         return schedules;
     }
 
-    public void setSchedules(Collection<TimeSchedule> schedules) {
+    public void setSchedules(List<TimeSchedule> schedules) {
         this.schedules = schedules;
     }
 
@@ -101,7 +107,7 @@ public class Line {
         return tickets;
     }
 
-    public void setTickets(Collection<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 }
