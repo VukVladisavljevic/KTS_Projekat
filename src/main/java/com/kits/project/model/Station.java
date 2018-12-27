@@ -3,6 +3,7 @@ package com.kits.project.model;
 import com.kits.project.DTOs.StationDTO;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,8 @@ public class Station {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idline", nullable = false)
     private Set<Line> lines;
 
     @Column
