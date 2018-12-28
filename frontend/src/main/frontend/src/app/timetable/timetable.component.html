@@ -1,0 +1,22 @@
+<div>
+  <h1 >All Lines List</h1>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">Line name: </th>
+      <th style="text-align: center; vertical-align: middle;">Add new departure: </th>
+      <th style="text-align: center; vertical-align: middle;">Show All Departures: </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of scheduleItems">
+      <td style="text-align: center; vertical-align: middle;">{{item.name}}</td>
+      <td style="text-align: center; vertical-align: middle;"><button (click)="openAddDepartureDialog(item)"> <img  alt="add" src="../../assets/icons/add_icon.ico"></button></td>
+      <td style="text-align: center; vertical-align: middle;"><button (click)="openDeparturesListDialog(item)"><img alt="list" src="../../assets/icons/list_icon.ico"></button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

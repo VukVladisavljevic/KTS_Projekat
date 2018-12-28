@@ -17,6 +17,7 @@ public class Ticket {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //@JoinColumn(name = "idline", nullable = false)
     private User user;
 
     @Column
@@ -30,6 +31,9 @@ public class Ticket {
     @Column
     private boolean active;
 
+    @Enumerated(EnumType.STRING)
+    private TicketType ticketType;
+
     public Ticket() {
     }
 
@@ -41,10 +45,6 @@ public class Ticket {
     }
 
     public Ticket(TicketDTO ticketDTO) {
-        this.user = null;
-        this.startTime = ticketDTO.startTime;
-        this.endTime = ticketDTO.endTime;
-        this.active = ticketDTO.active;
     }
 
     public Long getId() {
@@ -85,5 +85,13 @@ public class Ticket {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setTicketType(TicketType ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public TicketType getTicketType() {
+        return ticketType;
     }
 }
