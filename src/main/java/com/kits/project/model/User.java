@@ -26,6 +26,8 @@ public class User {
     @Column(name = "lastName")
     private String lastName;
 
+    //------------------------------
+
     public User() { }
 
     public User(String username, String password, String firstName, String lastName) {
