@@ -1,33 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms'
-import { ReactiveFormsModule } from '@angular/forms';
-import { TimetableComponent} from './timetable/timetable.component';
-import { HttpClientModule } from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HomeComponent} from './home/home.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {TimetableComponent} from './timetable/timetable.component';
+import {HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule} from '@angular/forms';
+import {ToasterModule} from 'angular2-toaster';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatInputModule, MatButtonModule
-} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatRippleModule} from '@angular/material';
 
-import { AddDepartureDialogComponent } from './timetable/add-departure-dialog/add-departure-dialog.component';
-import { ListExistingDeparturesDialogComponent } from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
+import {AddDepartureDialogComponent} from './timetable/add-departure-dialog/add-departure-dialog.component';
+import {ListExistingDeparturesDialogComponent} from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthService} from './services/auth/auth.service';
+import {JwtService} from './services/auth/jwt.service';
 
 @NgModule({
   declarations: [
@@ -53,10 +47,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatInputModule,
     MatRippleModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    ToasterModule
   ],
   providers: [
-    HttpClientModule
+    HttpClientModule, JwtService, AuthService
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent]
