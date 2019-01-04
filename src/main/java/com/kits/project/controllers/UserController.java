@@ -1,39 +1,84 @@
 package com.kits.project.controllers;
 
+import com.kits.project.DTOs.LoginDTO;
+import com.kits.project.DTOs.TokenDTO;
 import com.kits.project.DTOs.UserDTO;
+import com.kits.project.exception.BadRequestException;
+import com.kits.project.exception.ForbiddenException;
 import com.kits.project.model.User;
+import com.kits.project.security.JWTUtils;
 import com.kits.project.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api")
+import javax.validation.Valid;
+
 @RestController
+@CrossOrigin(value = "http://localhost:4200")
+@RequestMapping("api")
 public class UserController {
 
     @Autowired
-    private UserServiceInterface userService;
+    private UserDetailsService userDetailsService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST,
+    @Autowired
+    private UserServiceInterface userServiceInterface;
+
+    @Autowired
+    private JWTUtils jwtUtils;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @RequestMapping(
+            value = "/login",
+            method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public User login(@RequestBody UserDTO userDTO){
-        return userService.login(userDTO);
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO, BindingResult errors) {
+        System.out.println(loginDTO);
+        try {
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                    loginDTO.getUsername(), loginDTO.getPassword());
+            authenticationManager.authenticate(token);
+            User account = this.userServiceInterface.findByUsername(loginDTO.getUsername());
+            if(!account.isConfirmed())
+                throw new ForbiddenException("Account not confirmed!");
+
+            UserDetails details = userDetailsService.loadUserByUsername(loginDTO.getUsername());
+
+            Long id = account.getId();
+            TokenDTO userToken = new TokenDTO(jwtUtils.generateToken(details, id, account.getAccountAuthorities()));
+            return new ResponseEntity<>(userToken, HttpStatus.OK);
+        } catch(ForbiddenException ex) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping(value = "/register",method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public User register(@RequestBody UserDTO userDTO){
-        return userService.register(userDTO);
-    }
+    @RequestMapping(
+            value = "/check_username",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity checkUsername(
+            @RequestParam("username") String username) {
 
-//    @RequestMapping(value = "/logout",method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public void logout(@RequestBody UserDTO u){
-//        return authService.logout(u);
-//    }
+        if (username == null || username.equals(""))
+            throw new BadRequestException("Username can't be empty!");
+
+        return new ResponseEntity(this.userServiceInterface.isUsernameTaken(username), HttpStatus.OK);
+    }
 }

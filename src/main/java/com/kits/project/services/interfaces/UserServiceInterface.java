@@ -11,14 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserServiceInterface {
 
-    public User register(UserDTO userDTO);
+    User findByUsername(String username);
 
+    boolean isUsernameTaken(String username);
 
-    public User updateUser(Long userID, UserDTO userDTO);
+    User register(UserDTO userDTO);
 
+    User updateUser(Long userID, UserDTO userDTO);
 
-    public boolean archiveUser(Long userID);
+    boolean archiveUser(Long userID);
 
+    User login(UserDTO userDTO);
 
-    public User login(UserDTO userDTO);
+    void checkUsername(String username);
+
+    User save(User account);
+
+    User findByActivationId(String activationId);
 }
