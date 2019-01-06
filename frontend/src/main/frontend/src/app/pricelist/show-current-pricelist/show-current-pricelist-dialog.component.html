@@ -1,0 +1,20 @@
+<div>
+  <h1 >Pricelist:</h1>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">Ticekt Type:</th>
+      <th style="text-align: center; vertical-align: middle;">Price:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of pricelists">
+      <td style="text-align: center; vertical-align: middle;">{{item.ticketType}}</td>
+      <td style="text-align: center; vertical-align: middle;">{{item.price}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+

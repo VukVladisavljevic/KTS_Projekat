@@ -26,8 +26,12 @@ import {
 } from '@angular/material';
 
 import { AddDepartureDialogComponent } from './timetable/add-departure-dialog/add-departure-dialog.component';
+import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import { ListExistingDeparturesDialogComponent } from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AddPricelistDialogComponentComponent } from './add-pricelist-dialog-component/add-pricelist-dialog-component.component';
+import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
+import { ShowCurrentPricelistComponentDialogComponent } from './show-current-pricelist-component-dialog/show-current-pricelist-component-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +41,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     LoginComponent,
     RegistrationComponent,
     TimetableComponent,
+    AddPricelistDialogComponent,
     AddDepartureDialogComponent,
-    ListExistingDeparturesDialogComponent
+    ListExistingDeparturesDialogComponent,
+    AddPricelistDialogComponentComponent,
+    ShowCurrentPricelistDialogComponent,
+    ShowCurrentPricelistComponentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +64,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule
   ],
   providers: [
-    HttpClientModule
+    HttpClientModule,
+  { provide: MatDialogRef, useValue: {} }
+, { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent]
+  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddPricelistDialogComponent]
 })
 export class AppModule { }
