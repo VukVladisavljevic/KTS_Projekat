@@ -21,6 +21,11 @@ import { LinesComponent } from './lines/lines.component';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import * as _ from 'lodash';
+import {ToasterModule} from 'angular2-toaster';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {AuthService} from './services/auth/auth.service';
+import {JwtService} from './services/auth/jwt.service';
+
 import { MatFormFieldModule, MatOptionModule, MatSelectModule , MatTableModule } from
     '@angular/material';
 import {
@@ -53,6 +58,12 @@ import {
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
     NgbModule,
@@ -67,8 +78,7 @@ import {
     MatTableModule
   ],
   providers: [
-    HttpClientModule,
-    GoogleMapsAPIWrapper
+    HttpClientModule, JwtService, AuthService
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent],
@@ -77,5 +87,3 @@ import {
   ]
 })
 export class AppModule { }
-
-
