@@ -20,6 +20,16 @@ public class LineStationsOrder {
     @Column(name = "station_order")
     private int stationOrder;
 
+    public LineStationsOrder(){
+
+    }
+
+    public LineStationsOrder(Line line, Station station, int order){
+        this.line = line;
+        this.station = station;
+        this.stationOrder = order;
+    }
+
     public Long getId() {
         return id;
     }

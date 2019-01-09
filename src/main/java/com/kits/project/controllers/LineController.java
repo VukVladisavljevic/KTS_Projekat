@@ -25,7 +25,8 @@ public class LineController {
     @RequestMapping(value = "/line/create",method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Line> create(@RequestBody LineDTO line){
+    public ResponseEntity<Line> create(@RequestBody Line line){
+        System.out.println(line);
         Line newLine = lineServiceInterface.addNewLine(line);
         return new ResponseEntity<>(newLine, HttpStatus.OK);
     }
@@ -50,8 +51,8 @@ public class LineController {
 
     @RequestMapping(value = "/lines/map", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MapLinesDTO>> getLinesForMap(){
-        List<MapLinesDTO> linesForMap = lineServiceInterface.getLinesForMap();
+    public ResponseEntity<ArrayList<MapLinesDTO>> getLinesForMap(){
+        ArrayList<MapLinesDTO> linesForMap = lineServiceInterface.getLinesForMap();
         return new ResponseEntity<>(linesForMap, HttpStatus.OK);
     }
 

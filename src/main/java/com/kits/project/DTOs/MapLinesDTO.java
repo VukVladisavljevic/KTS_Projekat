@@ -18,4 +18,14 @@ public class MapLinesDTO {
         this.destination = destination;
         this.line = line;
     }
+
+    @Override
+    public String toString() {
+        return "MapLinesDTO{" +
+                "waypoints=" + waypoints +
+                ", source=" + source +
+                ", destination=" + destination +
+                ", line=" + line +
+                '}';
+    }
 }

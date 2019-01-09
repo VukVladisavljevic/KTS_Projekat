@@ -40,6 +40,11 @@ public class Station {
 
     public Station() { }
 
+    public Station(long id) {
+        this.id = id;
+        this.lines = new HashSet<>();
+    }
+
     public Station(String address, String name, Set<Line> lines,float lat, float lng, boolean active) {
         this.address = address;
         this.name = name;

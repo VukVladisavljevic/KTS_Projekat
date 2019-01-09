@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LinesMapComponent } from './lines-map/lines-map.component';
 import {TimetableComponent} from './timetable/timetable.component';
+import {LinesComponent} from "./lines/lines.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'timetable', component: TimetableComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'lines-map', component: LinesMapComponent }
+  { path: 'lines-map', component: LinesMapComponent },
+  { path: 'lines', component: LinesComponent }
 ];
 
 @NgModule({

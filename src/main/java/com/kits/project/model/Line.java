@@ -26,7 +26,7 @@ public class Line {
     private boolean active;
 
     //@ManyToOne(fetch = FetchType.LAZY)
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lines")   //  proveri naziv kolone da se ne ponavlja
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "lines")   //  proveri naziv kolone da se ne ponavlja
     private List<Station> stations;
 
     @JsonManagedReference(value="line_timeSchedule")
@@ -47,6 +47,12 @@ public class Line {
         this.idline = ID;
     }
 
+    public Line(String name) {
+        super();
+        this.active = true;
+        this.name = name;
+        this.stations = new ArrayList<Station>();
+    }
 
     public Line(LineDTO lineDTO) {
         this.active = true;

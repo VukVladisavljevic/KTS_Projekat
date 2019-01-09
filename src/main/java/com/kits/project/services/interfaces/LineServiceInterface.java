@@ -14,12 +14,12 @@ import java.util.List;
 @Service
 public interface LineServiceInterface {
 
-    public Line addNewLine(LineDTO lineDTO);
+    public Line addNewLine(Line line);
 
 
     public List<Line> getAllLines();
 
-    public List<MapLinesDTO> getLinesForMap();
+    public ArrayList<MapLinesDTO> getLinesForMap();
 
     public ArrayList<Station> getStationForLine(Long lineID);
 
