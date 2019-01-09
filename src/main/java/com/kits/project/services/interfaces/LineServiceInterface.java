@@ -2,6 +2,7 @@ package com.kits.project.services.interfaces;
 
 
 import com.kits.project.DTOs.LineDTO;
+import com.kits.project.DTOs.MapLinesDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.Station;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,12 @@ import java.util.List;
 @Service
 public interface LineServiceInterface {
 
-    public Line addNewLine(LineDTO lineDTO);
+    public Line addNewLine(Line line);
 
 
     public List<Line> getAllLines();
 
+    public ArrayList<MapLinesDTO> getLinesForMap();
 
     public ArrayList<Station> getStationForLine(Long lineID);
 

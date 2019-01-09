@@ -1,0 +1,38 @@
+<div>
+  <h1>Add line</h1>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="lineName" placeholder="Line name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-select [(value)]="selectedStation" placeholder="Select station to add">
+        <mat-option *ngFor="let station of stations" [value]="station">
+          {{station.address}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button md-button style="margin-left: 5px;" class="submit-btn" type="button" (click)="addStation()" [disabled]="!selectedStation">Add station</button>
+  </div>
+  <br>
+  <br>
+  <div *ngIf="lineStations.length" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" style="width:100%;" class="mat-elevation-z8">
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Address </th>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      </ng-container>
+      <ng-container matColumnDef="lat">
+        <th mat-header-cell *matHeaderCellDef> Latitude </th>
+        <td mat-cell *matCellDef="let element"> {{element.lat}} </td>
+      </ng-container>
+      <ng-container matColumnDef="long">
+        <th mat-header-cell *matHeaderCellDef> Longitude </th>
+        <td mat-cell *matCellDef="let element"> {{element.lng}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <button md-button style="margin-top: 20px; width: 100%;" class="submit-btn" type="button" (click)="addLine()" [disabled]="lineStations.length<2">Add line</button>
+</div>

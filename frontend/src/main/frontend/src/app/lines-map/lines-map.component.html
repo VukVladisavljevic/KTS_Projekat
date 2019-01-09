@@ -1,0 +1,36 @@
+<div>
+  <h4>Select lines to display</h4>
+  <mat-form-field>
+    <mat-select (selectionChange)="onChange($event)" placeholder="Select line">
+      <mat-option *ngFor="let line of lines" [value]="line">
+        {{line.line.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div>
+  <agm-map [latitude]="45.2571" [longitude]="19.8335" [zoom]="13.5" [disableDefaultUI]="true" [zoomControl]="true">
+    <!--<agm-polyline [strokeColor]="'#2196f3'">-->
+    <!--<ng-container *ngFor="let i of latLong" >-->
+    <!--<agm-polyline-point [latitude]="i.path" [longitude]="i.longitude">-->
+    <!--</agm-polyline-point>-->
+    <!--</ng-container>-->
+    <!--</agm-polyline>-->
+      <agm-direction *ngIf="source"
+                     [origin]="source"
+                     [destination]="destination"
+                     [waypoints]="waypoints"
+                     [renderOptions]="renderOptions"
+                     [markerOptions]="markerOptions">
+      </agm-direction>
+
+    <!--<ng-container *ngFor="let i of latLong1">-->
+      <!--<agm-direction [origin]="i.source"-->
+                     <!--[destination]="i.destination"-->
+                     <!--[renderOptions]="renderOptions"-->
+                     <!--[markerOptions]="markerOptions">-->
+      <!--</agm-direction>-->
+    <!--</ng-container>-->
+  </agm-map>
+</div>
+
