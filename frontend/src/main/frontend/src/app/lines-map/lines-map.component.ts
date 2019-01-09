@@ -18,7 +18,8 @@ declare var google: any;
 export class LinesMapComponent implements OnInit {
   geocoder:any;
   @ViewChild(AgmMap) map: AgmMap;
-  latLong: object;
+  source: object;
+  destination: object
   lines: object;
   visible: boolean = false;
   waypoints: object;
@@ -49,53 +50,63 @@ export class LinesMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.linesMapService.getLineStations(1)
+    this.linesMapService.getLineStations()
       .then(response => {
+        this.formatLines(response);
         console.log(response);
       });
-    this.lines = [{name: 7, path: {source: {lat: 45.242036, lng: 19.842649}, destination: {lat: 45.264008, lng: 19.823417}}
-    ,waypoints: [
-      {
-        location:{lat: 45.242036, lng: 19.842649},
-        stopover: false,
-      },
-      {
-        location:{lat: 45.252671, lng: 19.836873},
-        stopover: false,
-      },
-      {
-        location: {lat: 45.261041, lng: 19.832232},
-        stopover: false,
-      },
-      {
-        location:{lat: 45.264008, lng: 19.823417},
-        stopover: false,
-      }]
-      },
-      {name: 8, path: {source: {lat: 45.212036, lng: 19.842649}, destination: {lat: 45.204008, lng: 19.823417}},
-        waypoints: [
-          {
-            location:{lat: 45.212036, lng: 19.842649},
-            stopover: false
-          },
-          {
-            location:{lat: 45.222671, lng: 19.836873},
-            stopover: false
-          },
-          {
-            location:{lat: 45.231041, lng: 19.832232},
-            stopover: false
-          },
-          {
-            location:{lat: 45.204008, lng: 19.823417},
-            stopover: false
-          }]}];
+    // this.lines = [{name: 7, path: {source: {lat: 45.242036, lng: 19.842649}, destination: {lat: 45.264008, lng: 19.823417}}
+    // ,waypoints: [
+    //   {
+    //     location:{lat: 45.242036, lng: 19.842649},
+    //     stopover: false,
+    //   },
+    //   {
+    //     location:{lat: 45.252671, lng: 19.836873},
+    //     stopover: false,
+    //   },
+    //   {
+    //     location: {lat: 45.261041, lng: 19.832232},
+    //     stopover: false,
+    //   },
+    //   {
+    //     location:{lat: 45.264008, lng: 19.823417},
+    //     stopover: false,
+    //   }]
+    //   },
+    //   {name: 8, path: {source: {lat: 45.212036, lng: 19.842649}, destination: {lat: 45.204008, lng: 19.823417}},
+    //     waypoints: [
+    //       {
+    //         location:{lat: 45.212036, lng: 19.842649},
+    //         stopover: false
+    //       },
+    //       {
+    //         location:{lat: 45.222671, lng: 19.836873},
+    //         stopover: false
+    //       },
+    //       {
+    //         location:{lat: 45.231041, lng: 19.832232},
+    //         stopover: false
+    //       },
+    //       {
+    //         location:{lat: 45.204008, lng: 19.823417},
+    //         stopover: false
+    //       }]}];
   }
 
+  formatLines(data) {
+    this.lines = data;
+  }
   onChange(event) {
     this.visible = false;
-    this.waypoints = event.value.waypoints;
-    this.latLong = event.value.path;
+    console.log(event.value);
+    let waypointsMapping = [];
+    event.value.waypoints.forEach((item) => {
+      waypointsMapping.push({location: {lat: item.lat, lng: item.lng}, stopover:false});
+    })
+    this.waypoints = waypointsMapping;
+    this.source = event.value.source;
+    this.destination = event.value.destination;
   }
 
   onSubmit() {

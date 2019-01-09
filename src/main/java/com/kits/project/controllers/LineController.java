@@ -1,6 +1,7 @@
 package com.kits.project.controllers;
 
 import com.kits.project.DTOs.LineDTO;
+import com.kits.project.DTOs.MapLinesDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.Station;
 import com.kits.project.services.interfaces.LineServiceInterface;
@@ -45,6 +46,13 @@ public class LineController {
     public ResponseEntity<ArrayList<Station>> getStationsForLine(@PathVariable Long lineId){
         ArrayList<Station> linesForStation = lineServiceInterface.getStationForLine(lineId);
         return new ResponseEntity<>(linesForStation, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/lines/map", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MapLinesDTO>> getLinesForMap(){
+        List<MapLinesDTO> linesForMap = lineServiceInterface.getLinesForMap();
+        return new ResponseEntity<>(linesForMap, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/line/{lineId}", method = RequestMethod.PUT,

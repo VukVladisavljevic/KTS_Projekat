@@ -41,6 +41,13 @@ public class Line {
         this.active = true;
     }
 
+    public Line(Long ID) {
+        super();
+        this.active = true;
+        this.idline = ID;
+    }
+
+
     public Line(LineDTO lineDTO) {
         this.active = true;
         this.name = lineDTO.name;

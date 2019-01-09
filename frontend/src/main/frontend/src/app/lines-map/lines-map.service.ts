@@ -8,7 +8,7 @@ export class LinesMapService {
 
   constructor(private http:HttpClient) { }
 
-  public getLineStations(lineId) {
-    return this.http.get("http://localhost:8080/line/"+lineId+"/stations").toPromise();
+  public getLineStations() {
+    return this.http.get("http://localhost:8080/api/lines/map").toPromise();
   }
 }

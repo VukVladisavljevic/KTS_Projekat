@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'timetable', component: TimetableComponent }
+  { path: 'timetable', component: TimetableComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'lines-map', component: LinesMapComponent }
 ];

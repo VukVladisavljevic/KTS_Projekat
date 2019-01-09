@@ -1,9 +1,9 @@
 package com.kits.project.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table
 public class LineStationsOrder {
 
     @Id
@@ -11,14 +11,14 @@ public class LineStationsOrder {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Line line;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Station station;
 
-    @Column(name = "order")
-    private int order;
+    @Column(name = "station_order")
+    private int stationOrder;
 
     public Long getId() {
         return id;
@@ -45,10 +45,18 @@ public class LineStationsOrder {
     }
 
     public int getOrder() {
-        return order;
+        return stationOrder;
     }
 
     public void setOrder(int order) {
-        this.order = order;
+        this.stationOrder = order;
+    }
+
+    @Override
+    public String toString() {
+        return "LineStationsOrder{" +
+                "id=" + id +
+                ", stationOrder=" + stationOrder +
+                '}';
     }
 }

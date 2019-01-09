@@ -1,6 +1,7 @@
 package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.LineDTO;
+import com.kits.project.DTOs.MapLinesDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.LineStationsOrder;
 import com.kits.project.model.Station;
@@ -49,13 +50,30 @@ public class LineServiceImplementation implements LineServiceInterface {
     }
 
     @Override
+    public List<MapLinesDTO> getLinesForMap() {
+        List<Line> lines = lineRepository.findAll();
+        List<MapLinesDTO> mapLines = new ArrayList<>();
+        for(Line line : lines){
+            ArrayList<Station> stations = this.getStationForLine(line.getIdLine());
+            MapLinesDTO mapLine = new MapLinesDTO(stations.get(0), stations.get(stations.size() -1), line);
+            stations.remove(0);
+            stations.remove(stations.size() -1 );
+            mapLine.waypoints = stations;
+            mapLines.add(mapLine);
+        }
+        return mapLines;
+    }
+
+    @Override
     public ArrayList<Station> getStationForLine(Long lineID) {
-        ArrayList<LineStationsOrder> orderedStations = lineStationsRepository.findByLineOrderByOrderAsc(new Line(lineID));
-        System.out.println(orderedStations);
+        ArrayList<LineStationsOrder> orderedStations = lineStationsRepository.findByLineOrderByStationOrderAsc(new Line(lineID));
+         System.out.println(orderedStations);
         ArrayList<Station> stations = new ArrayList<>();
         for(LineStationsOrder order:orderedStations){
-           Station s = stationRepository.findById(order.getStation().getId()).orElse(null);
-           stations.add(s);
+            System.out.println(order.getStation().getId());
+            Station s = stationRepository.findById(order.getStation().getId()).orElse(null);
+            stations.add(s);
+            System.out.println(order);
         }
         System.out.println(stations);
         return stations;
