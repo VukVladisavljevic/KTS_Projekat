@@ -52,7 +52,8 @@ export class LinesComponent implements OnInit {
   }
 
   deleteLine(item) {
-    _.remove(this.lines, { id: item.id});
+    console.log(this.lines);
+    _.remove(this.lines, { idLine: item.idLine});
     console.log(item);
     this.linesService.deleteLine(item);
   }

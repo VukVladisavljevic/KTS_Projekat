@@ -32,7 +32,7 @@ public class LineController {
         return new ResponseEntity<Line>(newLine, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/line/delete/{lineId}",method = RequestMethod.DELETE,
+    @RequestMapping(value = "/line/{lineId}",method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable int lineId){
         lineServiceInterface.deleteLine(Integer.toUnsignedLong(lineId));
