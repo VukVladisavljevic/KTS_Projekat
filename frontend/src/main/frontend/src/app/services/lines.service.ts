@@ -19,6 +19,6 @@ export class LinesService {
   }
 
   public deleteLine(item) {
-    return this.http.delete("http://localhost:8080/api/line/delete/" + item.idLine).toPromise();
+    return this.http.delete("http://localhost:8080/api/line/" + item.idLine).toPromise();
   }
 }

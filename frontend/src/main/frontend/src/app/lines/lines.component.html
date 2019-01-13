@@ -1,18 +1,22 @@
 <div>
-  <button (click)="openAddLineModal()"> <img alt="add" src="../../assets/icons/add_icon.ico"></button>
   <h1 >All Lines</h1>
   <br>
+  <button class="btn btn-primary" style="width: 100%" (click)="openAddLineModal()"> Add new line <span class="glyphicon glyphicon-plus"></span></button>
   <table class="table table-striped">
     <thead>
     <tr>
       <th style="text-align: center; vertical-align: middle;">Line name: </th>
-      <th style="text-align: center; vertical-align: middle;">Stations</th>
+      <th style="text-align: center; vertical-align: middle;"></th>
     </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of lines">
         <td style="text-align: center; vertical-align: middle;">{{item.name}}</td>
-        <td md-button class="submit-btn" style="text-align: center; vertical-align: middle;"><button (click)="deleteLine(item)">Delete line</button></td>
+        <td md-button class="submit-btn" style="text-align: center; vertical-align: middle;">
+          <button class="btn btn-danger"(click)="deleteLine(item)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
