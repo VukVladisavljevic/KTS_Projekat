@@ -1,6 +1,6 @@
 package com.kits.project.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Authority {
     private String name;
 
     @OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JsonBackReference
+    @JsonManagedReference(value = "authority")
     private List<AccountAuthority> accountAuthorities;
 
     public Authority() { this.accountAuthorities = new ArrayList<>(); }
