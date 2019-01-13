@@ -36,6 +36,7 @@ import {
   MatRippleModule,
   MatInputModule, MatButtonModule
 } from '@angular/material';
+import { AddLineComponent } from './lines/add-line/add-line.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {
     ListExistingDeparturesDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
-    LinesComponent
+    LinesComponent,
+    AddLineComponent
   ],
   imports: [
     BrowserModule,
@@ -78,10 +80,10 @@ import {
     MatTableModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService
+    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent],
+  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

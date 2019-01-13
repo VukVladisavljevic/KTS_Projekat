@@ -2,6 +2,7 @@ package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.LineDTO;
 import com.kits.project.DTOs.MapLinesDTO;
+import com.kits.project.DTOs.StationDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.LineStationsOrder;
 import com.kits.project.model.Station;
@@ -11,11 +12,9 @@ import com.kits.project.repositories.StationRepository;
 import com.kits.project.services.interfaces.LineServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -31,20 +30,23 @@ public class LineServiceImplementation implements LineServiceInterface {
     private StationRepository stationRepository;
 
     @Override
-    public Line addNewLine(Line line) {
+    public Line addNewLine(LineDTO line) {
 
-        Line lineExisting = lineRepository.findByName(line.getName());
+        Line newLine = new Line(line);
+
+        Line lineExisting = lineRepository.findByName(newLine.getName());
         if (lineExisting != null) {
             return null;
         }
-        Line newLine = new Line(line.getName());
         newLine = lineRepository.save(newLine);
-        System.out.println(line.getStations().size());
-
-        for(Station station : line.getStations()){
+        int index = 0;
+        for(StationDTO s : line.stations) {
+            Station station = stationRepository.findById(s.id).orElse(null);;
             LineStationsOrder order = new LineStationsOrder(newLine,
-                    new Station(station.getId()),
-                    line.getStations().indexOf(station));
+                    station,
+                    index);
+            index += 1;
+            System.out.println(station.getLines().size());
             station.getLines().add(newLine);
             stationRepository.save(station);
             lineStationsRepository.save(order);
@@ -54,8 +56,15 @@ public class LineServiceImplementation implements LineServiceInterface {
 
     @Override
     public List<Line> getAllLines() {
-
         return lineRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteLine(long id) {
+        lineRepository.delete(new Line(id));
+        lineRepository.deleteLineStations(id);
+        return true;
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.kits.project.services.interfaces.StationServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +42,11 @@ public class StationServiceImplementation implements StationServiceInterface {
 
     @Override
     public List<Station> getStations() {
-        return stationRepository.findAll();
+        List<Station> stations = stationRepository.findAll();
+//        for(Station s : stations) {
+//            s.setLines(null);
+//        }
+        return  stations;
+
     }
 }
