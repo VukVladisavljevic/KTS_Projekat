@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class TicketDTO implements Serializable {
 
-    public UserDTO user;
+    public String userEmail;
 
     public Date startTime;
 
@@ -13,10 +13,13 @@ public class TicketDTO implements Serializable {
 
     public boolean active;
 
+    public String ticketType;
+
+
     public TicketDTO() {}
 
-    public TicketDTO(UserDTO user, Date startTime, Date endTime, boolean active) {
-        this.user = user;
+    public TicketDTO(String user, Date startTime, Date endTime, boolean active) {
+        this.userEmail = user;
         this.startTime = startTime;
         this.endTime = endTime;
         this.active = active;

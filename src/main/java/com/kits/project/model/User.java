@@ -44,6 +44,13 @@ public class User {
     @Column
     private String activationId;
 
+
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Ticket> tickets;
+
+
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private List<AccountAuthority> accountAuthorities;
@@ -147,4 +154,12 @@ public class User {
     public List<AccountAuthority> getAccountAuthorities() { return accountAuthorities; }
 
     public void setAccountAuthorities(List<AccountAuthority> accountAuthorities) { this.accountAuthorities = accountAuthorities; }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }

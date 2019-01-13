@@ -16,7 +16,6 @@ public interface LineServiceInterface {
 
     public Line addNewLine(Line line);
 
-
     public List<Line> getAllLines();
 
     public ArrayList<MapLinesDTO> getLinesForMap();

@@ -15,19 +15,24 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     @Autowired
     private TicketRepository ticketRepository;
 
-    @Override
-    public Ticket generateNewTicket(TicketDTO ticketDTO) {
-
-        return ticketRepository.save(new Ticket(ticketDTO));
-    }
 
     @Override
-    public Ticket updateTicket(Long ticketID, TicketDTO ticketDTO) {
+    public Ticket createOneUseTicket(TicketDTO ticketDTO) {
         return null;
     }
 
     @Override
-    public boolean archiveTicket(Long ticketID) {
+    public Ticket createMultipleUseTicket(TicketDTO ticketDTO) {
+        return null;
+    }
+
+    @Override
+    public Ticket activateTicket(TicketDTO ticketDTO) {
+        return null;
+    }
+
+    @Override
+    public boolean archiveTicket(TicketDTO ticketDTO) {
         return false;
     }
 }

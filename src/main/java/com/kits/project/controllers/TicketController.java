@@ -20,37 +20,28 @@ public class TicketController {
     @Autowired
     private TicketServiceInterface ticketService;
 
-    @RequestMapping(value = "/ticket/create", method = RequestMethod.POST,
+    @RequestMapping(value = "/ticket/createOneUse", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Ticket> create(@RequestBody TicketDTO ticket) {
-        Ticket newTicket = ticketService.generateNewTicket(ticket);
+    public ResponseEntity<Ticket> createOneUseTicket(@RequestBody TicketDTO ticket) {
+        Ticket newTicket = ticketService.createOneUseTicket(ticket);
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/tickets", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ArrayList<Ticket>> index() {
-//        ArrayList<Ticket> tickets = ticketService.getAll();
-//        return new ResponseEntity<>(tickets, HttpStatus.OK);
-//    }
-
-    @RequestMapping(value = "/ticket/{ticketId}", method = RequestMethod.PUT,
+    @RequestMapping(value = "/ticket/createMultipleUse", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Ticket> update(@RequestBody TicketDTO ticket, @PathVariable Long ticketId) {
-        Ticket updatedTicket = ticketService.updateTicket(ticketId, ticket);
-        if (updatedTicket != null) {
-            return new ResponseEntity<>(updatedTicket, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Ticket> create(@RequestBody TicketDTO ticket) {
+        Ticket newTicket = ticketService.activateTicket(ticket);
+        return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
-//
-//    @RequestMapping(value = "/tickets/user/{userId}", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ArrayList<Ticket>> getTicketsForUser(@PathVariable Long userId) {
-//        ArrayList<Ticket> tickets = ticketService.getTicketsForUser(userId);
-//        return new ResponseEntity<>(tickets, HttpStatus.OK);
-//    }
+
+    @RequestMapping(value = "/ticket/activate", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Ticket> createMultipleUseTicket(@RequestBody TicketDTO ticket) {
+        Ticket newTicket = ticketService.createMultipleUseTicket(ticket);
+        return new ResponseEntity<>(newTicket, HttpStatus.OK);
+    }
 
 }
