@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'timetable', component: TimetableComponent },
-  { path: 'register', component: RegistrationComponent },
   { path: 'lines-map', component: LinesMapComponent },
   { path: 'lines', component: LinesComponent }
 ];
