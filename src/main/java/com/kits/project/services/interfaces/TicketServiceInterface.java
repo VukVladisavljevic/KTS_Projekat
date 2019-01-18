@@ -7,6 +7,8 @@ import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface TicketServiceInterface {
 
@@ -17,4 +19,6 @@ public interface TicketServiceInterface {
     public Ticket activateTicket(TicketDTO ticketDTO);
 
     public boolean archiveTicket(TicketDTO ticketDTO);
+
+    public List<Ticket> getOwnedTickets(String username);
 }

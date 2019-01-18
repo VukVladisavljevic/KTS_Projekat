@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,16 +26,19 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {AuthService} from './services/auth/auth.service';
 import {JwtService} from './services/auth/jwt.service';
 
-import { MatFormFieldModule, MatOptionModule, MatSelectModule , MatTableModule } from
-    '@angular/material';
+import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
+
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatRippleModule,
-  MatInputModule, MatButtonModule
+  MatFormFieldModule,
+  MatInputModule, MatButtonModule, MatOptionModule, MatSelectModule, MatTableModule
 } from '@angular/material';
+import {AddPricelistDialogComponent} from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
+import { TicketComponent } from './ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -45,19 +48,21 @@ import {
     LoginComponent,
     RegistrationComponent,
     TimetableComponent,
+    AddPricelistDialogComponent,
     AddDepartureDialogComponent,
     ListExistingDeparturesDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
-    LinesComponent
+    LinesComponent,
+    ListExistingDeparturesDialogComponent,
+    AddPricelistDialogComponent,
+    ShowCurrentPricelistDialogComponent,
+    TicketComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
@@ -73,15 +78,16 @@ import {
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
-    MatFormFieldModule,
     BrowserAnimationsModule,
     MatTableModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService
+    HttpClientModule, JwtService, AuthService,
+  { provide: MatDialogRef, useValue: {} }
+, { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent],
+  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddPricelistDialogComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

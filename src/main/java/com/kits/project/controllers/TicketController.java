@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@CrossOrigin
 @RequestMapping("api")
 @RestController
 public class TicketController {
@@ -20,7 +22,7 @@ public class TicketController {
     @Autowired
     private TicketServiceInterface ticketService;
 
-    @RequestMapping(value = "/ticket/createOneUse", method = RequestMethod.POST,
+    @RequestMapping(value = "/ticket/create", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> createOneUseTicket(@RequestBody TicketDTO ticket) {
@@ -28,7 +30,7 @@ public class TicketController {
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ticket/createMultipleUse", method = RequestMethod.POST,
+    @RequestMapping(value = "/ticket/activate", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> create(@RequestBody TicketDTO ticket) {
@@ -36,12 +38,24 @@ public class TicketController {
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/ticket/activate", method = RequestMethod.POST,
+    @RequestMapping(value = "/ticket/createMultipleUse", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Ticket> createMultipleUseTicket(@RequestBody TicketDTO ticket) {
         Ticket newTicket = ticketService.createMultipleUseTicket(ticket);
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
+
+//    @RequestMapping(value = "/ticket/{username}", method = RequestMethod.GET,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<ArrayList<Ticket>> getTicketsOwned( @PathVariable String username ){
+//        List<Ticket> tickets = ticketService.getOwnedTickets(username);
+//
+//        ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
+//        for (Ticket t : tickets){
+//            ticketsList.add(t);
+//        }
+//        return new ResponseEntity<ArrayList<Ticket>>(ticketsList, HttpStatus.OK);
+//    }
 
 }

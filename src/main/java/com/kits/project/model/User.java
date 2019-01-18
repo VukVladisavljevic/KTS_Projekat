@@ -162,4 +162,14 @@ public class User {
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    public void addTicket(Ticket ticket) {
+
+        if (this.tickets == null) {
+            this.tickets = new ArrayList<>();
+        }
+
+        ticket.setUser(this);
+        this.tickets.add(ticket);
+    }
 }

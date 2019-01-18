@@ -1,6 +1,9 @@
 package com.kits.project.model;
 
+import com.kits.project.DTOs.PricelistDTO;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="PRICELIST")
@@ -11,8 +14,15 @@ public class Pricelist {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Schedule schedule;
+    //@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //private Schedule schedule;
+    @Column(name = "startdate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
+
+    @Column(name = "enddate")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     // mozda nije ok
     @Enumerated(EnumType.STRING)
@@ -23,9 +33,9 @@ public class Pricelist {
 
     // Getters and setters
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
+    /**public void setSchedule(Schedule schedule) {
+     this.schedule = schedule;
+     }**/
 
     public void setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
@@ -35,9 +45,25 @@ public class Pricelist {
         this.price = price;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public Date getStartDate() {
+        return startDate;
     }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    /**public Schedule getSchedule() {
+     return schedule;
+     }**/
 
     public TicketType getTicketType() {
         return ticketType;
@@ -45,5 +71,17 @@ public class Pricelist {
 
     public double getPrice() {
         return price;
+    }
+
+    // Constructors
+    public Pricelist(){
+
+    }
+
+    public Pricelist(PricelistDTO pricelistDTO){
+        this.startDate = pricelistDTO.startDate;
+        this.endDate = pricelistDTO.endDate;
+        this.price = pricelistDTO.price;
+        this.ticketType = pricelistDTO.ticketType;
     }
 }
