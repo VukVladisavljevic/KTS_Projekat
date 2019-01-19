@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kits.project.DTOs.StationDTO;
 
 import javax.persistence.*;
@@ -33,6 +35,7 @@ public class Station {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idline", nullable = false)
+    @JsonIgnoreProperties("stations")
     private Set<Line> lines;
 
     @Column
@@ -117,5 +120,13 @@ public class Station {
 
     public void setLng(float lng) {
         this.lng = lng;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "name='" + name + '\'' +
+                ", lines=" + lines +
+                '}';
     }
 }

@@ -15,11 +15,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'timetable', component: TimetableComponent },
-  { path: 'register', component: RegistrationComponent },
   { path: 'lines-map', component: LinesMapComponent },
   { path: 'lines', component: LinesComponent },
   { path: 'timetable', component: TimetableComponent },
-  { path: 'ticket', component: TicketComponent},
+  { path: 'tickets', component: TicketComponent},
   { path: 'addpricelist', component: AddPricelistDialogComponent},
   { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent}
   ];

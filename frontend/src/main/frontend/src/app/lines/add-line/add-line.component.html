@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Dew Departure Dialog</h2>
+<hr>
+<div>
+  <mat-dialog-content>
+    <div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="lineName" placeholder="Line name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-select [(value)]="selectedStation" placeholder="Select station to add">
+          <mat-option *ngFor="let station of stations" [value]="station">
+            {{station.address}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button md-button style="margin-left: 5px;" class="submit-btn" type="button" (click)="addStation()" [disabled]="!selectedStation">Add station</button>
+    </div>
+    <br>
+    <br>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;">Station adress: </th>
+          <th style="text-align: center; vertical-align: middle;">Station name: </th>
+          <th style="text-align: center; vertical-align: middle;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of lineStations">
+          <td style="text-align: center; vertical-align: middle;">{{item.address}}</td>
+          <td style="text-align: center; vertical-align: middle;">{{item.name}}</td>
+          <td md-button class="submit-btn" style="text-align: center; vertical-align: middle;"><button (click)="deleteStation(item)">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+      <button md-button style="margin-top: 20px; width: 100%;" class="submit-btn" type="button" (click)="addLine()" [disabled]="lineStations.length<2">Add line</button>
+  </mat-dialog-content>
+</div>

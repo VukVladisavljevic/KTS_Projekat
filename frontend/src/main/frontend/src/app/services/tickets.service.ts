@@ -12,12 +12,20 @@ export class TicketsService {
 
   private userUrl = '/api';
 
-  public getTimeSchedules() {
-    return this.http.get("http://localhost:8080/api/").toPromise();
+  public getOwnedTickets(token: String) {
+    return this.http.get("http://localhost:8080/api/ticket/"+token).toPromise();
   }
 
   public buyOneWayTicket(ticket: Ticket) {
     return this.http.post<Ticket>("http://localhost:8080/api/ticket/create", ticket).toPromise();
+  }
+
+  public activateTicket(ticket: Ticket) {
+    return this.http.post<Ticket>("http://localhost:8080/api/ticket/activate", ticket).toPromise();
+  }
+
+  public buyMultipleUseTicket(ticket: Ticket) {
+    return this.http.post<Ticket>("http://localhost:8080/api/ticket/createMultipleUse", ticket).toPromise();
   }
 
 

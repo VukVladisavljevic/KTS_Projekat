@@ -22,7 +22,7 @@ public class AccountAuthority {
     private User account;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JsonBackReference(value = "authority")
+    @JsonBackReference(value="authority")
     private Authority authority;
 
     public AccountAuthority() { }

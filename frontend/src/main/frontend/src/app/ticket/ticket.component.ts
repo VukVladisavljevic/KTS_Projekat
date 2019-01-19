@@ -8,6 +8,7 @@ import {AddDepartureDialogComponent} from '../timetable/add-departure-dialog/add
 import {ListExistingDeparturesDialogComponent} from '../timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
 import {Departure} from '../models/departure';
 import {Ticket} from '../models/ticket';
+import {ListOwnedTicketsDialogComponent} from './list-owned-tickets-dialog/list-owned-tickets-dialog';
 
 @Component({
   selector: 'app-ticket',
@@ -36,36 +37,18 @@ export class TicketComponent implements OnInit {
     //   });
   }
 
-
-  openAddDepartureDialog(item): void {
+  openOwnedTicketsDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      "lineName": item.name
+      token: localStorage.getItem('Authentication-Token')
     };
 
-    const dialogRef = this.dialog.open(AddDepartureDialogComponent, dialogConfig);
+    this.dialog.open(ListOwnedTicketsDialogComponent, dialogConfig);
 
-
-  }
-
-  openDeparturesListDialog(item): void {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    dialogConfig.data = {
-      "lineName": item.name,
-      "day":"5"
-    };
-
-    // this.dialog.open(ListExistingDeparturesDialogComponent, dialogConfig);
-
-    const dialogRef = this.dialog.open(ListExistingDeparturesDialogComponent, dialogConfig);
 
   }
 
@@ -82,15 +65,18 @@ export class TicketComponent implements OnInit {
   }
 
   buyOneWayTicket() {
-    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "jednokratna");
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "oneUse", null, null, null);
     this.ticketService.buyOneWayTicket(ticket);
   }
 
   buyMonthlyTicket() {
-    alert("mesecna")
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "monthly", null, null, null);
+    this.ticketService.buyMultipleUseTicket(ticket);
   }
 
   buyYearlyTicket() {
-    alert("godisnja")
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "yearly", null, null, null);
+    this.ticketService.buyMultipleUseTicket(ticket);
   }
+
 }

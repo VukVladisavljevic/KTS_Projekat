@@ -1,5 +1,7 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kits.project.DTOs.TicketDTO;
 
@@ -10,6 +12,7 @@ import java.util.Date;
  * Created by Lupus on 10/30/2018.
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="TICKETS")
 public class Ticket {
     @Id
@@ -17,8 +20,8 @@ public class Ticket {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JsonBackReference
     private User user;
 
     @Column

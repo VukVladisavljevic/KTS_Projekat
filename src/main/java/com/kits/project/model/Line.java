@@ -1,5 +1,6 @@
 package com.kits.project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.kits.project.DTOs.LineDTO;
 
@@ -25,8 +26,8 @@ public class Line {
     @Column(name = "active")
     private boolean active;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "lines")   //  proveri naziv kolone da se ne ponavlja
+    @JsonIgnoreProperties("stations")
     private List<Station> stations;
 
     @JsonManagedReference(value="line_timeSchedule")

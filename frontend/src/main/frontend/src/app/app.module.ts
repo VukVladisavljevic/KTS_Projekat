@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,19 +26,21 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {AuthService} from './services/auth/auth.service';
 import {JwtService} from './services/auth/jwt.service';
 
-import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
-
+import { MatFormFieldModule, MatOptionModule, MatSelectModule , MatTableModule } from
+    '@angular/material';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatRippleModule,
-  MatFormFieldModule,
-  MatInputModule, MatButtonModule, MatOptionModule, MatSelectModule, MatTableModule
+  MatInputModule, MatButtonModule
 } from '@angular/material';
+import { AddLineComponent } from './lines/add-line/add-line.component';
 import {AddPricelistDialogComponent} from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import { TicketComponent } from './ticket/ticket.component';
+import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
+import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialog/list-owned-tickets-dialog';
 
 @NgModule({
   declarations: [
@@ -48,21 +50,25 @@ import { TicketComponent } from './ticket/ticket.component';
     LoginComponent,
     RegistrationComponent,
     TimetableComponent,
-    AddPricelistDialogComponent,
     AddDepartureDialogComponent,
     ListExistingDeparturesDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
+    AddLineComponent,
     LinesComponent,
     ListExistingDeparturesDialogComponent,
     AddPricelistDialogComponent,
     ShowCurrentPricelistDialogComponent,
-    TicketComponent
+    TicketComponent,
+    ListOwnedTicketsDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
@@ -78,16 +84,16 @@ import { TicketComponent } from './ticket/ticket.component';
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
+    MatFormFieldModule,
     BrowserAnimationsModule,
     MatTableModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService,
-  { provide: MatDialogRef, useValue: {} }
-, { provide: MAT_DIALOG_DATA, useValue: [] }
+    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddPricelistDialogComponent],
+  entryComponents: [ListOwnedTicketsDialogComponent, AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent, AddPricelistDialogComponent
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

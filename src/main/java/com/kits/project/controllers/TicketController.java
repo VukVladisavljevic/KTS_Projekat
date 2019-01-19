@@ -33,7 +33,7 @@ public class TicketController {
     @RequestMapping(value = "/ticket/activate", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Ticket> create(@RequestBody TicketDTO ticket) {
+    public ResponseEntity<Ticket> activate(@RequestBody TicketDTO ticket) {
         Ticket newTicket = ticketService.activateTicket(ticket);
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
@@ -46,16 +46,16 @@ public class TicketController {
         return new ResponseEntity<>(newTicket, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/ticket/{username}", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ArrayList<Ticket>> getTicketsOwned( @PathVariable String username ){
-//        List<Ticket> tickets = ticketService.getOwnedTickets(username);
-//
-//        ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
-//        for (Ticket t : tickets){
-//            ticketsList.add(t);
-//        }
-//        return new ResponseEntity<ArrayList<Ticket>>(ticketsList, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/ticket/{token}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArrayList<Ticket>> getTicketsOwned( @PathVariable String token ){
+        List<Ticket> tickets = ticketService.getOwnedTickets(token);
+
+        ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
+        for (Ticket t : tickets){
+            ticketsList.add(t);
+        }
+        return new ResponseEntity<ArrayList<Ticket>>(ticketsList, HttpStatus.OK);
+    }
 
 }

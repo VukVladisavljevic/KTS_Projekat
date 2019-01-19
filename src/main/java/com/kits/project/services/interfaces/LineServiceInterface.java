@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public interface LineServiceInterface {
 
-    public Line addNewLine(Line line);
+    public Line addNewLine(LineDTO line);
 
     public List<Line> getAllLines();
 
@@ -22,6 +22,7 @@ public interface LineServiceInterface {
 
     public ArrayList<Station> getStationForLine(Long lineID);
 
+    public boolean deleteLine(long id);
 
     public Line updateLine(Long lineID, LineDTO lineDTO);
 

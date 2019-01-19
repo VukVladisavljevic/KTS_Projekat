@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StationsService} from '../services/stations.service';
-import { MatTableModule, MatTableDataSource } from '@angular/material';
+import {MatTableModule, MatTableDataSource, MatDialogConfig} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as _ from 'lodash';
 import {LinesService} from "../services/lines.service";
 import {LineModel} from '../models/line.model';
-import {Departure} from "../models/departure";
+import {AddLineComponent} from "./add-line/add-line.component";
 
 @Component({
   selector: 'app-lines',
@@ -13,9 +14,9 @@ import {Departure} from "../models/departure";
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
-  displayedColumns: string[] = ['address', 'lat', 'long'];
   form: FormGroup;
   private lineName;
+  private lines;
   private stations;
   private lineStations;
   private selectedStation;
@@ -23,7 +24,8 @@ export class LinesComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private stationsService: StationsService,
-              private linesService: LinesService) {
+              private linesService: LinesService,
+              private dialog: MatDialog) {
     this.form = this.fb.group({
       time: this.lineName,
       model: this.stations
@@ -33,24 +35,27 @@ export class LinesComponent implements OnInit {
 
   ngOnInit() {
     this.lineStations = [];
-    this.dataSource = new MatTableDataSource(this.lineStations);
     this.stationsService.getStations()
       .then(response => {
         this.stations = response;
-        console.log(response);
+      });
+    this.linesService.getLines()
+      .then(response => {
+        this.lines = response;
       });
   }
-
-  addStation() {
-    _.remove(this.stations, { id: this.selectedStation.id});
-    this.lineStations.push(this.selectedStation);
-    this.selectedStation = null;
-    this.dataSource._updateChangeSubscription()
+  openAddLineModal(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = _.cloneDeep(this.stations);
+    this.dialog.open(AddLineComponent, dialogConfig);
   }
 
-  addLine() {
-    let line: LineModel = new LineModel(this.lineName, this.lineStations);
-    this.linesService.addLine(line);
+  deleteLine(item) {
+    console.log(this.lines);
+    _.remove(this.lines, { idLine: item.idLine});
+    console.log(item);
+    this.linesService.deleteLine(item);
   }
 
 }
