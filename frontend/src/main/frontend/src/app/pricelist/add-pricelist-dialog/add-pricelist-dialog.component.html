@@ -1,0 +1,37 @@
+
+<h2 mat-dialog-title>Add Pricelist</h2>
+<hr>
+<div>
+  <mat-dialog-content>
+
+    <div  class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="ticketType">
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" name="typeOfTicket" [value]="1" checked> SINGLE
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" name="typeOfTicket" [value]="2"> DAILY
+      </label>
+      <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" name="typeOfTicket" [value]="3"> MONTHLY
+      </label>
+    </div>
+    <br>
+    <hr>
+    <div style="display: inline-block; text-align: center; vertical-align: middle;">
+      <ngb-datepicker [(ngModel)]="startDate"></ngb-datepicker>
+    </div>
+    <hr>
+    <div style="display: inline-block; text-align: center; vertical-align: middle;">
+      <ngb-datepicker style="font-size:12px; display: inline-block;text-align: center; vertical-align: middle;"  [(ngModel)]="endDate"></ngb-datepicker>
+    </div>
+    <hr>
+    <div>
+      <label>Price:</label>
+      <input type="number" [(ngModel)]="price">
+    </div>
+  </mat-dialog-content>
+</div>
+<mat-dialog-actions style="text-align: center; vertical-align: middle;">
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button" (click)="save()">Save</button>
+</mat-dialog-actions>
