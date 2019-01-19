@@ -23,18 +23,18 @@
 
       <!-- start of navbar right -->
       <ul class="nav navbar-nav navbar-right">
-        <li> <!--*ngIf="!jwtService.tokenExist()"-->
+        <li *ngIf="!jwtService.tokenExist()">
           <a routerLink="/register">Sign up</a>
         </li>
-        <li> <!-- *ngIf="!jwtService.tokenExist()" -->
+        <li *ngIf="!jwtService.tokenExist()">
           <a routerLink="/login">Login</a>
         </li>
-        <!--li class="navbar-personal-dropdown" dropdown *ngIf="jwtService.tokenExist()">
+        <li class="navbar-personal-dropdown" dropdown *ngIf="jwtService.tokenExist()">
           <a href dropdownToggle (click)="false">
             {{ jwtService.getUsernameFromToken() }}
             <span class="fa fa-caret-down"></span>
           </a>
-          <ul *dropdownMenu class="dropdown-menu" id="dropdownMenuPersonal">
+          <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" id="dropdownMenuPersonal">
             <li>
               <a routerLink="/profile">
                 <span class="fa fa-user"></span> Profile
@@ -46,7 +46,7 @@
               </a>
             </li>
           </ul>
-        </li-->
+        </li>
       </ul>
       <!-- end of navbar right -->
     </div>

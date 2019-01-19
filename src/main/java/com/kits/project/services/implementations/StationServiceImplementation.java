@@ -8,6 +8,9 @@ import com.kits.project.services.interfaces.StationServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class StationServiceImplementation implements StationServiceInterface {
 
@@ -35,5 +38,15 @@ public class StationServiceImplementation implements StationServiceInterface {
     @Override
     public boolean archiveStation(Long lineID) {
         return false;
+    }
+
+    @Override
+    public List<Station> getStations() {
+        List<Station> stations = stationRepository.findAll();
+//        for(Station s : stations) {
+//            s.setLines(null);
+//        }
+        return  stations;
+
     }
 }

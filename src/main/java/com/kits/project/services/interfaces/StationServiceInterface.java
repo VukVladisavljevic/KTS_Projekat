@@ -6,6 +6,7 @@ import com.kits.project.model.Station;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public interface StationServiceInterface {
@@ -17,4 +18,6 @@ public interface StationServiceInterface {
 
 
     public boolean archiveStation(Long lineID);
+
+    public List<Station> getStations();
 }

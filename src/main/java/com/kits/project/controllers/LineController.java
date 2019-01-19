@@ -1,6 +1,8 @@
 package com.kits.project.controllers;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.kits.project.DTOs.LineDTO;
+import com.kits.project.DTOs.MapLinesDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.Station;
 import com.kits.project.services.interfaces.LineServiceInterface;
@@ -25,8 +27,16 @@ public class LineController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Line> create(@RequestBody LineDTO line){
+        System.out.println(line);
         Line newLine = lineServiceInterface.addNewLine(line);
-        return new ResponseEntity<>(newLine, HttpStatus.OK);
+        return new ResponseEntity<Line>(newLine, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/line/{lineId}",method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity delete(@PathVariable int lineId){
+        lineServiceInterface.deleteLine(Integer.toUnsignedLong(lineId));
+        return new ResponseEntity(true, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/lines", method = RequestMethod.GET,
@@ -40,11 +50,19 @@ public class LineController {
         return new ResponseEntity<ArrayList<Line>>(allLines, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/line/station/{stationId}", method = RequestMethod.GET,
+    @RequestMapping(value = "/line/{lineId}/stations", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<Station>> getStationsForLine(@PathVariable Long stationId){
-        ArrayList<Station> linesForStation = lineServiceInterface.getStationForLine(stationId);
+    public ResponseEntity<ArrayList<Station>> getStationsForLine(@PathVariable Long lineId){
+        ArrayList<Station> linesForStation = lineServiceInterface.getStationForLine(lineId);
         return new ResponseEntity<>(linesForStation, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/lines/map", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ArrayList<MapLinesDTO> getLinesForMap(){
+        ArrayList<MapLinesDTO> linesForMap = lineServiceInterface.getLinesForMap();
+        System.out.println(linesForMap.size());
+        return linesForMap;
     }
 
     @RequestMapping(value = "/line/{lineId}", method = RequestMethod.PUT,
