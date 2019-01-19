@@ -37,6 +37,7 @@ import {
   MatInputModule, MatButtonModule
 } from '@angular/material';
 import { AddLineComponent } from './lines/add-line/add-line.component';
+import { LiveLocationComponent } from './live-location/live-location.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
     RegistrationComponent,
     LinesMapComponent,
     LinesComponent,
-    AddLineComponent
+    AddLineComponent,
+    LiveLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,7 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'apikey' }),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
