@@ -1,3 +1,8 @@
 .mat-column-select {
   overflow: initial;
 }
+
+.center {
+  position: relative;
+  left: 45%;
+}
