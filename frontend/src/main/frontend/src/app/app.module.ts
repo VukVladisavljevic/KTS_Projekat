@@ -12,9 +12,6 @@ import { TimetableComponent} from './timetable/timetable.component';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
-import { AddDepartureDialogComponent } from './timetable/add-departure-dialog/add-departure-dialog.component';
-import { ListExistingDeparturesDialogComponent } from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from "@angular/forms";
 import { LinesMapComponent } from './lines-map/lines-map.component';
 import { LinesComponent } from './lines/lines.component';
@@ -37,7 +34,10 @@ import {
   MatInputModule, MatButtonModule
 } from '@angular/material';
 
+import { AddDepartureDialogComponent } from './timetable/add-departure-dialog/add-departure-dialog.component';
 import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
+import { ListExistingDeparturesDialogComponent } from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
 import { LiveLocationComponent } from './live-location/live-location.component';
@@ -87,10 +87,11 @@ import { LiveLocationComponent } from './live-location/live-location.component';
     MatTableModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper
+    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, { provide: MatDialogRef, useValue: {} }
+, { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent],
+  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent, AddPricelistDialogComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

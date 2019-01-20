@@ -81,7 +81,11 @@ export class AddPricelistDialogComponent implements OnInit {
 
     this.pricelistService.addPricelist(prl)
       .then(response => {
-        //alert("odgovor" + response);
+          if (response == null){
+            alert("Greska");
+          } else {
+            alert("Pricelist successfully added.");
+          }
       });
 
     //this.dialogRef.close(this.form.value);
