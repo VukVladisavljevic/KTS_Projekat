@@ -87,7 +87,7 @@ import { AddStationComponent } from './stations/add-station/add-station.componen
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
+    AgmCoreModule.forRoot({apiKey: 'api' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,

@@ -38,6 +38,11 @@
             <i class="fas fa-hand-holding-usd"></i>
           </a>
         </li>
+        <li title="Stations">
+          <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/stations">
+            <i class="fas fa-stop"></i>
+          </a>
+        </li>
         <!-- end of home option -->
       </ul>
       <!-- end of navbar left -->
