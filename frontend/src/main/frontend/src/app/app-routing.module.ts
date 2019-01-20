@@ -9,12 +9,15 @@ import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pric
 import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import {LinesComponent} from "./lines/lines.component";
 import {LiveLocationComponent} from "./live-location/live-location.component";
+import {TicketComponent} from './ticket/ticket.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'timetable', component: TimetableComponent },
+  { path: 'tickets', component: TicketComponent},
   { path: 'addpricelist', component: AddPricelistDialogComponent},
   { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent},
   { path: 'lines-map', component: LinesMapComponent },

@@ -1,0 +1,35 @@
+<div style="min-height: 500px; max-height: 500px;">
+<h2 style="text-align: center; vertical-align: middle;" mat-dialog-title>Owned Tickets</h2>
+
+<mat-dialog-content>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th style="text-align: center; vertical-align: middle; width: 100px">Ticket Type</th>
+        <th style="text-align: center; vertical-align: middle;">Start Time</th>
+        <th style="text-align: center; vertical-align: middle;">End Time</th>
+<!--        <th style="text-align: center; vertical-align: middle;">Archive Ticket</th>-->
+        <th style="text-align: center; vertical-align: middle;">Activate Ticket</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of tickets; index as i">
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.ticketType}}</td>
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.startTime | date: 'M/d/yyyy, HH:mm'}}</td>
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.endTime | date: 'M/d/yyyy, HH:mm'}}</td>
+        <!--<td style="text-align: center; vertical-align: middle;" >-->
+          <!--<button class="btn btn-danger"(click)="archiveTicket(item)">-->
+            <!--<span class="glyphicon glyphicon-trash"></span>-->
+          <!--</button>-->
+        <!--</td>-->
+        <td *ngIf="item.ticketType === 'SINGLE' && item.active==false" style="text-align: center; vertical-align: middle;"><button class="btn btn-success" (click)="activateTicket(item)">Activate</button></td>
+      </tr>
+      </tbody>
+    </table>
+</mat-dialog-content>
+</div>
+
+<mat-dialog-actions>
+  <button class="btn btn-danger"(click)="close()">Close</button>
+</mat-dialog-actions>

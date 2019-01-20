@@ -7,14 +7,18 @@ import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
+
 public interface TicketServiceInterface {
 
-    public Ticket generateNewTicket(TicketDTO ticketDTO);
+    public Ticket createOneUseTicket(TicketDTO ticketDTO);
 
+    public Ticket createMultipleUseTicket(TicketDTO ticketDTO);
 
-    public Ticket updateTicket(Long ticketID, TicketDTO ticketDTO);
+    public Ticket activateTicket(TicketDTO ticketDTO);
 
+    public boolean archiveTicket(String id);
 
-    public boolean archiveTicket(Long ticketID);
+    public List<Ticket> getOwnedTickets(String username);
 }

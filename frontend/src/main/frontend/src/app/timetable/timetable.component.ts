@@ -20,7 +20,6 @@ export class TimetableComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
     this.scheduleService.getTimeSchedules()
       .then(response => {
@@ -40,8 +39,6 @@ export class TimetableComponent implements OnInit {
     };
 
     const dialogRef = this.dialog.open(AddDepartureDialogComponent, dialogConfig);
-
-
   }
 
   openDeparturesListDialog(item): void {

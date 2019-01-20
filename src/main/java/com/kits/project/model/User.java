@@ -44,6 +44,10 @@ public class User {
     @Column
     private String activationId;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @JsonManagedReference
+    private List<Ticket> tickets;
+
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private List<AccountAuthority> accountAuthorities;
@@ -53,6 +57,7 @@ public class User {
     public User() {
         this.accountAuthorities = new ArrayList<>();
         this.confirmed = false;
+        this.tickets = new ArrayList<>();
     }
 
     public User(String username, String password, int version, String firstName, String lastName, boolean confirmed, String email, String activationId) {
@@ -65,6 +70,7 @@ public class User {
         this.confirmed = confirmed;
         this.email = email;
         this.activationId = activationId;
+        this.tickets = new ArrayList<>();
     }
 
     public User(String username, String password, String firstName, String lastName) {
@@ -72,6 +78,7 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.tickets = new ArrayList<>();
     }
 
     public User(UserDTO userDTO) {
@@ -79,6 +86,7 @@ public class User {
         this.password = userDTO.password;
         this.firstName = userDTO.firstName;
         this.lastName = userDTO.lastName;
+        this.tickets = new ArrayList<>();
     }
 
     public User(String username, String password) {
@@ -86,6 +94,7 @@ public class User {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         this.password = encoder.encode(password);
         this.accountAuthorities = new ArrayList<>();
+        this.tickets = new ArrayList<>();
     }
 
     public Long getId() {
@@ -147,4 +156,19 @@ public class User {
     public List<AccountAuthority> getAccountAuthorities() { return accountAuthorities; }
 
     public void setAccountAuthorities(List<AccountAuthority> accountAuthorities) { this.accountAuthorities = accountAuthorities; }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public void addTicket(Ticket ticket) {
+        ticket.setUser(this);
+        this.getTickets().add(ticket);
+    }
+
+
 }

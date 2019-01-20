@@ -62,40 +62,9 @@ public class TimeScheduleController {
 
     @RequestMapping(value = "/time-schedule/line/{lineName}/{day}/{index}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TimeSchedule> deleteDepartureForLine(@PathVariable String lineName, @PathVariable String day, @PathVariable String index ){
-
-        System.out.println(lineName + " " + day + " " + index);
+    public ResponseEntity<TimeSchedule> deleteDepartureForLine(@PathVariable String lineName, @PathVariable String day, @PathVariable String index ) {
         TimeSchedule newSchedule = timeScheduleService.deleteDeparture(lineName, day, index);
         return new ResponseEntity<>(newSchedule, HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/time-schedule/station/{stationId}", method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ArrayList<TimeSchedule>> getTimeScheduleForStation(@PathVariable Long stationId){
-//        ArrayList<TimeSchedule> scheduleForStation = timeScheduleService.getTimeScheduleForStation(stationId);
-//        return new ResponseEntity<>(scheduleForStation, HttpStatus.OK);
-//    }
-
-//    @RequestMapping(value = "/time-schedule/{scheduleId}/add-station/{stationId}", method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<TimeSchedule> addStation(@PathVariable Long scheduleId,  @PathVariable Long stationId){
-//        TimeSchedule updatedSchedule = timeScheduleService.addStation(scheduleId, stationId);
-//        if(updatedSchedule != null) {
-//            return new ResponseEntity<>(updatedSchedule, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-//
-//    @RequestMapping(value = "/time-schedule/{scheduleId}/add-line/{lineId}", method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<TimeSchedule> addLine(@PathVariable Long scheduleId,  @PathVariable Long lineId){
-//        TimeSchedule updatedSchedule = timeScheduleService.addLine(scheduleId, lineId);
-//        if(updatedSchedule != null) {
-//            return new ResponseEntity<>(updatedSchedule, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
 
 }
