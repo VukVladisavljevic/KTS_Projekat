@@ -1,10 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {AgmMap, MapsAPILoader} from "@agm/core";
+import { Component, OnInit } from '@angular/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core/services';
-import {LiveLocationService} from "../services/live-location.service";
+import { ViewChild } from '@angular/core'
+import { AgmDirectionModule } from 'agm-direction';
+import { MatFormFieldModule, MatOptionModule, MatSelectModule } from
+    '@angular/material';
+import {LinesMapService} from '../lines-map/lines-map.service';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import {LinesService} from "../services/lines.service";
 import * as _ from 'lodash';
 
 declare var google: any;
@@ -13,30 +16,56 @@ declare var google: any;
   templateUrl: './live-location.component.html',
   styleUrls: ['./live-location.component.css']
 })
+
 export class LiveLocationComponent implements OnInit {
+  geocoder:any;
+  @ViewChild(AgmMap) map: AgmMap;
+  source: object;
+  destination: object
+  lines: object;
+  visible: boolean = false;
+  waypoints: object;
   private serverUrl = 'http://localhost:8080/socket'
   private title = 'WebSockets chat';
   private stompClient;
-  private lines;
+  private locations;
   private longitude;
   private latitude;
-  private locations;
   private transport;
-  private visible = false;
-  geocoder:any;
-  @ViewChild(AgmMap) map: AgmMap;
+  private busLocation = {text: 'Current bus location', color: 'black', fontWeight:"bold", fontSize:"16px"};
+
+  public renderOptions = {
+    suppressMarkers: true,
+  }
+
+  public markerOptions = {
+    origin: {
+      icon: 'https://www.shareicon.net/data/48x48/2015/09/15/641263_stop_512x512.png',
+    },
+    waypoints: {
+      icon: 'https://www.shareicon.net/data/48x48/2015/09/15/641263_stop_512x512.png',
+    },
+    destination: {
+      icon: 'https://www.shareicon.net/data/48x48/2015/09/15/641263_stop_512x512.png',
+    },
+  }
   constructor(public mapsApiLoader: MapsAPILoader,
               private wrapper: GoogleMapsAPIWrapper,
-              private liveLocationService: LiveLocationService,
-              private linesService: LinesService) {
+              private linesMapService: LinesMapService) {
     this.mapsApiLoader = mapsApiLoader;
-    this.initializeWebSocketConnection();
     this.wrapper = wrapper;
-    this.linesService = linesService;
-    this.liveLocationService = liveLocationService;
+    this.initializeWebSocketConnection();
+    this.linesMapService = linesMapService;
     this.mapsApiLoader.load().then(() => {
       this.geocoder = new google.maps.Geocoder();
     });
+  }
+
+  ngOnInit() {
+    this.linesMapService.getLineStations()
+      .then(response => {
+        this.formatLines(response);
+      });
   }
 
   initializeWebSocketConnection(){
@@ -47,36 +76,50 @@ export class LiveLocationComponent implements OnInit {
       that.stompClient.subscribe("/live-location", (message) => {
         console.log(message);
         that.locations = JSON.parse(message.body);
-        if(!that.transport){
+        if(!that.transport || !that.transport.id){
+          console.log(that.transport);
+          that.transport = _.find(that.locations, { idLine: that.transport });
+          that.longitude = that.transport ? that.transport.station.lng : null;
+          that.latitude = that.transport ? that.transport.station.lat : null;
           return;
         }
         that.transport = _.find(that.locations, { id: that.transport.id });
+        console.log(that.transport);
         that.longitude = that.transport ? that.transport.station.lng : null;
         that.latitude = that.transport ? that.transport.station.lat : null;
+        console.log(that.longitude);
       });
     });
   }
 
-  ngOnInit() {
-    this.linesService.getLines()
-      .then(response => {
-        this.lines = response;
-    });
+  formatLines(data) {
+    this.lines = data;
   }
 
   onChange(event) {
-    console.log(this.locations);
-    console.log(event.value);
-    let idline = event.value.idLine;
+    this.visible = false;
+    let waypointsMapping = [];
+    event.value.waypoints.forEach((item) => {
+      waypointsMapping.push({location: {lat: item.lat, lng: item.lng}, stopover:false});
+    })
+    this.waypoints = waypointsMapping;
+    this.source = event.value.source;
+    this.destination = event.value.destination;
+    let idline = event.value.line.idLine;
     this.transport = _.find(this.locations, { idLine: idline });
     if(!this.transport) {
-      this.visible = false;
+      this.transport = idline;
       this.longitude = null;
       this.latitude = null;
       return;
     }
-    this.visible = true;
     this.longitude = this.transport.station.lng;
     this.latitude = this.transport.station.lat;
+  }
+
+  ngOnDestroy() {
+    this.stompClient.disconnect(function() {
+      console.log("DISCONNECTED");
+    });
   }
 }

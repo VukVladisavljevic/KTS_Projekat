@@ -3,14 +3,22 @@
   <mat-form-field>
     <mat-select (selectionChange)="onChange($event)" placeholder="Select line">
       <mat-option *ngFor="let line of lines" [value]="line">
-        {{line.name}}
+        {{line.line.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div>
   <agm-map [latitude]="45.2571" [longitude]="19.8335" [zoom]="13.5" [disableDefaultUI]="true" [zoomControl]="true">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [label]="busLocation" [zIndex]=200></agm-marker>
+    <agm-direction *ngIf="source"
+                   [origin]="source"
+                   [destination]="destination"
+                   [waypoints]="waypoints"
+                   [renderOptions]="renderOptions"
+                   [markerOptions]="markerOptions">
+    </agm-direction>
+
   </agm-map>
 </div>
 

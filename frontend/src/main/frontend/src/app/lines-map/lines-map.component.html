@@ -16,6 +16,7 @@
     <!--</agm-polyline-point>-->
     <!--</ng-container>-->
     <!--</agm-polyline>-->
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [title]="busLocation" [zIndex]=200></agm-marker>
       <agm-direction *ngIf="source"
                      [origin]="source"
                      [destination]="destination"

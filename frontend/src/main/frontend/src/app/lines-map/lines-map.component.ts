@@ -6,7 +6,9 @@ import { AgmDirectionModule } from 'agm-direction';
 import { MatFormFieldModule, MatOptionModule, MatSelectModule } from
    '@angular/material';
 import {LinesMapService} from './lines-map.service';
-
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import * as _ from 'lodash';
 
 declare var google: any;
 @Component({
@@ -23,6 +25,7 @@ export class LinesMapComponent implements OnInit {
   lines: object;
   visible: boolean = false;
   waypoints: object;
+
   public renderOptions = {
       suppressMarkers: true,
   }
@@ -53,7 +56,6 @@ export class LinesMapComponent implements OnInit {
     this.linesMapService.getLineStations()
       .then(response => {
         this.formatLines(response);
-        console.log(response);
       });
     // this.lines = [{name: 7, path: {source: {lat: 45.242036, lng: 19.842649}, destination: {lat: 45.264008, lng: 19.823417}}
     // ,waypoints: [
@@ -99,7 +101,6 @@ export class LinesMapComponent implements OnInit {
   }
   onChange(event) {
     this.visible = false;
-    console.log(event.value);
     let waypointsMapping = [];
     event.value.waypoints.forEach((item) => {
       waypointsMapping.push({location: {lat: item.lat, lng: item.lng}, stopover:false});
@@ -108,9 +109,4 @@ export class LinesMapComponent implements OnInit {
     this.source = event.value.source;
     this.destination = event.value.destination;
   }
-
-  onSubmit() {
-
-  }
-
 }
