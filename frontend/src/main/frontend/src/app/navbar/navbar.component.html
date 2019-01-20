@@ -8,28 +8,35 @@
       <ul class="nav navbar-nav navbar-left">
 
         <!-- start of home option -->
-        <li class="navbar-home">
+        <li title="Home" class="navbar-home">
           <a routerLinkActive="active" routerLink="/">
             <span class="fa fa-home fa-lg"></span>
           </a>
         </li>
-        <li class="navbar-home">
+        <li title="Lines Map" class="navbar-home">
           <a routerLinkActive="active" routerLink="/lines-map">
             <i class="fas fa-map"></i>
           </a>
         </li>
-        <li class="navbar-home">
+        <li title="Lines" class="navbar-home">
           <a *ngIf="!jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/lines">
             <i class="fas fa-bus"></i>
           </a>
         </li>
-        <li class="navbar-home">
+        <li title="Live Location" class="navbar-home">
           <a routerLinkActive="active" routerLink="/live-location">
             <i class="fas fa-map-marker-alt"></i>
           </a>
         </li>
-        <li>
-          <a routerLink="/showpricelist">Show Pricelist</a>
+        <li title="Tickets" class="navbar-home">
+          <a routerLink="/tickets">
+            <i class="fas fa-ticket-alt"></i>
+          </a>
+        </li>
+        <li title="Price List">
+          <a routerLink="/showpricelist">
+            <i class="fas fa-hand-holding-usd"></i>
+          </a>
         </li>
         <!-- end of home option -->
       </ul>

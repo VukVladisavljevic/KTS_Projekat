@@ -33,14 +33,16 @@ import {
   MatRippleModule,
   MatInputModule, MatButtonModule
 } from '@angular/material';
+import { TicketComponent } from './ticket/ticket.component';
 
 import { AddDepartureDialogComponent } from './timetable/add-departure-dialog/add-departure-dialog.component';
 import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import { ListExistingDeparturesDialogComponent } from './timetable/list-existing-departures-dialog/list-existing-departures-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
+import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialog/list-owned-tickets-dialog';
+import {LiveLocationComponent} from './live-location/live-location.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
-import { LiveLocationComponent } from './live-location/live-location.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +58,11 @@ import { LiveLocationComponent } from './live-location/live-location.component';
     ShowCurrentPricelistDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
-    LinesComponent,
     AddLineComponent,
+    LinesComponent,
+    ShowCurrentPricelistDialogComponent,
+    TicketComponent,
+    ListOwnedTicketsDialogComponent,
     LiveLocationComponent
   ],
   imports: [
@@ -91,7 +96,8 @@ import { LiveLocationComponent } from './live-location/live-location.component';
 , { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent, AddPricelistDialogComponent],
+  entryComponents: [ListOwnedTicketsDialogComponent, AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent, AddPricelistDialogComponent
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]

@@ -6,55 +6,59 @@ import {Departure} from '../../models/departure';
 import {TimeScheduleItemModel} from '../../models/timeScheduleItem.model';
 import {log} from 'util';
 import {logger} from 'codelyzer/util/logger';
+import {TicketsService} from '../../services/tickets.service';
+import {Ticket} from '../../models/ticket';
 
 @Component({
   selector: 'app-list-existing-departures-dialog',
-  templateUrl: './list-existing-departures-dialog.component.html',
-  styleUrls: ['./list-existing-departures-dialog.component.css']
+  templateUrl: './list-owned-tickets-dialog.component.html',
+  styleUrls: ['./list-owned-tickets-dialog.component.css']
 })
-export class ListExistingDeparturesDialogComponent implements OnInit {
+export class ListOwnedTicketsDialogComponent implements OnInit {
 
   form: FormGroup;
-  private time;
-  public day;
-  private lineName;
-  public departures: string[];
+  public tickets: Ticket[];
 
   constructor(
     private fb: FormBuilder,
-    private scheduleService: TimeScheduleService,
-    private dialogRef: MatDialogRef<ListExistingDeparturesDialogComponent>,
+    private ticketService: TicketsService,
+    private dialogRef: MatDialogRef<ListOwnedTicketsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any)  {
 
-      this.day = "1";
   }
+
 
   ngOnInit() {
-    this.scheduleService.getDepartures(this.data.lineName, this.day)
+    this.ticketService.getOwnedTickets(this.data.token)
       .then(response => {
         console.log(response);
-        this.departures = response as string[];
+        this.tickets = response as Ticket[];
       });
   }
 
-  radioChange(event: MatRadioChange) {
-   // this.departures = null;
-    this.scheduleService.getDepartures(this.data.lineName, this.day)
+  activateTicket(item: Ticket): void {
+
+    this.ticketService.activateTicket(item)
       .then(response => {
         console.log(response);
-        this.departures = response as string[];
+        let ticketGot = response as Ticket;
+        item.active = ticketGot.active;
+        item.startTime = ticketGot.startTime;
+        item.endTime = ticketGot.endTime;
       });
   }
 
-  removeDeparture(item): void {
-    this.scheduleService.deleteDeparture(this.data.lineName, this.day, item)
+  archiveTicket(item: Ticket): void {
+
+    this.ticketService.archiveTicket(item)
       .then(response => {
-        console.log(response);
-        this.departures.splice(item, 1);
+        //this.tickets.splice()
       });
   }
+
 
   close() {
     this.dialogRef.close();
   }
+
 }

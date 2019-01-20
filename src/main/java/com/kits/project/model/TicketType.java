@@ -1,5 +1,5 @@
 package com.kits.project.model;
 
 public enum TicketType {
-    SINGLE, DAILY, MONTHLY
+    SINGLE, DAILY, MONTHLY, YEARLY
 }
