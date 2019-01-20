@@ -14,27 +14,16 @@ import {AddLineComponent} from "./add-line/add-line.component";
   styleUrls: ['./lines.component.css']
 })
 export class LinesComponent implements OnInit {
-  form: FormGroup;
-  private lineName;
   private lines;
   private stations;
-  private lineStations;
-  private selectedStation;
-  private dataSource;
 
-  constructor(private fb: FormBuilder,
-              private stationsService: StationsService,
+  constructor(private stationsService: StationsService,
               private linesService: LinesService,
               private dialog: MatDialog) {
-    this.form = this.fb.group({
-      time: this.lineName,
-      model: this.stations
-    });
   }
 
 
   ngOnInit() {
-    this.lineStations = [];
     this.stationsService.getStations()
       .then(response => {
         this.stations = response;
@@ -52,9 +41,7 @@ export class LinesComponent implements OnInit {
   }
 
   deleteLine(item) {
-    console.log(this.lines);
     _.remove(this.lines, { idLine: item.idLine});
-    console.log(item);
     this.linesService.deleteLine(item);
   }
 

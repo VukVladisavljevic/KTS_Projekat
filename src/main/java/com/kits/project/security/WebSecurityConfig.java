@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailServices;
 
     @Autowired
     public void configureAuthentication(
@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
 
         authenticationManagerBuilder
-                .userDetailsService(this.userDetailsService).passwordEncoder(
+                .userDetailsService(this.userDetailServices).passwordEncoder(
                 passwordEncoder());
     }
 

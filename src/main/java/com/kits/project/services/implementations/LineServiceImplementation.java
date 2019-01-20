@@ -6,9 +6,11 @@ import com.kits.project.DTOs.StationDTO;
 import com.kits.project.model.Line;
 import com.kits.project.model.LineStationsOrder;
 import com.kits.project.model.Station;
+import com.kits.project.model.Transport;
 import com.kits.project.repositories.LineRepository;
 import com.kits.project.repositories.LineStationsOrderRepository;
 import com.kits.project.repositories.StationRepository;
+import com.kits.project.repositories.TransportRepository;
 import com.kits.project.services.interfaces.LineServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class LineServiceImplementation implements LineServiceInterface {
     @Autowired
     private StationRepository stationRepository;
 
+    @Autowired
+    private TransportRepository transportRepository;
+
     @Override
     public Line addNewLine(LineDTO line) {
 
@@ -39,18 +44,26 @@ public class LineServiceImplementation implements LineServiceInterface {
             return null;
         }
         newLine = lineRepository.save(newLine);
+
+        Transport t = new Transport();
+        t.setLine(newLine);
         int index = 0;
+        Station firstStation = null;
         for(StationDTO s : line.stations) {
-            Station station = stationRepository.findById(s.id).orElse(null);;
+            Station station = stationRepository.findById(s.id).orElse(null);
+            if(index == 0){
+                firstStation = station;
+            }
             LineStationsOrder order = new LineStationsOrder(newLine,
                     station,
                     index);
             index += 1;
-            System.out.println(station.getLines().size());
             station.getLines().add(newLine);
             stationRepository.save(station);
             lineStationsRepository.save(order);
         }
+        t.setStation(firstStation);
+        transportRepository.save(t);
         return newLine;
     }
 
@@ -64,6 +77,7 @@ public class LineServiceImplementation implements LineServiceInterface {
     public boolean deleteLine(long id) {
         lineRepository.delete(new Line(id));
         lineRepository.deleteLineStations(id);
+        lineStationsRepository.deleteLineStations(id);
         return true;
     }
 
@@ -93,7 +107,6 @@ public class LineServiceImplementation implements LineServiceInterface {
         ArrayList<Station> stations = new ArrayList<>();
         for(LineStationsOrder order:orderedStations){
             Station s = stationRepository.findById(order.getStation().getId()).orElse(null);
-            s.setLines(null);
             stations.add(s);
         }
         return stations;

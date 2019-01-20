@@ -29,7 +29,6 @@ export class ListOwnedTicketsDialogComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.ticketService.getOwnedTickets(this.data.token)
       .then(response => {
         console.log(response);
@@ -38,10 +37,22 @@ export class ListOwnedTicketsDialogComponent implements OnInit {
   }
 
   activateTicket(item: Ticket): void {
+
     this.ticketService.activateTicket(item)
       .then(response => {
         console.log(response);
-       // this.departures.splice(item, 1);
+        let ticketGot = response as Ticket;
+        item.active = ticketGot.active;
+        item.startTime = ticketGot.startTime;
+        item.endTime = ticketGot.endTime;
+      });
+  }
+
+  archiveTicket(item: Ticket): void {
+
+    this.ticketService.archiveTicket(item)
+      .then(response => {
+        //this.tickets.splice()
       });
   }
 

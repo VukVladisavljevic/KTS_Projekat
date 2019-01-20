@@ -18,7 +18,7 @@ public interface TicketServiceInterface {
 
     public Ticket activateTicket(TicketDTO ticketDTO);
 
-    public boolean archiveTicket(TicketDTO ticketDTO);
+    public boolean archiveTicket(String id);
 
     public List<Ticket> getOwnedTickets(String username);
 }

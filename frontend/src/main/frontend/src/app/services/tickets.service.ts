@@ -24,6 +24,10 @@ export class TicketsService {
     return this.http.post<Ticket>("http://localhost:8080/api/ticket/activate", ticket).toPromise();
   }
 
+  public archiveTicket(ticket: Ticket) {
+    return this.http.delete("http://localhost:8080/api/ticket/" + ticket.id).toPromise();
+  }
+
   public buyMultipleUseTicket(ticket: Ticket) {
     return this.http.post<Ticket>("http://localhost:8080/api/ticket/createMultipleUse", ticket).toPromise();
   }

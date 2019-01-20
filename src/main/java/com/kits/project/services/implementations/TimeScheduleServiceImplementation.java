@@ -2,26 +2,23 @@ package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.DepartureDTO;
 import com.kits.project.DTOs.TimeScheduleDTO;
-import com.kits.project.model.Line;
-import com.kits.project.model.Station;
-import com.kits.project.model.TimeSchedule;
-import com.kits.project.model.TimeScheduleItem;
+import com.kits.project.model.*;
 import com.kits.project.repositories.LineRepository;
 import com.kits.project.repositories.TimeScheduleRepository;
+import com.kits.project.repositories.TransportRepository;
 import com.kits.project.services.interfaces.TimeScheduleServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.DateUtils;
 
+import java.sql.Array;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 @Service
 public class TimeScheduleServiceImplementation  implements TimeScheduleServiceInterface {
@@ -32,6 +29,9 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
     @Autowired
     private LineRepository lineRepository;
 
+    @Autowired
+    private TransportRepository transportRepository;
+
     @Override
     public TimeSchedule addDeparture(DepartureDTO departureDTO) {
         Line selectedLine = lineRepository.findByName(departureDTO.getLineName());
@@ -39,21 +39,27 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
         if (selectedLine == null) {
             return null;
         }
-
+        List<Transport> allTransportsOnLine = transportRepository.findByLine(selectedLine);
 
         //dodaj taj date u odgovarajucu listu odgovarajuceg TimeSchedule objekta
 
         if(selectedLine.getTimeSchedule() == null) {
             TimeSchedule newTimeSchedule = new TimeSchedule();
             newTimeSchedule.addDeparture(departureDTO.getTime(), departureDTO.getDayOfWeek());
+            newTimeSchedule.setTransport(allTransportsOnLine.get(0));
 
             selectedLine.addTimeSchedule(newTimeSchedule);
+            newTimeSchedule.setLine(selectedLine);
             lineRepository.flush();
         } else {
             TimeSchedule newTimeSchedule = selectedLine.getTimeSchedule();
             newTimeSchedule.addDeparture(departureDTO.getTime(), departureDTO.getDayOfWeek());
+            Random rand = new Random();
 
+            int transportIndex = rand.nextInt(allTransportsOnLine.size());
+            newTimeSchedule.setTransport(allTransportsOnLine.get(transportIndex));
             selectedLine.addTimeSchedule(newTimeSchedule);
+            newTimeSchedule.setLine(selectedLine);
             lineRepository.flush();
         }
 

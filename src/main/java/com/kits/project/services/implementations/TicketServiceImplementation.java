@@ -96,8 +96,17 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     }
 
     @Override
-    public boolean archiveTicket(TicketDTO ticketDTO) {
-        return false;
+    public boolean archiveTicket(String id) {
+        Long ticketID = Long.valueOf(id);
+        Ticket toRemove = ticketRepository.getOne(ticketID);
+        User user = toRemove.getUser();
+        user.getTickets().remove(toRemove);
+
+       // ticketRepository.delete(toRemove);
+        userRepository.flush();
+
+        return true;
+
     }
 
     @Override

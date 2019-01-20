@@ -27,7 +27,6 @@ public class LineController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Line> create(@RequestBody LineDTO line){
-        System.out.println(line);
         Line newLine = lineServiceInterface.addNewLine(line);
         return new ResponseEntity<Line>(newLine, HttpStatus.OK);
     }
@@ -61,7 +60,6 @@ public class LineController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<MapLinesDTO> getLinesForMap(){
         ArrayList<MapLinesDTO> linesForMap = lineServiceInterface.getLinesForMap();
-        System.out.println(linesForMap.size());
         return linesForMap;
     }
 

@@ -5,6 +5,7 @@ import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
 import com.kits.project.model.TimeSchedule;
 import com.kits.project.services.interfaces.TicketServiceInterface;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -56,6 +57,13 @@ public class TicketController {
             ticketsList.add(t);
         }
         return new ResponseEntity<ArrayList<Ticket>>(ticketsList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/ticket/{id}", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> archiveTicket(@PathVariable String id) {
+        Boolean removedTicket = ticketService.archiveTicket(id);
+        return new ResponseEntity<>(removedTicket, HttpStatus.OK);
     }
 
 }

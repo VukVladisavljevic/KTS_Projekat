@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {StationsService} from '../../services/stations.service';
 import {MatTableModule, MatTableDataSource, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as _ from 'lodash';
@@ -26,8 +26,8 @@ export class AddLineComponent implements OnInit {
               private dialogRef: MatDialogRef<AddLineComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.form = this.fb.group({
-      time: this.lineName,
-      model: this.stations
+      lineName: ['', Validators.required ],
+      stations: this.stations
     });
   }
 

@@ -29,14 +29,11 @@ export class ListExistingDeparturesDialogComponent implements OnInit {
       this.day = "1";
   }
 
-
   ngOnInit() {
-
     this.scheduleService.getDepartures(this.data.lineName, this.day)
       .then(response => {
         console.log(response);
         this.departures = response as string[];
-
       });
   }
 
@@ -60,5 +57,4 @@ export class ListExistingDeparturesDialogComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
 }

@@ -36,11 +36,12 @@ import {
   MatRippleModule,
   MatInputModule, MatButtonModule
 } from '@angular/material';
-import { AddLineComponent } from './lines/add-line/add-line.component';
 import {AddPricelistDialogComponent} from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import { TicketComponent } from './ticket/ticket.component';
 import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
 import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialog/list-owned-tickets-dialog';
+import {LiveLocationComponent} from './live-location/live-location.component';
+import { AddLineComponent } from './lines/add-line/add-line.component';
 
 @NgModule({
   declarations: [
@@ -50,17 +51,18 @@ import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialo
     LoginComponent,
     RegistrationComponent,
     TimetableComponent,
+    AddPricelistDialogComponent,
     AddDepartureDialogComponent,
     ListExistingDeparturesDialogComponent,
+    ShowCurrentPricelistDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
     AddLineComponent,
     LinesComponent,
-    ListExistingDeparturesDialogComponent,
-    AddPricelistDialogComponent,
     ShowCurrentPricelistDialogComponent,
     TicketComponent,
-    ListOwnedTicketsDialogComponent
+    ListOwnedTicketsDialogComponent,
+    LiveLocationComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,7 @@ import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialo
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'apikey' }),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,

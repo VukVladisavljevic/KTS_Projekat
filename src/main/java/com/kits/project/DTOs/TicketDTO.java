@@ -15,13 +15,16 @@ public class TicketDTO implements Serializable {
 
     public Date endTime;
 
+    public boolean active;
+
     public TicketDTO() {}
 
-    public TicketDTO(String token, String ticketType, Date startTime, Date endTime, String id) {
+    public TicketDTO(String token, String ticketType, Date startTime, Date endTime, String id, boolean active) {
         this.token = token;
         this.ticketType = ticketType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.id = id;
+        this.active = active;
     }
 }

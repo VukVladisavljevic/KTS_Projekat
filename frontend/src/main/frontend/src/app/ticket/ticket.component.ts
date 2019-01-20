@@ -31,6 +31,7 @@ export class TicketComponent implements OnInit {
 
 
   ngOnInit() {
+    this.selectedOption = "One Use"
     // this.ticke.getTimeSchedules()
     //   .then(response => {
     //     //this.scheduleItems = response as TimeScheduleItemModel[];
@@ -65,18 +66,27 @@ export class TicketComponent implements OnInit {
   }
 
   buyOneWayTicket() {
-    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "oneUse", null, null, null);
-    this.ticketService.buyOneWayTicket(ticket);
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "oneUse", null, null, null, false);
+    this.ticketService.buyOneWayTicket(ticket)
+    .then(response => {
+        alert("One-way ticket successfully bought! ");
+      });
   }
 
   buyMonthlyTicket() {
-    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "monthly", null, null, null);
-    this.ticketService.buyMultipleUseTicket(ticket);
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "monthly", null, null, null, false);
+    this.ticketService.buyMultipleUseTicket(ticket)
+      .then(response => {
+        alert("Monthly ticket successfully bought! ");
+      });
   }
 
   buyYearlyTicket() {
-    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "yearly", null, null, null);
-    this.ticketService.buyMultipleUseTicket(ticket);
+    var ticket: Ticket = new Ticket(localStorage.getItem('Authentication-Token'), "yearly", null, null, null, false);
+    this.ticketService.buyMultipleUseTicket(ticket)
+      .then(response => {
+        alert("Yearly ticket successfully bought! ");
+      });
   }
 
 }

@@ -63,8 +63,6 @@ public class TimeScheduleController {
     @RequestMapping(value = "/time-schedule/line/{lineName}/{day}/{index}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TimeSchedule> deleteDepartureForLine(@PathVariable String lineName, @PathVariable String day, @PathVariable String index ) {
-
-        System.out.println(lineName + " " + day + " " + index);
         TimeSchedule newSchedule = timeScheduleService.deleteDeparture(lineName, day, index);
         return new ResponseEntity<>(newSchedule, HttpStatus.OK);
     }
