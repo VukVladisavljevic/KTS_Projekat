@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'timetable', component: TimetableComponent },
   { path: 'addpricelist', component: AddPricelistDialogComponent},
-  { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent}
+  { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent},
   { path: 'lines-map', component: LinesMapComponent },
   { path: 'lines', component: LinesComponent }
 ];
