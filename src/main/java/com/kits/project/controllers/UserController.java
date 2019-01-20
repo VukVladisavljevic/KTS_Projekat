@@ -45,7 +45,6 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO, BindingResult errors) {
-        System.out.println(loginDTO);
         try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     loginDTO.getUsername(), loginDTO.getPassword());
