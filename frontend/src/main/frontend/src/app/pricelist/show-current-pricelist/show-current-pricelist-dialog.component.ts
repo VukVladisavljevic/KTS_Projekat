@@ -6,6 +6,7 @@ import {Pricelist} from '../../models/pricelist';
 import {log} from 'util';
 import {logger} from 'codelyzer/util/logger';
 
+
 @Component({
 selector: 'app-show-current-pricelist-dialog',
 templateUrl: './show-current-pricelist-dialog.component.html',

@@ -21,6 +21,9 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
     @Override
     public Pricelist addPricelist(PricelistDTO pricelistDTO){
         Pricelist newPricelist = new Pricelist(pricelistDTO);
+        if (newPricelist.getEndDate().compareTo(newPricelist.getStartDate()) < 0){
+            return null;
+        }
         Pricelist existing = pricelistRepository.checkIfUnique(newPricelist.getStartDate(), newPricelist.getEndDate(),
                 newPricelist.getTicketType());
         if (existing == null){
