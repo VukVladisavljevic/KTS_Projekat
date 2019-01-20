@@ -36,6 +36,11 @@ import {
   MatRippleModule,
   MatInputModule, MatButtonModule
 } from '@angular/material';
+
+import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
+import { AddPricelistDialogComponentComponent } from './add-pricelist-dialog-component/add-pricelist-dialog-component.component';
+import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
+import { ShowCurrentPricelistComponentDialogComponent } from './show-current-pricelist-component-dialog/show-current-pricelist-component-dialog.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
 import { LiveLocationComponent } from './live-location/live-location.component';
 
@@ -47,8 +52,12 @@ import { LiveLocationComponent } from './live-location/live-location.component';
     LoginComponent,
     RegistrationComponent,
     TimetableComponent,
+    AddPricelistDialogComponent,
     AddDepartureDialogComponent,
     ListExistingDeparturesDialogComponent,
+    AddPricelistDialogComponentComponent,
+    ShowCurrentPricelistDialogComponent,
+    ShowCurrentPricelistComponentDialogComponent,
     RegistrationComponent,
     LinesMapComponent,
     LinesComponent,
@@ -73,7 +82,7 @@ import { LiveLocationComponent } from './live-location/live-location.component';
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
+    AgmCoreModule.forRoot({apiKey: 'apikey' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
