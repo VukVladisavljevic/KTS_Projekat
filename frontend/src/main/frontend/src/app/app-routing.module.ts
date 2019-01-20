@@ -8,6 +8,7 @@ import {TimetableComponent} from './timetable/timetable.component';
 import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pricelist/show-current-pricelist-dialog.component';
 import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/add-pricelist-dialog.component';
 import {LinesComponent} from "./lines/lines.component";
+import {LiveLocationComponent} from "./live-location/live-location.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,9 +16,10 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'timetable', component: TimetableComponent },
   { path: 'addpricelist', component: AddPricelistDialogComponent},
-  { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent}
+  { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent},
   { path: 'lines-map', component: LinesMapComponent },
-  { path: 'lines', component: LinesComponent }
+  { path: 'lines', component: LinesComponent },
+  { path: 'live-location', component: LiveLocationComponent }
 ];
 
 @NgModule({

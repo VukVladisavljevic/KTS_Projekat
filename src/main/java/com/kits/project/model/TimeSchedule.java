@@ -26,6 +26,9 @@ public class TimeSchedule {
     @JoinColumn(name = "idline", nullable = false)
     private Line line;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Transport transport;
+
     @Column(name = "time")
     private Time time;
 
@@ -152,5 +155,13 @@ public class TimeSchedule {
                 return true;
         }
         return false;
+    }
+
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
     }
 }
