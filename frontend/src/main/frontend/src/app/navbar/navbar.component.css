@@ -35,6 +35,10 @@ a > span.fa {
   color: rgb(66, 139, 202);
 }
 
+a > i.fas {
+  color: rgb(66, 139, 202);
+}
+
 a {
   color: white!important;
   cursor: hand;

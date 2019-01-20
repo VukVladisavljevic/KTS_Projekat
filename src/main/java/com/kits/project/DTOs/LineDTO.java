@@ -1,6 +1,9 @@
 package com.kits.project.DTOs;
 
+import com.kits.project.model.Transport;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +14,8 @@ public class LineDTO implements Serializable {
     public boolean active;
 
     public Set<StationDTO> stations;
+
+    public ArrayList<Transport> transport;
 
     public List<TimeScheduleDTO> schedules;
 
