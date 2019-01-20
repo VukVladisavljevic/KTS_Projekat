@@ -12,4 +12,8 @@ export class StationsService {
     return this.http.get("http://localhost:8080/api/stations").toPromise();
   }
 
+  public addStation(station) {
+    return this.http.post("http://localhost:8080/api/station", station).toPromise();
+  }
+
 }

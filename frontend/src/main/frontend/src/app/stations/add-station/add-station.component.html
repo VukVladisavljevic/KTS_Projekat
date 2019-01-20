@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Add new station</h2>
+<hr>
+<div>
+  <mat-dialog-content>
+    <div>
+      <form [formGroup]="form" novalidate>
+        <mat-form-field>
+          <input matInput [(ngModel)]="stationName" placeholder="Enter station name" formControlName="stationName">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput [(ngModel)]="stationAddress" placeholder="Enter station address" formControlName="stationAddress">
+        </mat-form-field>
+      </form>
+    </div>
+    <p>Longitude: {{longitude}}</p>
+    <p>Latitude: {{latitude}}</p>
+    <br>
+    <br>
+    <button md-button style="margin-top: 20px; width: 100%;" class="btn btn-primary" type="button" (click)="addStation()" [disabled]="!stationName.length && !stationAddress.length">
+      Add station
+    </button>
+  </mat-dialog-content>
+</div>

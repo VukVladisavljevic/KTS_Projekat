@@ -19,7 +19,7 @@
           </a>
         </li>
         <li title="Lines" class="navbar-home">
-          <a *ngIf="!jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/lines">
+          <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/lines">
             <i class="fas fa-bus"></i>
           </a>
         </li>

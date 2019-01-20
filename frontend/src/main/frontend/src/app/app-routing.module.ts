@@ -10,6 +10,7 @@ import { AddPricelistDialogComponent } from './pricelist/add-pricelist-dialog/ad
 import {LinesComponent} from "./lines/lines.component";
 import {LiveLocationComponent} from "./live-location/live-location.component";
 import {TicketComponent} from './ticket/ticket.component';
+import {StationsComponent} from "./stations/stations.component";
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'showpricelist', component: ShowCurrentPricelistDialogComponent},
   { path: 'lines-map', component: LinesMapComponent },
   { path: 'lines', component: LinesComponent },
-  { path: 'live-location', component: LiveLocationComponent }
+  { path: 'live-location', component: LiveLocationComponent },
+  { path: 'stations', component: StationsComponent }
 ];
 
 @NgModule({

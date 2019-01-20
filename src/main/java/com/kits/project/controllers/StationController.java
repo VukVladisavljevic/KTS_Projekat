@@ -20,13 +20,14 @@ public class StationController {
     @Autowired
     private StationServiceInterface stationServiceInterface;
 
-//    @RequestMapping(value = "/station/create",method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<TimeSchedule> create(@RequestBody TimeSchedule schedule){
-//        TimeSchedule newSchedule = stationService.addNewSchedule(schedule);
-//        return new ResponseEntity<>(newSchedule, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/station",method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Station> create(@RequestBody StationDTO station){
+        System.out.println(station);
+        Station newSchedule = stationServiceInterface.addNewStation(station);
+        return new ResponseEntity<>(newSchedule, HttpStatus.OK);
+    }
 
 //    @RequestMapping(value = "/stations", method = RequestMethod.GET,
 //            produces = MediaType.APPLICATION_JSON_VALUE)
