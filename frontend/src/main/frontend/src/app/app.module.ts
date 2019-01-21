@@ -45,6 +45,7 @@ import {LiveLocationComponent} from './live-location/live-location.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
 import { StationsComponent } from './stations/stations.component';
 import { AddStationComponent } from './stations/add-station/add-station.component';
+import { PricelistComponent } from './pricelist/pricelist.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AddStationComponent } from './stations/add-station/add-station.componen
     ListOwnedTicketsDialogComponent,
     LiveLocationComponent,
     StationsComponent,
-    AddStationComponent
+    AddStationComponent,
+    PricelistComponent
   ],
   imports: [
     BrowserModule,

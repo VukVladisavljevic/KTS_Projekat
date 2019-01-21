@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,12 +22,21 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
     @Override
     public Pricelist addPricelist(PricelistDTO pricelistDTO){
         Pricelist newPricelist = new Pricelist(pricelistDTO);
-        if (newPricelist.getEndDate().compareTo(newPricelist.getStartDate()) < 0){
+        if (!(newPricelist.getStartDate().compareTo(newPricelist.getEndDate()) <= 0)){
+            System.out.println("Ovde puko");
             return null;
         }
-        Pricelist existing = pricelistRepository.checkIfUnique(newPricelist.getStartDate(), newPricelist.getEndDate(),
+
+        //------- dan pre, zbog preklapanja prilikom nadovezivanja cenovnika(e.g. 01.02-01.09 pa 01.09-0.10)
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(newPricelist.getStartDate());
+        cal.add(Calendar.DATE, 1);
+        Date dateBefore = cal.getTime();
+        System.out.println(dateBefore);
+
+        ArrayList<Pricelist> existing = pricelistRepository.checkIfUnique(dateBefore, newPricelist.getEndDate(),
                 newPricelist.getTicketType());
-        if (existing == null){
+        if (existing.size() == 0){
             pricelistRepository.save(newPricelist);
             return newPricelist;
         }
@@ -44,5 +54,10 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
         Date currentDate = new Date();
         ArrayList<Pricelist> current = pricelistRepository.getCurrent(currentDate);
         return current;
+    }
+
+    @Override
+    public ArrayList<Pricelist> getAllPricelists(){
+        return pricelistRepository.getAll();
     }
 }
