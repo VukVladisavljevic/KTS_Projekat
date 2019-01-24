@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+
 @Service
 public class TicketServiceImplementation implements TicketServiceInterface {
 
@@ -96,7 +97,6 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         //set to active
         ticket.setActive(true);
 
-
         //set time
         Date startTime = new Date();
         Calendar now = Calendar.getInstance();
@@ -122,6 +122,7 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         userRepository.flush();
 
         return true;
+
     }
 
     @Override
@@ -134,5 +135,4 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         }
         return user.getTickets();
     }
-
 }

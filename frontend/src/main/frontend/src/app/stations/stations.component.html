@@ -1,0 +1,7 @@
+<div>
+  <h1>Add station</h1>
+  <h2>Click on map where you want to add new station</h2>
+  <agm-map [latitude]="45.2571" [longitude]="19.8335" [zoom]="13.5" [disableDefaultUI]="true" [zoomControl]="true" (mapClick)="placeMarker($event)">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
+</div>

@@ -20,13 +20,14 @@ public class StationController {
     @Autowired
     private StationServiceInterface stationServiceInterface;
 
-//    @RequestMapping(value = "/station/create",method = RequestMethod.POST,
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<TimeSchedule> create(@RequestBody TimeSchedule schedule){
-//        TimeSchedule newSchedule = stationService.addNewSchedule(schedule);
-//        return new ResponseEntity<>(newSchedule, HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/station",method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Station> create(@RequestBody StationDTO station){
+        System.out.println(station);
+        Station newSchedule = stationServiceInterface.addNewStation(station);
+        return new ResponseEntity<>(newSchedule, HttpStatus.OK);
+    }
 
 //    @RequestMapping(value = "/stations", method = RequestMethod.GET,
 //            produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,17 +35,17 @@ public class StationController {
 //        ArrayList<Station> stations = stationService.getAll();
 //        return new ResponseEntity<>(stations, HttpStatus.OK);
 //    }
-
-    @RequestMapping(value = "/station/{stationId}", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Station> update(@RequestBody StationDTO station, @PathVariable Long stationId){
-        Station updatedStation = stationServiceInterface.updateStation(stationId, station);
-        if(updatedStation != null) {
-            return new ResponseEntity<>(updatedStation, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//
+//    @RequestMapping(value = "/station/{stationId}", method = RequestMethod.PUT,
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Station> update(@RequestBody StationDTO station, @PathVariable Long stationId){
+//        Station updatedStation = stationServiceInterface.updateStation(stationId, station);
+//        if(updatedStation != null) {
+//            return new ResponseEntity<>(updatedStation, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
 //    @RequestMapping(value = "/station/{stationId}/add-line/{lineId}", method = RequestMethod.POST,
 //            consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -63,15 +64,15 @@ public class StationController {
         List<Station> allLinesList = stationServiceInterface.getStations();
         return new ResponseEntity<List<Station>>(allLinesList, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/station/{stationId}/archive", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> archiveStation(@PathVariable Long stationId){
-        boolean isArchived= stationServiceInterface.archiveStation(stationId);
-        if(isArchived) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-    }
+//
+//    @RequestMapping(value = "/station/{stationId}/archive", method = RequestMethod.PUT,
+//            consumes = MediaType.APPLICATION_JSON_VALUE,
+//            produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Boolean> archiveStation(@PathVariable Long stationId){
+//        boolean isArchived= stationServiceInterface.archiveStation(stationId);
+//        if(isArchived) {
+//            return new ResponseEntity<>(true, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+//    }
 }

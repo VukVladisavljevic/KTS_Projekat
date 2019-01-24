@@ -19,7 +19,7 @@
           </a>
         </li>
         <li title="Lines" class="navbar-home">
-          <a *ngIf="jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/lines">
+          <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/lines">
             <i class="fas fa-bus"></i>
           </a>
         </li>
@@ -35,7 +35,17 @@
         </li>
         <li title="Price List">
           <a routerLink="/showpricelist">
-            <i class="fas fa-hand-holding-usd"></i>
+            <i class="fas fa-file-invoice-dollar"></i>
+          </a>
+        </li>
+        <li title="Price List Review">
+          <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLink="/pricelist">
+            <i class="fas fa-file-invoice"></i>
+          </a>
+        </li>
+        <li title="Stations">
+          <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/stations">
+            <i class="fas fa-stop"></i>
           </a>
         </li>
         <!-- end of home option -->

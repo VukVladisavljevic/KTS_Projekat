@@ -24,20 +24,11 @@ public class StationServiceImplementation implements StationServiceInterface {
 
         if (stationExisting == null) {
             Station newStation = stationRepository.save(new Station(stationDTO));
+
             return newStation;
         }
 
         return null;
-    }
-
-    @Override
-    public Station updateStation(Long stationID, StationDTO stationDTO) {
-        return null;
-    }
-
-    @Override
-    public boolean archiveStation(Long lineID) {
-        return false;
     }
 
     @Override

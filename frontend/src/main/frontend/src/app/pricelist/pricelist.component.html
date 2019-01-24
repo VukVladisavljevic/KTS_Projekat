@@ -1,0 +1,23 @@
+<div>
+  <h1 class="center" >All Pricelists</h1>
+  <br>
+  <button class="btn btn-primary" style="width: 100%" (click)="openAddPricelistModal()"> Add New Price List <span class="glyphicon glyphicon-plus"></span></button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">Start date:</th>
+      <th style="text-align: center; vertical-align: middle;">End date:</th>
+      <th style="text-align: center; vertical-align: middle;">Ticket Type::</th>
+      <th style="text-align: center; vertical-align: middle;">Price:</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pricelists">
+        <td style="text-align: center; vertical-align: middle;">{{item.startDate}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{item.endDate}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{item.ticketType}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{item.price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

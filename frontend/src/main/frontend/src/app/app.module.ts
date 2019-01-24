@@ -43,6 +43,9 @@ import {ShowCurrentPricelistDialogComponent} from './pricelist/show-current-pric
 import {ListOwnedTicketsDialogComponent} from './ticket/list-owned-tickets-dialog/list-owned-tickets-dialog';
 import {LiveLocationComponent} from './live-location/live-location.component';
 import { AddLineComponent } from './lines/add-line/add-line.component';
+import { StationsComponent } from './stations/stations.component';
+import { AddStationComponent } from './stations/add-station/add-station.component';
+import { PricelistComponent } from './pricelist/pricelist.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
     ShowCurrentPricelistDialogComponent,
     TicketComponent,
     ListOwnedTicketsDialogComponent,
-    LiveLocationComponent
+    LiveLocationComponent,
+    StationsComponent,
+    AddStationComponent,
+    PricelistComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +89,7 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
+    AgmCoreModule.forRoot({apiKey: 'api' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
@@ -97,7 +103,7 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
   ],
   bootstrap: [AppComponent],
   entryComponents: [ListOwnedTicketsDialogComponent, AddDepartureDialogComponent, ListExistingDeparturesDialogComponent, AddLineComponent, AddPricelistDialogComponent
-  ],
+    ,AddStationComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
