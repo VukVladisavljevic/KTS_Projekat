@@ -13,11 +13,5 @@ public interface StationServiceInterface {
 
     public Station addNewStation(StationDTO stationDTO);
 
-
-    public Station updateStation(Long stationID, StationDTO stationDTO);
-
-
-    public boolean archiveStation(Long lineID);
-
     public List<Station> getStations();
 }

@@ -36,7 +36,6 @@ public class LineServiceImplementation implements LineServiceInterface {
 
     @Override
     public Line addNewLine(LineDTO line) {
-
         Line newLine = new Line(line);
 
         Line lineExisting = lineRepository.findByName(newLine.getName());
@@ -53,6 +52,9 @@ public class LineServiceImplementation implements LineServiceInterface {
             Station station = stationRepository.findById(s.id).orElse(null);
             if(index == 0){
                 firstStation = station;
+            }
+            if(station==null){
+                continue;
             }
             LineStationsOrder order = new LineStationsOrder(newLine,
                     station,

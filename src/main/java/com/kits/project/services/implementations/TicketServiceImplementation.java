@@ -113,6 +113,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public List<Ticket> getOwnedTickets(String token) {
         String username = jwtUtils.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
+        if(user == null) {
+            return null;
+        }
         return user.getTickets();
     }
 }
