@@ -95,7 +95,8 @@ import { PricelistComponent } from './pricelist/pricelist.component';
     MatSelectModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    ToasterModule
   ],
   providers: [
     HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, { provide: MatDialogRef, useValue: {} }
