@@ -88,7 +88,7 @@ export class AddPricelistDialogComponent implements OnInit {
           }
       });
 
-    //this.dialogRef.close(this.form.value);
+    this.dialogRef.close(this.form.value);
   }
 
 

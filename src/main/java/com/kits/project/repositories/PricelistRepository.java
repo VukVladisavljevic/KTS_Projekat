@@ -17,5 +17,8 @@ public interface PricelistRepository  extends JpaRepository<Pricelist, Long> {
     ArrayList<Pricelist> getCurrent(Date current);
 
     @Query("SELECT p FROM Pricelist p WHERE (?1 BETWEEN p.startDate AND p.endDate OR ?2 BETWEEN p.startDate AND p.endDate) AND ?3 = p.ticketType")
-    Pricelist checkIfUnique(Date startDate, Date endDate, TicketType ticketType);
+    ArrayList<Pricelist> checkIfUnique(Date startDate, Date endDate, TicketType ticketType);
+
+    @Query("SELECT p FROM Pricelist p ORDER BY p.startDate ASC")
+    ArrayList<Pricelist> getAll();
 }

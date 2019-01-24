@@ -14,4 +14,6 @@ public interface PricelistServiceInterface {
     ArrayList<Pricelist> getCurrentPricelist();
 
     Pricelist updatePricelist(Long pricelistId, PricelistDTO pricelistDTO);
+
+    ArrayList<Pricelist> getAllPricelists();
 }

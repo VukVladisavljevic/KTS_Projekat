@@ -20,7 +20,7 @@ public class PriceListController {
     @Autowired
     private PricelistServiceInterface pricelistService;
 
-    //------------------create pricelist--------------------------------------------------
+    //------------------create price list--------------------------------------------------
 
     @RequestMapping(value = "/pricelist/create",method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -34,7 +34,7 @@ public class PriceListController {
     }
 
 
-    //------------------get current pricelist----------------------------------------------
+    //------------------get current price list----------------------------------------------
 
     @RequestMapping(value = "/pricelist/getcurrent", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,4 +43,12 @@ public class PriceListController {
         return new ResponseEntity<>(pricelistCurrent, HttpStatus.OK);
     }
 
+    //------------------get all price lists-------------------------------------------------
+
+    @RequestMapping(value = "/pricelist/getall", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArrayList<Pricelist>> getAllPriceLists(){
+        ArrayList<Pricelist> allPricelist = pricelistService.getAllPricelists();
+        return new ResponseEntity<>(allPricelist, HttpStatus.OK);
+    }
 }
