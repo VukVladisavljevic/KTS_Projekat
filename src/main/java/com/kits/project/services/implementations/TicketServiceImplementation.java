@@ -1,6 +1,8 @@
 package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.TicketDTO;
+import com.kits.project.exception.TicketNotFoundException;
+import com.kits.project.exception.UserNotFoundException;
 import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
 import com.kits.project.model.TicketType;
@@ -19,7 +21,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
 public class TicketServiceImplementation implements TicketServiceInterface {
 
@@ -36,6 +37,11 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket createOneUseTicket(TicketDTO ticketDTO) {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
+
+        if(user == null) {
+            throw new UserNotFoundException();
+        }
+
         Ticket newTicket = new Ticket(null, null, null, false);
         newTicket.setTicketType(TicketType.SINGLE);
 
@@ -50,6 +56,10 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
         Ticket newTicket;
+
+        if(user == null) {
+            throw new UserNotFoundException();
+        }
 
         if(ticketDTO.ticketType.equalsIgnoreCase("monthly")) {
             Date startTime = new Date();
@@ -78,8 +88,14 @@ public class TicketServiceImplementation implements TicketServiceInterface {
 
         Ticket ticket = ticketRepository.getOne(Long.valueOf(ticketDTO.id));
 
+
+        if(ticket == null) {
+            throw new TicketNotFoundException();
+        }
+
         //set to active
         ticket.setActive(true);
+
 
         //set time
         Date startTime = new Date();
@@ -106,13 +122,17 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         userRepository.flush();
 
         return true;
-
     }
 
     @Override
     public List<Ticket> getOwnedTickets(String token) {
         String username = jwtUtils.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
+
+        if(user == null) {
+            throw new UserNotFoundException();
+        }
         return user.getTickets();
     }
+
 }

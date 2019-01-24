@@ -49,8 +49,6 @@ export class TicketComponent implements OnInit {
     };
 
     this.dialog.open(ListOwnedTicketsDialogComponent, dialogConfig);
-
-
   }
 
   buyTicket() {
