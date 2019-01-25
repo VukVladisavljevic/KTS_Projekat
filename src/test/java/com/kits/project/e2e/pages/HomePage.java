@@ -158,7 +158,9 @@ public class HomePage {
 
     public boolean adminLinksVisible(){
         try {
-            this.getStationsLink().click();
+            this.getStationsLink().isEnabled();
+            this.getLinesLink().isEnabled();
+            this.getPriceListLink().isEnabled();
         } catch (NoSuchElementException e) {
             return false;
         }
