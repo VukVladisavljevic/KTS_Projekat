@@ -36,7 +36,7 @@ public class ReportsController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Float> getTotal(@RequestBody RequestDateDTO requestDateDTO) {
-        float total = 100;
+        float total = 0;
         Date sDate = requestDateDTO.startDate;
         Date eDate = requestDateDTO.endDate;
         ArrayList<Pricelist> allPricelist = pricelistServiceInterface.getAllPricelists();
@@ -56,7 +56,7 @@ public class ReportsController {
 
             for(Ticket t : allTickets) {
                 for(Pricelist cp : currentPricelist) {
-                    if(cp.getTicketType().equals(t.getTicketType()))
+                    if(cp.getTicketType().equals(t.getTicketType()) && t.getStartTime().compareTo(sDate) == 0)
                         total += cp.getPrice();
                 }
             }

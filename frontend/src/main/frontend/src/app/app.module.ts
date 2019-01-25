@@ -53,6 +53,10 @@ import { DailyReportsComponent } from './admin-dashboard/daily-reports/daily-rep
 import { MonthlyReportsComponent } from './admin-dashboard/monthly-reports/monthly-reports.component';
 import { YearlyReportsComponent } from './admin-dashboard/yearly-reports/yearly-reports.component';
 import { ReportsComponent } from './admin-dashboard/reports/reports.component';
+import { AdminGuard } from './shared/guards/admin.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AnonymousGuard } from './shared/guards/anonymous.guard';
+import { ControllerGuard } from './shared/guards/controller.guard';
 
 @NgModule({
   declarations: [
@@ -114,7 +118,7 @@ import { ReportsComponent } from './admin-dashboard/reports/reports.component';
     ToasterModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, { provide: MatDialogRef, useValue: {} }
+    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, AdminGuard, AuthGuard, AnonymousGuard, ControllerGuard, { provide: MatDialogRef, useValue: {} }
 , { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],

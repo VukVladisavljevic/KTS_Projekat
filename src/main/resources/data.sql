@@ -13,6 +13,12 @@
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (8, 'Merkator(Bulevar Oslobodjenja 100)' 45.243551, 19.841861, '11')
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (8, 'Bulevar Evrope 21' 45.246663, 19.818092, '12')
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (8, 'Hadzi Ruvimova' 45.255998, 19.812475, '13')
+--Insert into pricelist(startDate, endDate, ticket_Type, price) values('2018-1-1','2018-5-5', "SINGLE", 50)
+--Insert into pricelist(startDate, endDate, ticket_Type, price) values('2018-1-1','2018-5-5', "MONTHLY", 1500)
+--Insert into pricelist(startDate, endDate, ticket_Type, price) values('2018-5-5','2019-1-1', "SINGLE", 60)
+--Insert into pricelist(startDate, endDate, ticket_Type, price) values('2018-5-5','2019-1-1', "MONTHLY", 1800)
+--insert into tickets(user_id, start_time, end_time, ticket_Type, active) values(789, '2018-4-4', '2018-4-4', "SINGLE", TRUE)
+--insert into tickets(user_id, start_time, end_time, ticket_Type, active) values(789, '2018-4-6', '2018-4-6', "SINGLE", TRUE)
 
 
-SELECT * FROM authority;
+--SELECT * FROM authority;
