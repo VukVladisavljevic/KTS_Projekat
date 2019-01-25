@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 public class AccountAuthorityServiceImplementation implements AccountAuthorityServiceInterface {
     @Autowired
@@ -27,5 +29,11 @@ public class AccountAuthorityServiceImplementation implements AccountAuthoritySe
     @Override
     public int AuthorityByAccId(Long id) {
         return this.accountAuthorityRepository.AuthorityByAccId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ArrayList<AccountAuthority> getAllAccountAuthorities() {
+        return this.accountAuthorityRepository.findAll();
     }
 }

@@ -5,8 +5,10 @@ import com.kits.project.DTOs.TokenDTO;
 import com.kits.project.DTOs.UserDTO;
 import com.kits.project.exception.BadRequestException;
 import com.kits.project.exception.ForbiddenException;
+import com.kits.project.model.AccountAuthority;
 import com.kits.project.model.User;
 import com.kits.project.security.JWTUtils;
+import com.kits.project.services.interfaces.AccountAuthorityServiceInterface;
 import com.kits.project.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin(value = "http://localhost:4200")
@@ -37,6 +40,9 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private AccountAuthorityServiceInterface accountAuthorityServiceInterface;
 
     @RequestMapping(
             value = "/login",
@@ -79,5 +85,34 @@ public class UserController {
             throw new BadRequestException("Username can't be empty!");
 
         return new ResponseEntity(this.userServiceInterface.isUsernameTaken(username), HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/users/get_all",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ArrayList<User>> getAllUsers() {
+
+        ArrayList<User> allUsers = userServiceInterface.getAllUsers();
+
+        return new ResponseEntity(allUsers, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/users/remove_user",
+            method = RequestMethod.POST,
+            consumes = MediaType.TEXT_PLAIN_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity removeUser(@RequestBody String username) {
+        if (username == null || username.equals(""))
+            throw new BadRequestException("Username can't be empty!");
+
+        User account = this.userServiceInterface.findByUsername(username);
+        account.setDeleted(true);
+        userServiceInterface.save(account);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

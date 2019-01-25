@@ -28,6 +28,11 @@ export class AccountService {
           }).catch(this.handleErrors);*/
     }
 
+    saveController(account : Account)
+    {
+        return this.http.post('http://localhost:8080/api/register_controller', account)
+    }
+  
   private handleErrors(response: Response) {
     if(response.status === 400)
       return observableThrowError(new BadRequestError());
@@ -46,6 +51,14 @@ export class AccountService {
 
   public changeProfile(account){
     return this.http.post('http://localhost:8080/api/profile', account);
+  }
+
+  public getAllUsers(){
+    return this.http.get("http://localhost:8080/api/users/get_all").toPromise()
+  }
+
+  public removeUser(username : String) {
+    return this.http.post('http://localhost:8080/api/users/remove_user', username);
   }
 
 }

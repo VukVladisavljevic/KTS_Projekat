@@ -14,4 +14,4 @@
     src: url(assets/font/Poppins-Regular.otf) format("opentype");
   }
 
-html { background-color: rgb(66, 139, 202); }
+html body { background-color: rgb(66, 139, 202); height: 100%}

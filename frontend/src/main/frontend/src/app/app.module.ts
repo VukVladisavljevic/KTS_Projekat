@@ -46,6 +46,13 @@ import { AddLineComponent } from './lines/add-line/add-line.component';
 import { StationsComponent } from './stations/stations.component';
 import { AddStationComponent } from './stations/add-station/add-station.component';
 import { PricelistComponent } from './pricelist/pricelist.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { RegisterEmployeeComponent } from './admin-dashboard/register-employee/register-employee.component';
+import { ShowRegisteredComponent } from './admin-dashboard/show-registered/show-registered.component';
+import { DailyReportsComponent } from './admin-dashboard/daily-reports/daily-reports.component';
+import { MonthlyReportsComponent } from './admin-dashboard/monthly-reports/monthly-reports.component';
+import { YearlyReportsComponent } from './admin-dashboard/yearly-reports/yearly-reports.component';
+import { ReportsComponent } from './admin-dashboard/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +76,14 @@ import { PricelistComponent } from './pricelist/pricelist.component';
     LiveLocationComponent,
     StationsComponent,
     AddStationComponent,
-    PricelistComponent
+    PricelistComponent,
+    AdminDashboardComponent,
+    RegisterEmployeeComponent,
+    ShowRegisteredComponent,
+    DailyReportsComponent,
+    MonthlyReportsComponent,
+    YearlyReportsComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +109,8 @@ import { PricelistComponent } from './pricelist/pricelist.component';
     MatSelectModule,
     MatFormFieldModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, { provide: MatDialogRef, useValue: {} }

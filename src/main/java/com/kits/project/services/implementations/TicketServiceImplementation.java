@@ -11,10 +11,12 @@ import com.kits.project.security.JWTUtils;
 import com.kits.project.services.interfaces.TicketServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -114,5 +116,11 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         String username = jwtUtils.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
         return user.getTickets();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getAllTickets() {
+        return this.ticketRepository.findAll();
     }
 }

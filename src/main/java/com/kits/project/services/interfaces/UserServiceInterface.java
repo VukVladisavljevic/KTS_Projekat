@@ -8,6 +8,8 @@ import com.kits.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public interface UserServiceInterface {
 
@@ -28,4 +30,6 @@ public interface UserServiceInterface {
     User save(User account);
 
     User findByActivationId(String activationId);
+
+    ArrayList<User> getAllUsers();
 }

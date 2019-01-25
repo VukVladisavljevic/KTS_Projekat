@@ -1,0 +1,148 @@
+.container {
+    max-width: 1100;
+    height: 100vh;
+    background-color: #252835;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.background {
+    position:absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150vh;
+    background: #252830;
+    background-size:cover;
+    z-index:-5;
+    filter: blur(1px);
+}
+
+.box {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.box::before, .box::after {
+    box-sizing: border-box;
+}
+
+.left-navbar {
+    flex: 0 0 25%;
+    max-width: 25%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    padding-top: 100px;
+}
+
+.left-nabar::before, .left-navbar::after {
+    box-sizing: border-box;
+}
+
+.options {
+    flex: 0 0 75%;
+    max-width: 75%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.options::before, .options::after {
+    box-sizing: border-box;
+}
+
+.collapse {
+    display: block !important;
+    height: auto !important;
+    box-sizing: border-box;
+}
+
+.collapse::before, .collapse::after {
+    box-sizing: border-box;
+}
+
+.break {
+    margin-top: 1rem !important;
+    margin-bottom: 30px;
+    border-top: 1px solid #434857;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+.nav::before, .nav::after {
+    box-sizing: border-box;
+}
+
+.nav-stacked {
+    flex-direction: column !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+    border-radius: 0.25rem;
+}
+
+.nav > .label {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+    font-size: 120%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #51586a;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.nav > .choice {
+    padding-left: 15px;
+}
+
+.nav > .label::before, .nav > .label::after, .nav > .choice, .nav > choice::before, .nav > .choice ::after {
+    box-sizing: border-box;
+}
+
+.cha {
+    color: #cfd2da;
+    border-radius: 0.25rem;
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+    box-sizing: border-box;
+    font-size: 120%;
+}
+
+.cha::before, .cha::after {
+    box-sizing: border-box;
+}
+
+li > a:hover, li > a:active {
+    text-decoration: none;
+    background-color: #1997c6;
+    color: #fff;
+}
+
+a.active {
+    text-decoration: none;
+    background-color: #1997c6 !important;
+    color: #fff;
+}   
