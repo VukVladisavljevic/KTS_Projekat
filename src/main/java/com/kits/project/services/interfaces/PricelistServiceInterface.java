@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public interface PricelistServiceInterface {
 
     Pricelist addPricelist(PricelistDTO pricelistDTO);
