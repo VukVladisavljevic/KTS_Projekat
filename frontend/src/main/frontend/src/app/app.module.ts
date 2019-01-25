@@ -110,7 +110,8 @@ import { ReportsComponent } from './admin-dashboard/reports/reports.component';
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatTableModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ToasterModule
   ],
   providers: [
     HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, { provide: MatDialogRef, useValue: {} }

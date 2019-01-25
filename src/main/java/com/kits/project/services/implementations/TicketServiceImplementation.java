@@ -38,6 +38,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket createOneUseTicket(TicketDTO ticketDTO) {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
+        if(user == null) {
+            return null;
+        }
         Ticket newTicket = new Ticket(null, null, null, false);
         newTicket.setTicketType(TicketType.SINGLE);
 
@@ -51,7 +54,11 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket createMultipleUseTicket(TicketDTO ticketDTO) {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
-        Ticket newTicket;
+        Ticket newTicket = null;
+
+        if(user == null) {
+            return null;
+        }
 
         if(ticketDTO.ticketType.equalsIgnoreCase("monthly")) {
             Date startTime = new Date();
@@ -65,8 +72,13 @@ public class TicketServiceImplementation implements TicketServiceInterface {
             newTicket = new Ticket(user, startTime, endTime, false);
             newTicket.setTicketType(TicketType.YEARLY);
 
+        } else if (ticketDTO.ticketType.equalsIgnoreCase("daily")){
+            Date startTime = new Date();
+            Date endTime = Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+            newTicket = new Ticket(user, startTime, endTime, false);
+            newTicket.setTicketType(TicketType.DAILY);
         } else {
-            newTicket = null;
+            return null;
         }
 
         user.addTicket(newTicket);
@@ -79,7 +91,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket activateTicket(TicketDTO ticketDTO) {
 
         Ticket ticket = ticketRepository.getOne(Long.valueOf(ticketDTO.id));
-
+        if(ticket == null) {
+            return null;
+        }
         //set to active
         ticket.setActive(true);
 
@@ -115,6 +129,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public List<Ticket> getOwnedTickets(String token) {
         String username = jwtUtils.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
+        if(user == null) {
+            return null;
+        }
         return user.getTickets();
     }
 
