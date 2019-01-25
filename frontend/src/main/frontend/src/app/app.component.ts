@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { JwtService } from './services/auth/jwt.service';
+import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private jwtService: JwtService, private router: Router, private titleService: Title) {
+    this.titleService.setTitle('KTS, NWT project');
+  }
 }

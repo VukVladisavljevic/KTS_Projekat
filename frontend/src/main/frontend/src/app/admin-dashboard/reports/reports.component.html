@@ -1,0 +1,28 @@
+<div style="margin-top: 50px;">
+  <table class="table">
+    <tr>
+      <th style="text-align: center; vertical-align: middle;"><h1>Start Date:</h1></th>
+      <th style="text-align: center; vertical-align: middle;"><h1>End date:</h1></th>
+    </tr>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">
+        <ngb-datepicker [(ngModel)]="startDate" class="bg-white" [maxDate]="endDate"></ngb-datepicker>
+      </th>
+      <th style="text-align: center; vertical-align: middle;">
+          <ngb-datepicker [(ngModel)]="endDate" class="bg-white" [maxDate]="today"></ngb-datepicker>
+      </th>
+    </tr>
+    <tr>
+      <th style="text-align: left; vertical-align: middle;">Total:</th>
+      <th style="text-align: right; vertical-align: middle;">{{total.toFixed(2)}}</th>
+    </tr>
+    <tr>
+      <th colspan="2" style="text-align: center; vertical-align: middle;">
+        <button class="btn" (click)='refresh()'>
+          Refresh
+        </button>
+      </th>
+    </tr>
+  </table>
+</div>
+

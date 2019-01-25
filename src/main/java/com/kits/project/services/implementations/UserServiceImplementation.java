@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 
 @Service
 public class UserServiceImplementation implements UserServiceInterface {
@@ -87,6 +89,13 @@ public class UserServiceImplementation implements UserServiceInterface {
         User account = this.userRepository.findByActivationId(activationId);
         if(account == null) throw new NotFoundException("Account not found!");
         return account;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> allUsers = this.userRepository.findAll();
+        return allUsers;
     }
 
 }

@@ -72,6 +72,11 @@
                 <span class="fa fa-user"></span> Profile
               </a>
             </li>
+            <li *ngIf="jwtService.hasRole('ADMIN')">
+                <a routerLink="/admin-dashboard">
+                  <span class="fa fa-bars"></span> Dashboard
+                </a>
+              </li>
             <li *ngIf="jwtService.tokenExist()">
               <a (click)="logout()">
                 <span class="fa fa-sign-out"></span> Sign out

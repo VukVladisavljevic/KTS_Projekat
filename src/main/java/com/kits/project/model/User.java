@@ -44,6 +44,9 @@ public class User {
     @Column
     private String activationId;
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean passwordChanged;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JsonManagedReference
     private List<Ticket> tickets;
@@ -52,12 +55,16 @@ public class User {
     @JsonManagedReference
     private List<AccountAuthority> accountAuthorities;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean deleted;
+
     //------------------------------
 
     public User() {
         this.accountAuthorities = new ArrayList<>();
         this.confirmed = false;
         this.tickets = new ArrayList<>();
+        this.deleted = false;
     }
 
     public User(String username, String password, int version, String firstName, String lastName, boolean confirmed, String email, String activationId) {
@@ -71,6 +78,7 @@ public class User {
         this.email = email;
         this.activationId = activationId;
         this.tickets = new ArrayList<>();
+        this.deleted = false;
     }
 
     public User(String username, String password, String firstName, String lastName) {
@@ -79,6 +87,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.tickets = new ArrayList<>();
+        this.deleted = false;
     }
 
     public User(UserDTO userDTO) {
@@ -87,6 +96,8 @@ public class User {
         this.firstName = userDTO.firstName;
         this.lastName = userDTO.lastName;
         this.tickets = new ArrayList<>();
+        this.passwordChanged = true;
+        this.deleted = false;
     }
 
     public User(String username, String password) {
@@ -95,6 +106,8 @@ public class User {
         this.password = encoder.encode(password);
         this.accountAuthorities = new ArrayList<>();
         this.tickets = new ArrayList<>();
+        this.passwordChanged = true;
+        this.deleted = false;
     }
 
     public Long getId() {
@@ -170,5 +183,19 @@ public class User {
         this.getTickets().add(ticket);
     }
 
+    public boolean isPasswordChanged() {
+        return passwordChanged;
+    }
 
+    public void setPasswordChanged(boolean passwordChanged) {
+        this.passwordChanged = passwordChanged;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

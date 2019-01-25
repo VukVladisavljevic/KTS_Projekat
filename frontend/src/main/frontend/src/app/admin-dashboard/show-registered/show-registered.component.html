@@ -1,0 +1,26 @@
+<toaster-container [toasterconfig]="toasterConfig"></toaster-container>
+<div>
+  <h1 class="center" >All users</h1>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th style="text-align: center; vertical-align: middle;">Name:</th>
+      <th style="text-align: center; vertical-align: middle;">Surname:</th>
+      <th style="text-align: center; vertical-align: middle;">Username:</th>
+      <th style="text-align: center; vertical-align: middle;">Remove:</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" >
+        <ng-container *ngIf="!user.deleted && user.username != jwtService.getUsernameFromToken(jwtService.getToken())">
+          <td style="text-align: center; vertical-align: middle;">{{user.firstName}}</td>
+          <td style="text-align: center; vertical-align: middle;">{{user.lastName}}</td>
+          <td style="text-align: center; vertical-align: middle;">{{user.username}}</td>
+          <td style="text-align: center; vertical-align: middle;"><button (click)='removeUser(user)' class="btn btn-danger">Remove</button></td>
+      </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

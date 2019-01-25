@@ -23,7 +23,6 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
     public Pricelist addPricelist(PricelistDTO pricelistDTO){
         Pricelist newPricelist = new Pricelist(pricelistDTO);
         if (!(newPricelist.getStartDate().compareTo(newPricelist.getEndDate()) <= 0)){
-            System.out.println("Ovde puko");
             return null;
         }
 
@@ -36,7 +35,8 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
 
         ArrayList<Pricelist> existing = pricelistRepository.checkIfUnique(dateBefore, newPricelist.getEndDate(),
                 newPricelist.getTicketType());
-        if (existing.size() == 0){
+
+        if (existing==null || existing.size() == 0){
             pricelistRepository.save(newPricelist);
             return newPricelist;
         }

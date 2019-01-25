@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import {JwtService} from "../services/auth/jwt.service";
 import {AuthService} from "../services/auth/auth.service";
-import { BsModalService } from "ngx-bootstrap";
+import { BsModalService, BsDropdownDirective } from "ngx-bootstrap";
 
 
 
@@ -11,7 +11,7 @@ import { BsModalService } from "ngx-bootstrap";
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: [JwtService, AuthService, BsModalService]
+  providers: [JwtService, AuthService, BsModalService, BsDropdownDirective]
 })
 export class NavbarComponent implements OnInit {
 

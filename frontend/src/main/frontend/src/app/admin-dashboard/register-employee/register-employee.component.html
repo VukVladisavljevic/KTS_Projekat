@@ -1,0 +1,185 @@
+<div class="container">
+  <div class="col-lg-7 col-lg-offset-2">
+    <div class="panel-register">
+      <div class="panel">
+        <span class="fa-stack fa-5x">
+          <i class="fa fa-circle fa-stack-2x icon-background" style="color: beige;"></i>
+          <i class="fa fa-train fa-stack-1x" style="color: black;"></i>
+        </span>
+        <h3 class="panel-title" style="">Register</h3>
+        <form [formGroup]="form" (ngSubmit)="register()" accept-charset="UTF-8">
+          <!-- start of personal info -->
+          <div class="personal-info">
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fas fa-signature icon"></i>
+                <input
+                  formControlName="firstName"
+                  id="firstName"
+                  placeholder="First name..."
+                  type="text"
+                  class="form-control input">
+              </div>
+              <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger">
+                <div id="firstNameRequiredError" *ngIf="firstName.errors.required">
+                  The first name is required!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fas fa-signature icon"></i>
+                <input
+                  formControlName="lastName"
+                  id="lastName"
+                  placeholder="Last name..."
+                  type="text"
+                  class="form-control input">
+              </div>
+              <div *ngIf="lastName.touched && lastName.invalid" class="alert alert-danger">
+                <div id="lastNameRequiredError" *ngIf="lastName.errors.required">
+                  The last name is required!
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of personal info -->
+
+          <!-- start of email -->
+          <div class="form-group">
+              <div class="input-row">
+                <i class="fas fa-envelope icon"></i>
+                <input
+                  formControlName="email"
+                  id="email"
+                  placeholder="Email..."
+                  type="text"
+                  class="form-control input">
+              </div>
+              <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                <div id="emailRequiredError" *ngIf="email.errors.required; else emailPattern">
+                  The email is required!
+                </div>
+                <ng-template #emailPattern>
+                  <ng-container *ngIf="email.errors.email">
+                    <div id="emailValidError">
+                      Please provide a valid email address.
+                    </div>
+                  </ng-container>
+                </ng-template>
+              </div>
+            </div>
+          <!-- end of email -->
+
+          <!-- start of Username -->
+          <div class="form-group">
+            <div class="input-row">
+              <i class="fa fa-user icon"></i>
+              <input
+                formControlName="username"
+                id="username"
+                placeholder="username..."
+                type="text"
+                class="form-control input">
+            </div>
+            <div *ngIf="username.pending" class="alert alert-warning">
+              Checking username availability...
+            </div>
+            <div id="usernameAvailable" *ngIf="username.valid" class="alert alert-success">
+              Username is available!
+            </div>
+            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+              <div id="usernameRequiredError" *ngIf="username.errors.required; else usernameContainSpace">
+                The username is required!
+              </div>
+              <ng-template #usernameContainSpace>
+                <ng-container *ngIf="username.errors.cannotContainSpace; else usernameIsTaken">
+                  <div id="usernameContainSpaceError">
+                    The username can't contain space.
+                  </div>
+                </ng-container>
+              </ng-template>
+              <ng-template #usernameIsTaken>
+                <ng-container *ngIf="username.errors.usernameIsTaken">
+                  <div id="usernameTakenError">
+                    The username is already taken!
+                  </div>
+                </ng-container>
+              </ng-template>
+            </div>
+          </div>
+          <!-- end of Username -->
+
+          <!-- start of password -->
+          <div class="form-group" formGroupName="passwords">
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-lock icon"></i>
+                <input
+                  formControlName="password"
+                  id="password"
+                  placeholder="password..."
+                  type="password"
+                  class="form-control input">
+              </div>
+              <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                <div id="passwordRequiredError" *ngIf="password.errors.required; else passwordMinLength">
+                  The password is required!
+                </div>
+                <ng-template #passwordMinLength>
+                  <ng-container *ngIf="password.errors.minlength">
+                    <div id="passwordMinimumLengthError">
+                      Minimum length is {{password.errors.minlength.requiredLength}} characters.
+                    </div>
+                  </ng-container>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-row">
+                <i class="fa fa-lock icon"></i>
+                <input
+                  formControlName="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="password confirmation..."
+                  type="password"
+                  class="form-control input">
+              </div>
+              <div *ngIf="confirmPassword.touched && confirmPassword.invalid" class="alert alert-danger">
+                <div id="confirmPasswordRequiredError" *ngIf="confirmPassword.errors.required">
+                  The password confirmation is required!
+                </div>
+              </div>
+              <div *ngIf="password.touched && password.valid && confirmPassword.touched && confirmPassword.valid &&
+                passwords.invalid && passwords.errors.matchPasswords" class="alert alert-danger">
+                <div id="passwordDontMatchError">
+                  Passwords don't match!
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--div class="form-group">
+            <div class="input-row">
+              <i class="fa fa-lock icon"></i>
+              <input
+                formControlName="password"
+                id="password"
+                placeholder="password..."
+                type="password"
+                class="form-control input">
+              <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                <div id="passwordRequiredError" *ngIf="password.errors.required">
+                  The password is required!
+                </div>
+              </div>
+            </div>
+          </div-->
+          <!-- end of password -->
+          <button class="btn" type="submit" [disabled]="!form.valid">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

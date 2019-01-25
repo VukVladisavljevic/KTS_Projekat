@@ -13,10 +13,12 @@ import com.kits.project.security.JWTUtils;
 import com.kits.project.services.interfaces.TicketServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,8 +76,13 @@ public class TicketServiceImplementation implements TicketServiceInterface {
             newTicket = new Ticket(user, startTime, endTime, false);
             newTicket.setTicketType(TicketType.YEARLY);
 
+        } else if (ticketDTO.ticketType.equalsIgnoreCase("daily")){
+            Date startTime = new Date();
+            Date endTime = Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+            newTicket = new Ticket(user, startTime, endTime, false);
+            newTicket.setTicketType(TicketType.DAILY);
         } else {
-            newTicket = null;
+            return null;
         }
 
         user.addTicket(newTicket);
@@ -134,5 +141,11 @@ public class TicketServiceImplementation implements TicketServiceInterface {
             throw new UserNotFoundException();
         }
         return user.getTickets();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getAllTickets() {
+        return this.ticketRepository.findAll();
     }
 }

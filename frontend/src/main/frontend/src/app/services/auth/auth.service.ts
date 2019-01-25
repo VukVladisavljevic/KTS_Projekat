@@ -42,6 +42,7 @@ export class AuthService {
   checkUsername(username: string): Observable<boolean> {
     let params: HttpParams = new HttpParams()
       .append('username', username);
+    console.log(username);
     return this.http.get<boolean>(`http://localhost:8080/api/check_username`, {params}).pipe(
       catchError(this.handleErrors));
   }

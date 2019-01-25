@@ -1,0 +1,21 @@
+.mat-column-select {
+    overflow: initial;
+}
+  
+.center {
+    position: relative;
+    left: 45%;
+}
+
+th, h1, td {
+    color: grey;
+}
+
+.btn {
+    background-color: rgb(30, 51, 146);
+    color: white;
+}
+
+.btn:active, .btn:focus {
+    color: white;
+}

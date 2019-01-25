@@ -120,4 +120,62 @@ public class UserRegistrationController {
         userServiceInterface.save(account);
         return new ResponseEntity<>(successActivate, HttpStatus.OK);
     }
+
+    @RequestMapping(
+            value = "/register_controller",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity registerAccountController(
+            @Valid @RequestBody AccountCreateDTO accountCreateDTO,
+            BindingResult errors) {
+        try {
+            Boolean canRegister = false;
+            Boolean isAdmin = false;
+
+            for (GrantedAuthority authority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+                if (authority.getAuthority().equals(MessageConstants.ADMIN_ROLE))
+                    isAdmin = true;
+                if (authority.getAuthority().equals("ROLE_ANONYMOUS"))
+                    canRegister = true;
+            }
+
+            if (!canRegister && !isAdmin)
+                throw new ForbiddenException("You need to logout to register or you need to be admin.");
+
+            this.userServiceInterface.checkUsername(accountCreateDTO.getLoginAccount().getUsername());
+
+            User account = new User(accountCreateDTO.getLoginAccount().getUsername(), accountCreateDTO.getLoginAccount().getPassword());
+            //Mapiranje istoimenih atributa iz DTO objekta na objekat koji se snima u bazu
+            User acc = convertAccountCreateDTOToUser(accountCreateDTO);
+            account.setFirstName(acc.getFirstName());
+            account.setLastName(acc.getLastName());
+            account.setEmail(acc.getEmail());
+            account.setPasswordChanged(false);
+
+
+            Authority authority = this.authorityServiceInterface.findByName("CONTROLLER");
+
+            AccountAuthority accountAuthority = new AccountAuthority(account, authority);
+            account.getAccountAuthorities().add(accountAuthority);
+            try {
+                emailServiceInterface.sendActivationMail(account);
+            } /*catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/ catch (MessagingException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            account = this.userServiceInterface.save(account);
+
+            accountAuthority.setAccount(account);
+            accountAuthority.setAuthority(authority);
+            this.accountAuthorityServiceInterface.save(accountAuthority);
+            return new ResponseEntity<>(new UserDTO(account), HttpStatus.CREATED);
+        } catch(OptimisticEntityLockException e) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+    }
 }
