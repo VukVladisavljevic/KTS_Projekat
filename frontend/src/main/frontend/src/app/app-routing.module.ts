@@ -25,7 +25,7 @@ import { JwtService } from './services/auth/jwt.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard]},
   { path: 'register', component: RegistrationComponent, canActivate: [AnonymousGuard]},
   { path: 'timetable', component: TimetableComponent },

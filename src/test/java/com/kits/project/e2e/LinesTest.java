@@ -35,7 +35,7 @@ public class LinesTest {
         loginPage.ensureIsDisplayed();
         assertEquals("http://localhost:4200/login?returnUrl=%2Fhome", browser.getCurrentUrl());
         loginPage.loginAs("aa", "aa");
-
+        homePage.ensureBusIsVisible();
         homePage.linesLinkIsDisplayed();
         homePage.getLinesLink().click();
 

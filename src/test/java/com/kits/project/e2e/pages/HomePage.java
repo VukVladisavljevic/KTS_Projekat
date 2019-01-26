@@ -42,6 +42,9 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(text(),'Sign out')]")
     private WebElement signoutLink;
 
+    @FindBy(css = "img.bus")
+    private WebElement bus;
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -161,6 +164,10 @@ public class HomePage {
                 .until(ExpectedConditions.elementToBeClickable(signoutLink));
     }
 
+    public void ensureBusIsVisible() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(bus));
+    }
     public boolean adminLinksVisible(){
         try {
             this.getStationsLink().isEnabled();

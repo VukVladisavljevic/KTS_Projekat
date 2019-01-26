@@ -89,6 +89,10 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
 
         TimeSchedule timeSchedule = line.getTimeSchedule();
 
+        if(timeSchedule==null){
+            return new ArrayList<>();
+        }
+
         if(day.equals("1")) {
             return timeSchedule.getWorkingDaySchedule();
         } else if (day.equals("2")) {
