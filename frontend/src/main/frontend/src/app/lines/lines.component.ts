@@ -37,7 +37,10 @@ export class LinesComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = _.cloneDeep(this.stations);
-    this.dialog.open(AddLineComponent, dialogConfig);
+    let dialogRef = this.dialog.open(AddLineComponent, dialogConfig);
+    dialogRef.componentInstance.onAdd.subscribe((line) => {
+      this.lines.push(line);
+    });
   }
 
   deleteLine(item) {

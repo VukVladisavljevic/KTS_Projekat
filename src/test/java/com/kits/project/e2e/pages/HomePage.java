@@ -18,7 +18,7 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(@href, '/lines-map')]")
     private WebElement linesMapLink;
 
-    @FindBy(xpath = "//a[contains(@href, '/lines')]")
+    @FindBy(xpath = "//li[3]/a")
     private WebElement linesLink;
 
     @FindBy(xpath = "//a[contains(@href, '/live-location')]")
@@ -139,6 +139,11 @@ public class HomePage {
     public void stationsLinkIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(stationsLink));
+    }
+
+    public void linesMapLinkIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(linesMapLink));
     }
 
     public void logoutDropdownDisplayed() {
