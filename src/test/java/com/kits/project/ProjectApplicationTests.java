@@ -15,10 +15,4 @@ public class ProjectApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
-	@Bean
-	public WebDriver webDriver() {
-		return new FirefoxDriver();
-	}
-
 }

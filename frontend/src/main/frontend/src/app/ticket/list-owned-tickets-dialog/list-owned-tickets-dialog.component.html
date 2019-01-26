@@ -3,7 +3,7 @@
 
 <mat-dialog-content>
 
-    <table class="table table-striped">
+    <table id="ticketsTable" class="table table-striped">
       <thead>
       <tr>
         <th style="text-align: center; vertical-align: middle; width: 100px">Ticket Type</th>
@@ -31,5 +31,5 @@
 </div>
 
 <mat-dialog-actions>
-  <button class="btn btn-danger"(click)="close()">Close</button>
+  <button id="closeButton" class="btn btn-danger"(click)="close()">Close</button>
 </mat-dialog-actions>

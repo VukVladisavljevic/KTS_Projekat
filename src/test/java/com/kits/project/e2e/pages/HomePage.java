@@ -24,7 +24,8 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(@href, '/live-location')]")
     private WebElement liveLocationLink;
 
-    @FindBy(xpath = "//a[contains(@href, '/tickets')]")
+    //@FindBy(xpath = "//a[contains(@href, '/tickets')]")
+    @FindBy(id = "ticketsLink")
     private WebElement ticketsLink;
 
     @FindBy(xpath = "//a[contains(@href, '/showpricelist')]")
@@ -136,6 +137,11 @@ public class HomePage {
                 .until(ExpectedConditions.visibilityOf(linesLink));
     }
 
+    public void ticketsLinkIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(ticketsLink));
+    }
+
     public void stationsLinkIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(stationsLink));
@@ -154,6 +160,11 @@ public class HomePage {
     public void logoutLinkClickable() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.elementToBeClickable(signoutLink));
+    }
+
+    public void ticketLinkIsClickable() {
+        (new WebDriverWait(driver, 10))
+                 .until(ExpectedConditions.elementToBeClickable(ticketsLink));
     }
 
     public boolean adminLinksVisible(){
