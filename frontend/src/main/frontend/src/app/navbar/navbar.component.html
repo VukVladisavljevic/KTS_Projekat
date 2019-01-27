@@ -23,14 +23,14 @@
             <i class="fas fa-bus"></i>
           </a>
         </li>
+        <li id="ticketsLink" title="Tickets" class="navbar-home">
+          <a routerLink="/tickets">
+            <i class="fas fa-ticket-alt"></i>
+          </a>
+        </li>
         <li title="Live Location" class="navbar-home">
           <a routerLinkActive="active" routerLink="/live-location">
             <i class="fas fa-map-marker-alt"></i>
-          </a>
-        </li>
-        <li title="Tickets" class="navbar-home">
-          <a *ngIf="jwtService.tokenExist()" routerLink="/tickets">
-            <i class="fas fa-ticket-alt"></i>
           </a>
         </li>
         <li title="Price List">
@@ -46,6 +46,11 @@
         <li title="Stations">
           <a *ngIf="jwtService.tokenExist() && jwtService.hasRole('ADMIN')" routerLinkActive="active" routerLink="/stations">
             <i class="fas fa-stop"></i>
+          </a>
+        </li>
+        <li id="timeSchedule" title="Time Schedule">
+          <a  routerLinkActive="active" routerLink="/timetable">
+            <i class="fas fa-clock"></i>
           </a>
         </li>
         <!-- end of home option -->

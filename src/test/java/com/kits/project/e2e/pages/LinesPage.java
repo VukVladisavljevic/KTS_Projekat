@@ -169,17 +169,16 @@ public class LinesPage {
                 .until(ExpectedConditions.visibilityOf(stationSelect));
     }
 
-    public void ensureIsAdded(int previousNoOfStudents) {
-        System.out.println(previousNoOfStudents);
+    public void ensureIsAdded(int previousNumberOfLines) {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.numberOfElementsToBe(
-                        By.cssSelector("tr"), previousNoOfStudents + 1));
+                        By.cssSelector("tr"), previousNumberOfLines + 1));
     }
 
-    public void ensureIsDeleted(int previousNoOfStudents) {
+    public void ensureIsDeleted(int previousNumberOfLines) {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.invisibilityOfElementLocated(
-                        By.xpath("//tr[" + (previousNoOfStudents + 1) + "]")));
+                        By.xpath("//tr[" + (previousNumberOfLines + 1) + "]")));
     }
 
 

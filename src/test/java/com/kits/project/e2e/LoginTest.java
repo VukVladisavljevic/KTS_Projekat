@@ -8,6 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.PageFactory;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,11 @@ public class LoginTest {
 
     @Before
     public void setupSelenium() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+//        System.setProperty("webdriver.chrome.driver", "chromedriver");
+
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+
+
         browser = new ChromeDriver();
         browser.manage().window().maximize();
         browser.get("http://localhost:4200/login");

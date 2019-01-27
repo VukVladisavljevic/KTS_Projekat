@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListExistingDeparturesDialogComponent } from './list-owned-tickets-dialog';
+import { ListOwnedTicketsDialogComponent } from './list-owned-tickets-dialog';
 
-describe('ListExistingDeparturesDialogComponent', () => {
-  let component: ListExistingDeparturesDialogComponent;
-  let fixture: ComponentFixture<ListExistingDeparturesDialogComponent>;
+describe('ListOwnedTicketsDialogComponent', () => {
+  let component: ListOwnedTicketsDialogComponent;
+  let fixture: ComponentFixture<ListOwnedTicketsDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListExistingDeparturesDialogComponent ]
+      declarations: [ ListOwnedTicketsDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListExistingDeparturesDialogComponent);
+    fixture = TestBed.createComponent(ListOwnedTicketsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

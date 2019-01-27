@@ -1,6 +1,8 @@
 package com.kits.project.services.implementations;
 
 import com.kits.project.DTOs.TicketDTO;
+import com.kits.project.exception.TicketNotFoundException;
+import com.kits.project.exception.UserNotFoundException;
 import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
 import com.kits.project.model.TicketType;
@@ -38,9 +40,11 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket createOneUseTicket(TicketDTO ticketDTO) {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
+
         if(user == null) {
-            return null;
+            throw new UserNotFoundException();
         }
+
         Ticket newTicket = new Ticket(null, null, null, false);
         newTicket.setTicketType(TicketType.SINGLE);
         newTicket.setPrice(ticketDTO.price);
@@ -55,8 +59,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
         Ticket newTicket = null;
+
         if(user == null) {
-            return null;
+            throw new UserNotFoundException();
         }
 
         if(ticketDTO.ticketType.equalsIgnoreCase("monthly")) {
@@ -90,9 +95,12 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket activateTicket(TicketDTO ticketDTO) {
 
         Ticket ticket = ticketRepository.getOne(Long.valueOf(ticketDTO.id));
+
+
         if(ticket == null) {
-            return null;
+            throw new TicketNotFoundException();
         }
+
         //set to active
         ticket.setActive(true);
 
@@ -128,8 +136,9 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public List<Ticket> getOwnedTickets(String token) {
         String username = jwtUtils.getUsernameFromToken(token);
         User user = userRepository.findByUsername(username);
+
         if(user == null) {
-            return null;
+            throw new UserNotFoundException();
         }
         return user.getTickets();
     }

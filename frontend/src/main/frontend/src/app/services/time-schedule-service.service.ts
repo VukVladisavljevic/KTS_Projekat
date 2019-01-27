@@ -18,8 +18,6 @@ export class TimeScheduleService {
 
   constructor(private http:HttpClient) {}
 
-
-
   private userUrl = '/api';
 
   public getTimeSchedules() {

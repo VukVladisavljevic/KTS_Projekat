@@ -74,6 +74,8 @@ public class TimeSchedule {
 
     public TimeSchedule() {
         this.workingDaySchedule = new ArrayList<>();
+        this.saturdaySchedule = new ArrayList<>();
+        this.sundaySchedule = new ArrayList<>();
     }
 
     public TimeSchedule(Line line, Time time, Station station) {
@@ -81,6 +83,8 @@ public class TimeSchedule {
         this.time = time;
         this.station = station;
         this.workingDaySchedule = new ArrayList<>();
+        this.saturdaySchedule = new ArrayList<>();
+        this.sundaySchedule = new ArrayList<>();
     }
 
     public TimeSchedule(TimeScheduleDTO timeScheduleDTO) {
