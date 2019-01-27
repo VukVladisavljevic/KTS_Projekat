@@ -17,7 +17,7 @@ export class AddLineComponent implements OnInit {
 
   form: FormGroup;
   private lineName;
-  onAdd = new EventEmitter();
+    onAdd = new EventEmitter();
   private stations;
   private lineStations;
   private selectedStation;

@@ -38,7 +38,7 @@ public class LinesTest {
         homePage.ensureBusIsVisible();
         homePage.linesLinkIsDisplayed();
         homePage.getLinesLink().click();
-
+        assertEquals("http://localhost:4200/lines", browser.getCurrentUrl());
         linesPage.ensureIsDisplayed();
         int numberOfLines = linesPage.getLinesTableSize();
         linesPage.getAddButton().click();

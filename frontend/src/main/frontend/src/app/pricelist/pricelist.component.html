@@ -7,16 +7,16 @@
   <table class="table table-hover table-dark">
     <thead>
     <tr>
-      <th style="text-align: center; vertical-align: middle;">Start date:</th>
-      <th style="text-align: center; vertical-align: middle;">End date:</th>
-      <th style="text-align: center; vertical-align: middle;">Ticket Type::</th>
-      <th style="text-align: center; vertical-align: middle;">Price:</th>
+      <th style="text-align: center; vertical-align: middle;">Start date</th>
+      <th style="text-align: center; vertical-align: middle;">End date</th>
+      <th style="text-align: center; vertical-align: middle;">Ticket Type</th>
+      <th style="text-align: center; vertical-align: middle;">Price</th>
     </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of pricelists">
-        <td style="text-align: center; vertical-align: middle;">{{item.startDate}}</td>
-        <td style="text-align: center; vertical-align: middle;">{{item.endDate}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{item.startDate | date: 'd/M/yyyy, HH:mm'}}</td>
+        <td style="text-align: center; vertical-align: middle;">{{item.endDate | date: 'd/M/yyyy, HH:mm'}}</td>
         <td style="text-align: center; vertical-align: middle;">{{item.ticketType}}</td>
         <td style="text-align: center; vertical-align: middle;">{{item.price}}</td>
       </tr>

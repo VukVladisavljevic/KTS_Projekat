@@ -30,7 +30,10 @@ export class PricelistComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     //dialogConfig.data = _.cloneDeep(this.stations);
-    this.dialog.open(AddPricelistDialogComponent, dialogConfig);
+    let dialogRef = this.dialog.open(AddPricelistDialogComponent, dialogConfig);
+    dialogRef.componentInstance.onAdd.subscribe((line) => {
+      this.pricelists.push(line);
+    });
   }
 
 }
