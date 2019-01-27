@@ -134,6 +134,11 @@
 			<version>6.9.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>3.0.0-beta3</version>
+		</dependency>
 
 	</dependencies>
 
