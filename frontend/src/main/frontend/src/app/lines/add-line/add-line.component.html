@@ -1,3 +1,5 @@
+<toaster-container></toaster-container>
+
 <h2 mat-dialog-title>Add new line</h2>
 <hr>
 <div>
@@ -9,7 +11,7 @@
         </mat-form-field>
         <br>
         <mat-form-field>
-          <mat-select [(value)]="selectedStation" placeholder="Select station to add">
+          <mat-select [(value)]="selectedStation" name="stationSelect" placeholder="Select station to add">
             <mat-option *ngFor="let station of stations" [value]="station">
               {{station.address}}
             </mat-option>

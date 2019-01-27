@@ -23,7 +23,7 @@
             <!--<span class="glyphicon glyphicon-trash"></span>-->
           <!--</button>-->
         <!--</td>-->
-        <td *ngIf="item.ticketType === 'SINGLE' && item.active==false" style="text-align: center; vertical-align: middle;"><button class="btn btn-success" (click)="activateTicket(item)">Activate</button></td>
+        <td id="activation" *ngIf="item.ticketType === 'SINGLE' && item.active==false" style="text-align: center; vertical-align: middle;"><button class="btn btn-success" (click)="activateTicket(item)">Activate</button></td>
       </tr>
       </tbody>
     </table>

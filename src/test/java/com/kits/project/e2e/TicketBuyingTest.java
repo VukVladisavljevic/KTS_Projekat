@@ -1,7 +1,9 @@
-package com.kits.project.e2e.tickets_test;
+package com.kits.project.e2e;
 
 import com.kits.project.e2e.pages.HomePage;
 import com.kits.project.e2e.pages.LoginPage;
+import com.kits.project.e2e.pages.MainTicketsPage;
+import com.kits.project.e2e.pages.ShowOwnedTicketsPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,10 +11,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -45,72 +44,45 @@ public class TicketBuyingTest {
         loginPage.getLoginbutton().click();
         loginPage.loginAs("aa", "aa");
 
+        (new WebDriverWait(browser, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.id("ticketsLink")));
+
+        homePage.busIsDisplayed();
         homePage.ticketsLinkIsDisplayed();
         homePage.ticketLinkIsClickable();
         WebElement tickets = homePage.getTicketsLink();
-//        (new WebDriverWait(browser, 10))
-//                .until(ExpectedConditions.elementToBeClickable(tickets));
-//
-//        try {
-//            Thread.sleep(2*1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
 
         homePage.getTicketsLink().click();
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         mainTicketsPage.ensureIsListDisplayed();
         mainTicketsPage.ensureIsListingClickable();
         mainTicketsPage.getListOwnedButton().click();
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        WebDriverWait wait = new WebDriverWait(browser, 1);
 
-        int initialTicketsNumber = ownedTicketsPage.numberOfTickets(browser);
-        System.out.println(initialTicketsNumber);
+        (new WebDriverWait(browser, 10))
+                .until(ExpectedConditions.visibilityOf(
+                        ownedTicketsPage.getTicketsTable()));
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        int initialTicketsNumber = ownedTicketsPage.numberOfTickets();
 
-//        ownedTicketsPage.ensureIsCloseButtonDisplayed();
+        WebDriverWait wait2 = new WebDriverWait(browser, 1);
+
+        ownedTicketsPage.ensureIsCloseButtonDisplayed();
         ownedTicketsPage.getCloseButton().click();
-
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         mainTicketsPage.ensureIsBuyDisplayed();
         mainTicketsPage.ensureIsBuyClickable();
         mainTicketsPage.initBuying(browser, MainTicketsPage.Type.SINGLE);
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         mainTicketsPage.ensureIsBuyDisplayed();
         mainTicketsPage.ensureIsBuyClickable();
         mainTicketsPage.initBuying(browser, MainTicketsPage.Type.MONTHLY);
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         mainTicketsPage.ensureIsBuyDisplayed();
         mainTicketsPage.ensureIsBuyClickable();
         mainTicketsPage.initBuying(browser, MainTicketsPage.Type.YEARLY);
@@ -120,21 +92,18 @@ public class TicketBuyingTest {
         (new WebDriverWait(browser, 5))
                 .until(ExpectedConditions.visibilityOf(ownedTicketsPage.getTicketsTable()));
 
-        int finalTicketsNumber = ownedTicketsPage.numberOfTickets(browser);
 
-        assertEquals(finalTicketsNumber, initialTicketsNumber + 3);
+        int finalTicketsNumber = ownedTicketsPage.numberOfTickets();
+        assertEquals(initialTicketsNumber + 3, finalTicketsNumber );
 
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+
     }
 
 
 
     @After
     public void closeSelenium() {
-        browser.quit();
+     //   browser.quit();
     }
 }

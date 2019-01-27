@@ -18,7 +18,7 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(@href, '/lines-map')]")
     private WebElement linesMapLink;
 
-    @FindBy(xpath = "//a[contains(@href, '/lines')]")
+    @FindBy(xpath = "//li[3]/a")
     private WebElement linesLink;
 
     @FindBy(xpath = "//a[contains(@href, '/live-location')]")
@@ -27,6 +27,9 @@ public class HomePage {
     //@FindBy(xpath = "//a[contains(@href, '/tickets')]")
     @FindBy(id = "ticketsLink")
     private WebElement ticketsLink;
+
+    @FindBy(id = "timeSchedule")
+    private WebElement timeSchedule;
 
     @FindBy(xpath = "//a[contains(@href, '/showpricelist')]")
     private WebElement showPriceListLink;
@@ -42,6 +45,9 @@ public class HomePage {
 
     @FindBy(xpath = "//a[contains(text(),'Sign out')]")
     private WebElement signoutLink;
+
+    @FindBy(css = "img.bus")
+    private WebElement bus;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -69,6 +75,14 @@ public class HomePage {
 
     public void setShowPriceListLink(WebElement showPriceListLink) {
         this.showPriceListLink = showPriceListLink;
+    }
+
+    public WebElement getTimeScheduleLink() {
+        return timeSchedule;
+    }
+
+    public void setTimeScheduleLink(WebElement timeSchedule) {
+        this.timeSchedule = timeSchedule;
     }
 
     public WebElement getPriceListLink() {
@@ -145,6 +159,16 @@ public class HomePage {
     public void stationsLinkIsDisplayed() {
         (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.visibilityOf(stationsLink));
+    }
+
+    public void linesMapLinkIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(linesMapLink));
+    }
+
+    public void busIsDisplayed() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(bus));
     }
 
     public void logoutDropdownDisplayed() {

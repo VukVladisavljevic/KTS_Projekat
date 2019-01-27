@@ -1,4 +1,4 @@
-package com.kits.project.e2e.tickets_test;
+package com.kits.project.e2e.pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
@@ -72,12 +72,11 @@ public class MainTicketsPage {
                 .until(ExpectedConditions.visibilityOf(listOwnedButton));
     }
 
-    enum Type {
+    public enum Type {
         SINGLE, MONTHLY, YEARLY;
     }
 
     public void initBuying(WebDriver browser, Type ticketType) {
-        System.out.println("KUPUJE");
         switch (ticketType) {
             case SINGLE:
                 buyTicket(browser, "One-way ticket successfully bought! ", 0 );

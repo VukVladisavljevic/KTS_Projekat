@@ -1,4 +1,4 @@
-package com.kits.project.e2e.tickets_test;
+package com.kits.project.e2e.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,11 +17,15 @@ public class ShowOwnedTicketsPage {
     private WebElement ticketsTable;
 
 
-    @FindBy(id = "closeButton")
+    @FindBy(css = "button.btn.btn-danger")
     private WebElement closeButton;
 
     public WebElement getCloseButton() {
         return closeButton;
+    }
+
+    public ShowOwnedTicketsPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     public void setCloseButton(WebElement closeButton) {
@@ -36,10 +40,15 @@ public class ShowOwnedTicketsPage {
         this.ticketsTable = ticketsTable;
     }
 
-    public int numberOfTickets(WebDriver browser) {
-        List<WebElement> tableRows = new WebDriverWait(browser, 10)
+    public int numberOfTickets() {
+        List<WebElement> tableRows = new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ticketsTable, By.tagName("tr")));
+        return tableRows.size();
+    }
 
+    public int numberOfInactive() {
+        List<WebElement> tableRows = new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(ticketsTable, By.xpath("//*[contains(text(), 'Active')]")));
         return tableRows.size();
     }
 
