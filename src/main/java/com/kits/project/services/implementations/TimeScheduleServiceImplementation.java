@@ -51,6 +51,7 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
             selectedLine.addTimeSchedule(newTimeSchedule);
             newTimeSchedule.setLine(selectedLine);
             lineRepository.flush();
+            return newTimeSchedule;
         } else {
             TimeSchedule newTimeSchedule = selectedLine.getTimeSchedule();
             newTimeSchedule.addDeparture(departureDTO.getTime(), departureDTO.getDayOfWeek());
@@ -61,9 +62,9 @@ public class TimeScheduleServiceImplementation  implements TimeScheduleServiceIn
             selectedLine.addTimeSchedule(newTimeSchedule);
             newTimeSchedule.setLine(selectedLine);
             lineRepository.flush();
-        }
 
-        return null;
+            return newTimeSchedule;
+        }
     }
 
     @Override
