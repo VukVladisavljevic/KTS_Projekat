@@ -84,4 +84,13 @@ public class Pricelist {
         this.price = pricelistDTO.price;
         this.ticketType = pricelistDTO.ticketType;
     }
+/*
+    @Override
+    public String toString() {
+        return "{startDate:\"" + startDate +
+                "\",endDate:\"" + endDate +
+                "\",ticketType:\"" + ticketType +
+                "\",price:" + price +
+                "}";
+    }*/
 }

@@ -52,12 +52,18 @@ public class PricelistServiceImplementation implements PricelistServiceInterface
     public ArrayList<Pricelist> getCurrentPricelist(){
         //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date currentDate = new Date();
-        ArrayList<Pricelist> current = pricelistRepository.getCurrent(currentDate);
+        ArrayList<Pricelist> current = new ArrayList<Pricelist>();
+        current = pricelistRepository.getCurrent(currentDate);
         return current;
     }
 
     @Override
     public ArrayList<Pricelist> getAllPricelists(){
-        return pricelistRepository.getAll();
+        List<Pricelist> all = pricelistRepository.findAll();
+        ArrayList<Pricelist> allA = new ArrayList<>();
+        for (Pricelist p : all){
+            allA.add(p);
+        }
+        return allA;
     }
 }

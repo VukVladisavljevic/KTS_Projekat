@@ -23,4 +23,14 @@ public class PricelistDTO implements Serializable {
         this.ticketType = ticketType;
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "startDate:\"" + startDate +
+                "\",endDate:\"" + endDate +
+                "\",ticketType:\"" + ticketType +
+                "\",price:" + price +
+                '}';
+    }
 }

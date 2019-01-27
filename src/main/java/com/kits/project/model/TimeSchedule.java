@@ -74,6 +74,8 @@ public class TimeSchedule {
 
     public TimeSchedule() {
         this.workingDaySchedule = new ArrayList<>();
+        this.saturdaySchedule = new ArrayList<>();  //dodao @MGR 27.01.19
+        this.sundaySchedule = new ArrayList<>();    //dodao @MGR 27.01.19
     }
 
     public TimeSchedule(Line line, Time time, Station station) {
