@@ -57,43 +57,6 @@ export class LinesMapComponent implements OnInit {
       .then(response => {
         this.formatLines(response);
       });
-    // this.lines = [{name: 7, path: {source: {lat: 45.242036, lng: 19.842649}, destination: {lat: 45.264008, lng: 19.823417}}
-    // ,waypoints: [
-    //   {
-    //     location:{lat: 45.242036, lng: 19.842649},
-    //     stopover: false,
-    //   },
-    //   {
-    //     location:{lat: 45.252671, lng: 19.836873},
-    //     stopover: false,
-    //   },
-    //   {
-    //     location: {lat: 45.261041, lng: 19.832232},
-    //     stopover: false,
-    //   },
-    //   {
-    //     location:{lat: 45.264008, lng: 19.823417},
-    //     stopover: false,
-    //   }]
-    //   },
-    //   {name: 8, path: {source: {lat: 45.212036, lng: 19.842649}, destination: {lat: 45.204008, lng: 19.823417}},
-    //     waypoints: [
-    //       {
-    //         location:{lat: 45.212036, lng: 19.842649},
-    //         stopover: false
-    //       },
-    //       {
-    //         location:{lat: 45.222671, lng: 19.836873},
-    //         stopover: false
-    //       },
-    //       {
-    //         location:{lat: 45.231041, lng: 19.832232},
-    //         stopover: false
-    //       },
-    //       {
-    //         location:{lat: 45.204008, lng: 19.823417},
-    //         stopover: false
-    //       }]}];
   }
 
   formatLines(data) {

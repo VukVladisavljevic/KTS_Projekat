@@ -4,6 +4,7 @@ import com.kits.project.e2e.pages.CurrentPricelistPage;
 import com.kits.project.e2e.pages.HomePage;
 import com.kits.project.e2e.pages.LoginPage;
 import com.kits.project.e2e.pages.PricelistPage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
@@ -101,5 +102,10 @@ public class PricelistTest {
         currentPricelistPage.ensureIsTableVisible();
         assertEquals(currentPricelistPage.getPricelistTableSize(),numberOfCurrentPricelists+1 );
 
+    }
+
+    @After
+    public void closeSelenium() {
+        browser.quit();
     }
 }

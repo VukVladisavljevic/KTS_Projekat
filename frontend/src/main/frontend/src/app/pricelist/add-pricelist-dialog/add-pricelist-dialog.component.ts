@@ -52,9 +52,9 @@ export class AddPricelistDialogComponent implements OnInit {
     if (this.ticketType === 1){
       this.ticketType = "SINGLE";
     } else if (this.ticketType === 2) {
-      this.ticketType = "DAILY";
-    } else {
       this.ticketType = "MONTHLY";
+    } else {
+      this.ticketType = "YEARLY";
     }
 
     if (this.startDate.day < 10){

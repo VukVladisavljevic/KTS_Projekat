@@ -10,6 +10,7 @@
         <th style="text-align: center; vertical-align: middle;">Start Time</th>
         <th style="text-align: center; vertical-align: middle;">End Time</th>
 <!--        <th style="text-align: center; vertical-align: middle;">Archive Ticket</th>-->
+        <th style="text-align: center; vertical-align: middle;">Price</th>
         <th style="text-align: center; vertical-align: middle;">Activate Ticket</th>
       </tr>
       </thead>
@@ -23,7 +24,8 @@
             <!--<span class="glyphicon glyphicon-trash"></span>-->
           <!--</button>-->
         <!--</td>-->
-        <td *ngIf="item.ticketType === 'SINGLE' && item.active==false" style="text-align: center; vertical-align: middle;"><button class="btn btn-success" (click)="activateTicket(item)">Activate</button></td>
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.price}}</td>
+        <td style="text-align: center; vertical-align: middle;"><button *ngIf="item.ticketType === 'SINGLE' && item.active==false" class="btn btn-success" (click)="activateTicket(item)">Activate</button></td>
       </tr>
       </tbody>
     </table>

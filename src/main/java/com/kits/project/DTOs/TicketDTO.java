@@ -17,6 +17,8 @@ public class TicketDTO implements Serializable {
 
     public boolean active;
 
+    public double price;
+
     public TicketDTO() {}
 
     public TicketDTO(String token, String ticketType, Date startTime, Date endTime, String id, boolean active) {
