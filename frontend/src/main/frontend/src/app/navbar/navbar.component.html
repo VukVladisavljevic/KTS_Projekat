@@ -29,7 +29,7 @@
           </a>
         </li>
         <li title="Tickets" class="navbar-home">
-          <a *ngIf="jwtService.tokenExist()" routerLink="/tickets">
+          <a *ngIf="jwtService.tokenExist() && !jwtService.hasRole('ADMIN')" routerLink="/tickets">
             <i class="fas fa-ticket-alt"></i>
           </a>
         </li>

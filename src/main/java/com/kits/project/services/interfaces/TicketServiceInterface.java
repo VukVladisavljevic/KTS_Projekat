@@ -24,4 +24,6 @@ public interface TicketServiceInterface {
     public List<Ticket> getOwnedTickets(String username);
 
     public List<Ticket> getAllTickets();
+
+    public List<Ticket> getActiveTicketsForUser(String username);
 }

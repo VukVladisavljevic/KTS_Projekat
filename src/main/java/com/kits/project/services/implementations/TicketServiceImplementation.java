@@ -135,6 +135,15 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     }
 
     @Override
+    public List<Ticket> getActiveTicketsForUser(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user == null) {
+            return null;
+        }
+        return ticketRepository.getActiveTicketsForUser(user.getId());
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Ticket> getAllTickets() {
         return this.ticketRepository.findAll();

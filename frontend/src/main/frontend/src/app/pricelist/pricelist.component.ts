@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PricelistService} from '../services/pricelist-service.service';
 import {MatTableModule, MatTableDataSource, MatDialogConfig} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import * as _ from 'lodash';
 import {Pricelist} from '../models/pricelist';
 import {AddPricelistDialogComponent} from "../pricelist/add-pricelist-dialog/add-pricelist-dialog.component";
 

@@ -9,8 +9,9 @@ import {ListExistingDeparturesDialogComponent} from '../timetable/list-existing-
 import {Departure} from '../models/departure';
 import {Ticket} from '../models/ticket';
 import {ListOwnedTicketsDialogComponent} from './list-owned-tickets-dialog/list-owned-tickets-dialog';
-import {Pricelist} from "../models/pricelist";
 import {PricelistService} from "../services/pricelist-service.service";
+import {JwtService} from "../services/auth/jwt.service";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-ticket',
@@ -23,11 +24,14 @@ export class TicketComponent implements OnInit {
   ticketPrices = [];
   selectedPrice = 0;
   options = [];
+  currentUserTickets;
+  userName = "";
 
   constructor(private dialog: MatDialog,
               private router: Router,
               private ticketService: TicketsService,
-              private pricelistService: PricelistService) {
+              private pricelistService: PricelistService,
+              protected jwtService: JwtService) {
 
   }
 
@@ -35,10 +39,10 @@ export class TicketComponent implements OnInit {
   ngOnInit() {
     this.pricelistService.getCurrentPricelist()
       .then(response => {
-        this.ticketPrices = response.map((item) => {
+        this.ticketPrices = _.map(response, (item) => {
           return {type:item.ticketType, price: item.price};
         })
-        this.options = response.map((item) => {
+        this.options = _.map(response, (item) => {
           if (item.ticketType === 'SINGLE') {
               return {name: "One Use", value: "One Use"};
           } else if (item.ticketType === 'MONTHLY') {
@@ -112,6 +116,17 @@ export class TicketComponent implements OnInit {
     this.ticketService.buyMultipleUseTicket(ticket)
       .then(response => {
         alert("Yearly ticket successfully bought! ");
+      });
+  }
+
+  checkUserActiveTickets() {
+    console.log(this.userName);
+    this.ticketService.getUserActiveTickets(this.userName)
+      .then((response) => {
+        this.currentUserTickets = response;
+        if(!response || response===[] ){
+          alert("User not found!")
+        }
       });
   }
 

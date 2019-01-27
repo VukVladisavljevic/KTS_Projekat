@@ -61,6 +61,17 @@ public class TicketController {
         return new ResponseEntity<ArrayList<Ticket>>(ticketsList, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/active-tickets/{username}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Ticket>> getActiveTicketForUser( @PathVariable String username ){
+        System.out.println(username);
+        List<Ticket> tickets = ticketService.getActiveTicketsForUser(username);
+        if(tickets==null) {
+            return null;
+        }
+        return new ResponseEntity<List<Ticket>>(tickets, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/ticket/{id}", method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> archiveTicket(@PathVariable String id) {

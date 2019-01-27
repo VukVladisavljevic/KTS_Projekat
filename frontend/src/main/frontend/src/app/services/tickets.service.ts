@@ -16,6 +16,11 @@ export class TicketsService {
     return this.http.get("http://localhost:8080/api/ticket/"+token).toPromise();
   }
 
+  public getUserActiveTickets(token: String) {
+    return this.http.get("http://localhost:8080/api/active-tickets/"+token).toPromise();
+  }
+
+
   public buyOneWayTicket(ticket: Ticket) {
     return this.http.post<Ticket>("http://localhost:8080/api/ticket/create", ticket).toPromise();
   }

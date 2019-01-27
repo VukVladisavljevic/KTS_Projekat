@@ -1,4 +1,5 @@
 <div class="container">
+  <div *ngIf="jwtService.tokenExist() && jwtService.hasRole('USER')">
   <h1>Buy ticket</h1>
 
   <form>
@@ -20,4 +21,31 @@
     </div>
 
   </form>
+  </div>
+  <div *ngIf="jwtService.tokenExist() && jwtService.hasRole('CONTROLLER')">
+    <h1>Check users tickets</h1>
+    <form>
+      <mat-form-field>
+        <input matInput [(ngModel)]="userName" name="age" placeholder="Enter user name" required>
+      </mat-form-field>
+      <button (click)="checkUserActiveTickets()" [disabled]="!userName.length" class="btn btn-light">Check</button>
+    </form>
+
+    <table class="table table-hover table-dark">
+      <thead>
+      <tr>
+        <th style="text-align: center; vertical-align: middle; width: 100px">Ticket Type</th>
+        <th style="text-align: center; vertical-align: middle;">Start Time</th>
+        <th style="text-align: center; vertical-align: middle;">End Time</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of currentUserTickets; index as i">
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.ticketType}}</td>
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.startTime | date: 'd/M/yyyy, HH:mm'}}</td>
+        <td style=" text-align: center; vertical-align: middle; width: 100px">{{item.endTime | date: 'd/M/yyyy, HH:mm'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

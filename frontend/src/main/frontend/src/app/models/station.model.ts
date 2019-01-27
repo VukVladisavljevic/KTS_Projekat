@@ -1,5 +1,4 @@
 import {Deserializable} from './deserializable';
-import * as _ from 'lodash';
 
 export class StationModel implements Deserializable{
 

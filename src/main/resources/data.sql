@@ -7,6 +7,8 @@
 
 -- INSERT INTO users (ID, USERNAME, PASSWORD, CONFIRMED, EMAIL, LAST_NAME, ACTIVATION_ID, FIRST_NAME) VALUES (1, 'user', '$2a$10$9AG/inYS7fWOHPhxQCtd0Og2gVYnbhwFBUsHaAOek5QAKSQtWItRC', TRUE, 'kwhshocker@gmail.com', 'aa', 'HSAHA','aa')
 -- INSERT INTO account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) VALUES (55, 1, 2)
+-- INSERT INTO users (ID, USERNAME, PASSWORD, CONFIRMED, EMAIL, LAST_NAME, ACTIVATION_ID, FIRST_NAME) VALUES (2, 'controller', '$2a$10$9AG/inYS7fWOHPhxQCtd0Og2gVYnbhwFBUsHaAOek5QAKSQtWItRC', TRUE, 'kwhshocker@gmail.com', 'aa', 'HSAHA','aa')
+-- INSERT INTO account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) VALUES (56, 2, 3)
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (4, 'Bulevar Oslobodjenja' 45.264008, 19.823417, '8')
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (5, 'Bulevar Oslobodjenja' 45.252671, 19.836873, '9')
 -- INSERT INTO station(ID, ADDRESS, LAT, LNG, NAME) VALUES (6, 'Bulevar Oslobodjenja' 45.261041, 19.832232, '10')
@@ -23,4 +25,4 @@
 --insert into tickets(user_id, start_time, end_time, ticket_Type, active) values(789, '2018-4-6', '2018-4-6', "SINGLE", TRUE)
 
 
---SELECT * FROM authority;
+SELECT * FROM authority;

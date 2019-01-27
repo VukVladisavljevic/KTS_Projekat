@@ -8,7 +8,6 @@ import { MatFormFieldModule, MatOptionModule, MatSelectModule } from
 import {LinesMapService} from './lines-map.service';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import * as _ from 'lodash';
 
 declare var google: any;
 @Component({
