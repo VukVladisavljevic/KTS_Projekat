@@ -107,7 +107,7 @@ import { ControllerGuard } from './shared/guards/controller.guard';
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyB5962qUqQAApnfyP0ZcQxoAL7fa1TgzRw' }),
+    AgmCoreModule.forRoot({apiKey: 'api' }),
     AgmDirectionModule,
     MatOptionModule,
     MatSelectModule,
