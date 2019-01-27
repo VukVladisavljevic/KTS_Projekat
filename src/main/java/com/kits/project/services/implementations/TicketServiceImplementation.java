@@ -47,7 +47,7 @@ public class TicketServiceImplementation implements TicketServiceInterface {
 
         Ticket newTicket = new Ticket(null, null, null, false);
         newTicket.setTicketType(TicketType.SINGLE);
-
+        newTicket.setPrice(ticketDTO.price);
         user.addTicket(newTicket);
         userRepository.flush();
         ticketRepository.save(newTicket);
@@ -58,7 +58,7 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public Ticket createMultipleUseTicket(TicketDTO ticketDTO) {
         String username = jwtUtils.getUsernameFromToken(ticketDTO.token);
         User user = userRepository.findByUsername(username);
-        Ticket newTicket;
+        Ticket newTicket = null;
 
         if(user == null) {
             throw new UserNotFoundException();
@@ -84,7 +84,7 @@ public class TicketServiceImplementation implements TicketServiceInterface {
         } else {
             return null;
         }
-
+        newTicket.setPrice(ticketDTO.price);
         user.addTicket(newTicket);
         userRepository.flush();
         ticketRepository.save(newTicket);

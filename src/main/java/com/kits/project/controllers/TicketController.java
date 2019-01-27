@@ -51,7 +51,9 @@ public class TicketController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArrayList<Ticket>> getTicketsOwned( @PathVariable String token ){
         List<Ticket> tickets = ticketService.getOwnedTickets(token);
-
+        if(tickets==null) {
+            tickets = new ArrayList<>();
+        }
         ArrayList<Ticket> ticketsList = new ArrayList<Ticket>();
         for (Ticket t : tickets){
             ticketsList.add(t);

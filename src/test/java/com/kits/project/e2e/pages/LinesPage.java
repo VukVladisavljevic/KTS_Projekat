@@ -128,7 +128,7 @@ public class LinesPage {
 
     public void ensureIsAddDialogDisplayed() {
         (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOf(addLineButton));
+                .until(ExpectedConditions.visibilityOf(this.driver.findElement(By.xpath("//td[2]/button"))));
     }
 
     public void ensureIsLineNameDisplayed() {

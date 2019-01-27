@@ -191,6 +191,10 @@ public class HomePage {
                  .until(ExpectedConditions.elementToBeClickable(ticketsLink));
     }
 
+    public void ensureBusIsVisible() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(bus));
+    }
     public boolean adminLinksVisible(){
         try {
             this.getStationsLink().isEnabled();

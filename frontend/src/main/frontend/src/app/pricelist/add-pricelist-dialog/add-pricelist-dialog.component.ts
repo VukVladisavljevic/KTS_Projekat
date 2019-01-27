@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PricelistService} from '../../services/pricelist-service.service';
@@ -18,6 +18,7 @@ export class AddPricelistDialogComponent implements OnInit {
   public endDate;
   public ticketType;
   private price;
+  onAdd = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -51,9 +52,9 @@ export class AddPricelistDialogComponent implements OnInit {
     if (this.ticketType === 1){
       this.ticketType = "SINGLE";
     } else if (this.ticketType === 2) {
-      this.ticketType = "DAILY";
-    } else {
       this.ticketType = "MONTHLY";
+    } else {
+      this.ticketType = "YEARLY";
     }
 
     if (this.startDate.day < 10){
@@ -82,13 +83,15 @@ export class AddPricelistDialogComponent implements OnInit {
     this.pricelistService.addPricelist(prl)
       .then(response => {
           if (response == null){
-            alert("Greska");
+            alert("Pricelist for picked data range already exists!");
+            return;
           } else {
+            this.onAdd.emit(response);
             alert("Pricelist successfully added.");
+            this.dialogRef.close(this.form.value);
           }
       });
 
-    this.dialogRef.close(this.form.value);
   }
 
 

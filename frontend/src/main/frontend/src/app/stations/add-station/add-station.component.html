@@ -17,7 +17,7 @@
     <p>Latitude: {{latitude}}</p>
     <br>
     <br>
-    <button md-button style="margin-top: 20px; width: 100%;" class="btn btn-primary" type="button" (click)="addStation()" [disabled]="!stationName.length && !stationAddress.length">
+    <button md-button style="margin-top: 20px; width: 100%;" class="btn btn-primary" type="button" (click)="addStation()" [disabled]="!stationName.length || !stationAddress.length">
       Add station
     </button>
   </mat-dialog-content>

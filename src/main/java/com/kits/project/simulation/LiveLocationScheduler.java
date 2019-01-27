@@ -48,9 +48,11 @@ public class LiveLocationScheduler {
     public void reportCurrentTime() {
         List<TimeSchedule> schedules = timeScheduleRepository.findCurrentDepartures();
         ArrayList<TransportDTO> allTransporters = new ArrayList<TransportDTO>();
+        System.out.println("SCHEDULES SIZE:" + schedules.size());
         for(TimeSchedule t : schedules) {
             Transport transport = t.getTransport();
             LineStationsOrder nextStation = lineStationsRepository.findNextStation(t.getLine().getIdLine(), transport.getStationOrder() + 1);
+            System.out.println("TRANSPORT STATION:"+t.getTransport().getStationOrder());
             if(nextStation==null){
                 LineStationsOrder firstStation = lineStationsRepository.findNextStation(t.getLine().getIdLine(), 0);
                 transport.setStation(firstStation.getStation());
@@ -64,6 +66,7 @@ public class LiveLocationScheduler {
             allTransporters.add(new TransportDTO(transport.getId(), t.getLine().getIdLine(), transport.getStation()));
             transportRepository.save(transport);
         }
+        System.out.println("SIZE:" + allTransporters.size());
         template.convertAndSend("/live-location", allTransporters);
     }
 }

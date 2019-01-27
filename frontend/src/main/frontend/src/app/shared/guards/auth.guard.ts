@@ -8,6 +8,8 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private jwtService: JwtService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    console.log(route);
+    console.log(state.url);
     if(this.jwtService.tokenExist() && !this.jwtService.isTokenExpired())
       return true;
 

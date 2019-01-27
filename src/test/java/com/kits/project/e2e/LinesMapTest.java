@@ -32,6 +32,7 @@ public class LinesMapTest {
 
     @Test
     public void showLinesOnMapTest() {
+        homePage.ensureBusIsVisible();
         homePage.linesMapLinkIsDisplayed();
         homePage.getLinesMapLink().click();
         linesPage.lineSelectDisplayed();

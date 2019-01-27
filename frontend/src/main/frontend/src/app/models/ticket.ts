@@ -6,6 +6,7 @@ export class Ticket{
   startTime: Date;
   endTime: Date;
   active: boolean;
+  price: number;
 
   constructor (token: string, ticketType: string, startTime: Date, endTime: Date, id: string, activated: boolean) {
     this.token = token;

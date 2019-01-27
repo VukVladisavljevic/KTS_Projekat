@@ -6,14 +6,14 @@
     <br>
 
     <div class="form-group">
-      <label for="ticketType">Ticket Type</label>
-      <select class="form-control" id="ticketType" [(ngModel)]="selectedOption" name="Monthly" required>
+      <label for="ticketType">Ticket Type </label>
+      <select class="form-control" id="ticketType" (change)="onChange($event)" [(ngModel)]="selectedOption" name="Monthly" required>
         <option *ngFor="let o of options">
           {{o.name}}
         </option>
       </select>
     </div>
-
+    <label>Price: {{selectedPrice}}</label>
     <div>
       <button id="buyButton" (click)="buyTicket()" type="submit" class="btn btn-success">Buy Selected</button>
       <button id="listingButton" (click)="openOwnedTicketsDialog()" class="btn btn-light">Show Owned</button>

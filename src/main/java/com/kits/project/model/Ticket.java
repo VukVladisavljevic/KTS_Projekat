@@ -35,6 +35,9 @@ public class Ticket {
     @Column
     private boolean active;
 
+    @Column
+    private double price;
+
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
 
@@ -97,5 +100,13 @@ public class Ticket {
 
     public TicketType getTicketType() {
         return ticketType;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
