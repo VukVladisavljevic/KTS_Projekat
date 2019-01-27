@@ -1,6 +1,8 @@
 package com.kits.project.unit;
 
 import com.kits.project.DTOs.TicketDTO;
+import com.kits.project.exception.TicketNotFoundException;
+import com.kits.project.exception.UserNotFoundException;
 import com.kits.project.model.Ticket;
 import com.kits.project.model.TicketType;
 import com.kits.project.model.User;
@@ -27,6 +29,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,21 +51,39 @@ public class TicketServiceTest {
     public void setUp() {
         User u = new User("username", "password", "name", "last name");
         ArrayList<Ticket> tickets = new ArrayList<>();
-        Ticket ticket1 = new Ticket(u, new Date(), new Date(), false);
+        Ticket ticket4 = new Ticket(u, new Date(), new Date(), false);
         Ticket ticket2 = new Ticket(u, new Date(), new Date(), true);
         Ticket ticket3 = new Ticket(u, new Date(), new Date(), true);
-        ticket1.setId(1L);
-        tickets.add(ticket1);
+        ticket4.setId(4L);
+        tickets.add(ticket4);
         tickets.add(ticket2);
         tickets.add(ticket3);
         u.setTickets(tickets);
-        ticket1.setUser(u);
+        ticket4.setUser(u);
         Mockito.when(userRepository.findByUsername("username")).thenReturn(u);
-        Mockito.when(ticketRepository.getOne(1L)).thenReturn(ticket1);
-        Mockito.when(ticketRepository.getOne(1L)).thenReturn(ticket1);
+        Mockito.when(ticketRepository.getOne(4L)).thenReturn(ticket4);
         Mockito.when(jwtUtils.getUsernameFromToken("token")).thenReturn("username");
-        Mockito.when(jwtUtils.getUsernameFromToken("token1")).thenReturn(null);
-        Mockito.when(ticketRepository.save(Mockito.any(Ticket.class))).thenReturn(ticket1);
+        Mockito.when(jwtUtils.getUsernameFromToken("token-invalid")).thenReturn("null");
+        Mockito.when(ticketRepository.save(Mockito.any(Ticket.class))).thenReturn(ticket4);
+
+        //successful oneWay ticket buy
+        User user1 = new User();
+        user1.setUsername("user1");
+
+        Ticket ticket1 = new Ticket();
+        ticket1.setId(1L);
+        Mockito.when(ticketRepository.getOne(1L)).thenReturn(ticket1);
+
+        user1.addTicket(ticket1);
+
+        Mockito.when(jwtUtils.getUsernameFromToken("token1")).thenReturn("user1");
+        Mockito.when(userRepository.findByUsername("user1")).thenReturn(user1);
+
+
+        //unsuccesful
+        Mockito.when(jwtUtils.getUsernameFromToken("token2-fail")).thenReturn(null);
+        Mockito.when(ticketRepository.getOne(2L)).thenReturn(null);
+
 
     }
 
@@ -84,151 +105,181 @@ public class TicketServiceTest {
         verify(userRepository, times(1)).findByUsername("username");
     }
 
-    @Test
+    @Test(expected = UserNotFoundException.class)
     public void getOwnedTicketsWrongTokenTest() {
-        List<Ticket> result = ticketService.getOwnedTickets("token1");
+        List<Ticket> result = ticketService.getOwnedTickets("token-invalid");
         assertEquals(result, null);
-        verify(jwtUtils, times(1)).getUsernameFromToken("token1");
-        verify(userRepository, times(1)).findByUsername(null);
+        verify(jwtUtils, times(1)).getUsernameFromToken("token-invalid");
+        verify(userRepository, times(1)).findByUsername(Mockito.any(String.class));
     }
 
     @Test
     public void archiveTicketTest() {
-        boolean result = ticketService.archiveTicket("1");
+        boolean result = ticketService.archiveTicket("4");
         assertEquals(result, true);
         verify(userRepository, times(1)).flush();
-        verify(ticketRepository, times(1)).getOne(1L);
+        verify(ticketRepository, times(1)).getOne(4L);
     }
 
     @Test
     public void activateTicketTest() {
-        TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "1", false);
+        TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "4", false);
         Ticket result= ticketService.activateTicket(dto);
         assertEquals(result.isActive(), true);
-        assertEquals(result.getId(), (Long)1L);
+        assertEquals(result.getId(), (Long)4L);
         verify(ticketRepository, times(1)).save(Mockito.any(Ticket.class));
-        verify(ticketRepository, times(1)).getOne(1L);
+        verify(ticketRepository, times(1)).getOne(4L);
     }
 
-    @Test
-    public void activateTicketNullTest() {
+    @Test(expected = TicketNotFoundException.class)
+    public void activateTicketNullPointer() {
         TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "2", false);
         Ticket result= ticketService.activateTicket(dto);
-        assertEquals(result, null);
+        verify(ticketRepository, times(1)).getOne(2L);
+    }
+
+    @Test(expected = TicketNotFoundException.class)
+    public void createMultipleUseTicketsTest() {
+        TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "2", false);
+        Ticket result= ticketService.activateTicket(dto);
         verify(ticketRepository, times(1)).getOne(2L);
     }
 
     @Test
-    public void createOneUseTicketTest() {
-        TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createOneUseTicket(dto);
-        assertEquals(result.getTicketType(), TicketType.SINGLE);
-        assertEquals(result.getStartTime(), null);
-        assertEquals(result.getEndTime(), null);
-        assertEquals(result.isActive(), false);
-        verify(jwtUtils, times(1)).getUsernameFromToken("token");
-        verify(ticketRepository, times(1)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername("username");
-        verify(userRepository, times(1)).flush();
+    public void successfulOneUseTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token1";
+
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(ticketDTO.token);
+        assertEquals(ticketsOwned.size(), 1);
+
+        Ticket ticketBought = ticketService.createOneUseTicket(ticketDTO);
+        assertEquals(ticketBought.getUser().getUsername(), "user1");
+        assertEquals(ticketBought.getTicketType(), TicketType.SINGLE);
+
+        assertEquals(ticketsOwned.size(), 2);
     }
 
+    //pokusaj kupovine karte od strane nepostojeceg korisnika
+    @Test(expected = UserNotFoundException.class)
+    public void unsuccessfulOneUseTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token2";
+        Ticket ticketBought = ticketService.createOneUseTicket(ticketDTO);
+        //assertEquals(ticketBought.getUser().getUsername(), "user1");
+    }
+
+    //uspesna kupovina mesecne karte
     @Test
-    public void createOneUseTicketUserNotFoundTest() {
-        TicketDTO dto = new TicketDTO("token1", "monthly", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createOneUseTicket(dto);
-        assertEquals(result, null);
-        verify(jwtUtils, times(1)).getUsernameFromToken("token1");
-        verify(ticketRepository, times(0)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername(null);
-        verify(userRepository, times(0)).flush();
+    public void successfulMonthlyTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token1";
+        ticketDTO.ticketType = "monthly";
+
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(ticketDTO.token);
+        assertEquals(ticketsOwned.size(), 1);
+
+        Ticket ticketBought = ticketService.createMultipleUseTicket(ticketDTO);
+        assertEquals(ticketBought.getUser().getUsername(), "user1");
+        assertEquals(ticketBought.getTicketType(), TicketType.MONTHLY);
+
+        assertEquals(ticketsOwned.size(), 2);
     }
 
+    //pokusaj kupovine mesecne karte od strane nepostojeceg korisnika
+    @Test(expected = UserNotFoundException.class)
+    public void unsuccessfulMonthlyTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token2-fail";
+        ticketDTO.ticketType = "yearly";
+
+        Ticket ticketBought = ticketService.createMultipleUseTicket(ticketDTO);
+
+    }
+
+    //uspesna kupovina godisnje karte
     @Test
-    public void createMultipleUseTicketUserNotFoundTest() {
-        TicketDTO dto = new TicketDTO("token1", "monthly", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createMultipleUseTicket(dto);
-        assertEquals(result, null);
-        verify(jwtUtils, times(1)).getUsernameFromToken("token1");
-        verify(ticketRepository, times(0)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername(null);
-        verify(userRepository, times(0)).flush();
+    public void successfulYearlyTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token1";
+        ticketDTO.ticketType = "yearly";
+
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(ticketDTO.token);
+        assertEquals(ticketsOwned.size(), 1);
+
+        Ticket ticketBought = ticketService.createMultipleUseTicket(ticketDTO);
+        assertEquals(ticketBought.getUser().getUsername(), "user1");
+        assertEquals(ticketBought.getTicketType(), TicketType.YEARLY);
+
+        assertEquals(ticketsOwned.size(), 2);
     }
 
+    //pokusaj kupovine godisnje karte od strane nepostojeceg korisnika
+    @Test(expected = UserNotFoundException.class)
+    public void unsuccessfulYearlyTicketBuy() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token2-fail";
+        ticketDTO.ticketType = "yearly";
+
+        Ticket ticketBought = ticketService.createMultipleUseTicket(ticketDTO);
+
+    }
+
+    //pokusaj kupovine karte neodgovarajuceg tipa
+    @Test(expected = UserNotFoundException.class)
+    public void invalidTicketTypePassed() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.token = "token2";
+        ticketDTO.ticketType = "invalid";
+
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(ticketDTO.token);
+        assertEquals(ticketsOwned.size(), 1);
+
+        Ticket ticketBought = ticketService.createMultipleUseTicket(ticketDTO);
+        assertNull(ticketBought);
+
+        assertEquals(ticketsOwned.size(), 1);
+    }
+
+    //uspesna aktivacija karte
     @Test
-    public void createMultipleUseTicketDailyTicketTest() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        Calendar now = Calendar.getInstance();
-        Calendar tomorrow = Calendar.getInstance();
-        TicketDTO dto = new TicketDTO("token", "daily", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createMultipleUseTicket(dto);
-        start.setTime(result.getStartTime());
-        end.setTime(result.getEndTime());
-        tomorrow.add(Calendar.DATE, 1);
+    public void successfulTicketActivation() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.id = "1";
 
-        assertEquals(result.getTicketType(), TicketType.DAILY);
-        assertEquals(now.getTime().getDate(), start.getTime().getDate());
-        assertEquals(tomorrow.getTime().getDate(), end.getTime().getDate());
-        assertEquals(result.isActive(), false);
+        Ticket ticketBeforeActivation = ticketRepository.getOne(1L);
+        assertNull(ticketBeforeActivation.getEndTime(), null);
+        assertNull(ticketBeforeActivation.getStartTime(), null);
+        assertFalse(ticketBeforeActivation.isActive());
 
-        verify(jwtUtils, times(1)).getUsernameFromToken("token");
-        verify(ticketRepository, times(1)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername("username");
-        verify(userRepository, times(1)).flush();
+        Ticket ticketBought = ticketService.activateTicket(ticketDTO);
+        assertNotNull(ticketBought.getStartTime());
+        assertNotNull(ticketBought.getEndTime());
+        assertTrue(ticketBought.isActive());
     }
 
+    //pokusaj aktivacije nepostojece karte
+    @Test(expected = TicketNotFoundException.class)
+    public void unsuccessfulTicketActivation() {
+        TicketDTO ticketDTO = new TicketDTO();
+        ticketDTO.id = "2";
+        ticketService.activateTicket(ticketDTO);
+    }
+
+    //citanje svih postojecih karata za korisnika
     @Test
-    public void createMultipleUseTicketYearTicketTest() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        Calendar now = Calendar.getInstance();
-        Calendar tomorrow = Calendar.getInstance();
-        TicketDTO dto = new TicketDTO("token", "yearly", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createMultipleUseTicket(dto);
-        start.setTime(result.getStartTime());
-        end.setTime(result.getEndTime());
-        tomorrow.add(Calendar.DATE, 365);
+    public void successfulOwnedTicketsReading() {
+        String token = "token1";
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(token);
 
-        assertEquals(result.getTicketType(), TicketType.YEARLY);
-        assertEquals(now.getTime().getDate(), start.getTime().getDate());
-        assertEquals(tomorrow.getTime().getDate(), end.getTime().getDate());
-        assertEquals(result.isActive(), false);
-
-        verify(jwtUtils, times(1)).getUsernameFromToken("token");
-        verify(ticketRepository, times(1)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername("username");
-        verify(userRepository, times(1)).flush();
+        assertEquals(ticketsOwned.size(), 1);
     }
 
-    @Test
-    public void createMultipleUseTicketMonthlyTicketTest() {
-        Calendar start = Calendar.getInstance();
-        Calendar end = Calendar.getInstance();
-        Calendar now = Calendar.getInstance();
-        Calendar tomorrow = Calendar.getInstance();
-        TicketDTO dto = new TicketDTO("token", "monthly", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createMultipleUseTicket(dto);
-        start.setTime(result.getStartTime());
-        end.setTime(result.getEndTime());
-        tomorrow.add(Calendar.DATE, 30);
-
-        assertEquals(result.getTicketType(), TicketType.MONTHLY);
-        assertEquals(now.getTime().getDate(), start.getTime().getDate());
-        assertEquals(tomorrow.getTime().getDate(), end.getTime().getDate());
-        assertEquals(result.isActive(), false);
-
-        verify(jwtUtils, times(1)).getUsernameFromToken("token");
-        verify(ticketRepository, times(1)).save(Mockito.any(Ticket.class));
-        verify(userRepository, times(1)).findByUsername("username");
-        verify(userRepository, times(1)).flush();
+    //pokusaj citanja karata od strane nepostojeceg korisnika
+    @Test(expected = UserNotFoundException.class)
+    public void unsuccessfulOwnedTicketsReading() {
+        String token = "token2-fail";
+        List<Ticket> ticketsOwned = ticketService.getOwnedTickets(token);
     }
 
-    @Test
-    public void createMultipleUseTicketWrongTicketTypeTest() {
-        TicketDTO dto = new TicketDTO("token", "single", new Date(), new Date(), "2", false);
-        Ticket result= ticketService.createMultipleUseTicket(dto);
-        assertEquals(result, null);
-        verify(jwtUtils, times(1)).getUsernameFromToken("token");
-        verify(userRepository, times(1)).findByUsername("username");
-    }
 }

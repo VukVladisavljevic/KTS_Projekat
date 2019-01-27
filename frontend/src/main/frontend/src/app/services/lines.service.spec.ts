@@ -1,12 +1,93 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LinesService } from './lines.service';
+import {HttpClient} from '@angular/common/http';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {Departure} from '../models/departure';
+import {LineModel} from '../models/line.model';
 
 describe('LinesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let linesService: LinesService;
+  let http: HttpClient;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [LinesService]
+    });
+
+    linesService = TestBed.get(LinesService);
+    http = TestBed.get(HttpClient);
+    httpMock = TestBed.get(HttpTestingController);
+  });
+
+
+  afterEach(() => {
+    httpMock.verify();
+  });
 
   it('should be created', () => {
-    const service: LinesService = TestBed.get(LinesService);
-    expect(service).toBeTruthy();
+    expect(linesService).toBeTruthy();
   });
+
+
+  fit('should add one line', () => {
+
+    const line: LineModel = new LineModel("A1", null);
+
+    linesService.addLine(line).then(data => {
+      expect(data.name).toBe(line.name);
+    });
+
+    const urlPath = "http://localhost:8080/api/line/create";
+    const req = httpMock.expectOne({ method: 'POST', url: urlPath });
+    expect(req.request.method).toBe('POST');
+    // const retValAdd = {
+    //   "time":"22:00",
+    //   "dayOfWeek":"1",
+    //   "lineName":"A1"
+    // };
+    // req.flush(retValAdd);
+    httpMock.verify();
+
+  });
+
+
+  fit('should get all lines', () => {
+
+    linesService.getLines().then(response => {
+      expect(response).toBe(!null);
+    });
+
+    const urlPath = "http://localhost:8080/api/lines";
+    const req = httpMock.expectOne({ method: 'GET', url: urlPath });
+    expect(req.request.method).toBe('GET');
+
+    httpMock.verify();
+  });
+
+
+
+
+  fit('should delete line', () => {
+    const line = {
+      "idLine":0
+    };
+
+    linesService.deleteLine( line).then(response => {
+       expect(response).toBe(!null);
+    });
+
+
+    const urlPath = "http://localhost:8080/api/line/0";
+    const req = httpMock.expectOne({ method: 'DELETE', url: urlPath });
+    expect(req.request.method).toBe('DELETE');
+
+
+    httpMock.verify();
+
+  });
+
 });
+
