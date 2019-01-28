@@ -137,7 +137,7 @@ public class PricelistServiceTest {
         ArrayList<Pricelist> result = priceListService.getCurrentPricelist();
         assertEquals(result.size(), 1);
         assertEquals(result.get(0).getTicketType(), TicketType.MONTHLY);
-        verify(pricelistRepository, times(1)).getCurrent(new Date());
+        verify(pricelistRepository, times(1)).getCurrent(Mockito.any(Date.class));
     }
 
     @Test
