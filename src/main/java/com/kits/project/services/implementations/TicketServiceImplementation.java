@@ -157,4 +157,16 @@ public class TicketServiceImplementation implements TicketServiceInterface {
     public List<Ticket> getAllTickets() {
         return this.ticketRepository.findAll();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getAllTicketsBetween(Date startDate, Date endDate) {
+        return this.ticketRepository.findAllByStartTimeIsBetween(startDate, endDate);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Ticket> getAllTypeTicketsBetween(Date startDate, Date endDate, TicketType ticketType) {
+        return this.ticketRepository.findAllByStartTimeIsBetweenAndTicketType(startDate, endDate, ticketType);
+    }
 }

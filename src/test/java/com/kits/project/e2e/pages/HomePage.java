@@ -46,6 +46,9 @@ public class HomePage {
     @FindBy(xpath = "//a[contains(text(),'Sign out')]")
     private WebElement signoutLink;
 
+    @FindBy(xpath = "//a[contains(text(), 'Dashboard')]")
+    private WebElement dashboardLink;
+
     @FindBy(css = "img.bus")
     private WebElement bus;
 
@@ -139,6 +142,14 @@ public class HomePage {
 
     public void setLogoutDropdown(WebElement logoutDropdown) {
         this.logoutDropdown = logoutDropdown;
+    }
+
+    public WebElement getDashboardLink() {
+        return dashboardLink;
+    }
+
+    public void setDashboardLink(WebElement dashboardLink) {
+        this.dashboardLink = dashboardLink;
     }
 
     public void priceListLinkIsDisplayed() {

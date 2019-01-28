@@ -1,13 +1,11 @@
 package com.kits.project.services.interfaces;
 
 
-import com.kits.project.DTOs.StationDTO;
 import com.kits.project.DTOs.TicketDTO;
-import com.kits.project.model.Station;
 import com.kits.project.model.Ticket;
-import org.springframework.stereotype.Service;
+import com.kits.project.model.TicketType;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,4 +24,8 @@ public interface TicketServiceInterface {
     public List<Ticket> getAllTickets();
 
     public List<Ticket> getActiveTicketsForUser(String username);
+
+    public List<Ticket> getAllTicketsBetween(Date startDate, Date endDate);
+
+    public List<Ticket> getAllTypeTicketsBetween(Date startDate, Date endDate, TicketType ticketType);
 }
