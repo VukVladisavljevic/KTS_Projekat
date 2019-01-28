@@ -40,7 +40,8 @@ public class RegistrationTest {
 
     @Test
     public void registerTest() {
-        registerPage.registerAs("Luka", "Bilic", "testmail@gmail.com", "test", "test1", "test1");
+        registerPage.registerAs("Luka", "Bilic", "testmail@gmail.com", "test1", "test1", "test1");
+        homePage.busIsDisplayed();
         assertEquals("http://localhost:4200/home", browser.getCurrentUrl());
 
     }

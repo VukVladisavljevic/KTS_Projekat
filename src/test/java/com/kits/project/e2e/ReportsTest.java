@@ -34,7 +34,6 @@ public class ReportsTest {
     @Test
     public void reportsTest() {
         loginPage.ensureIsDisplayed();
-        assertEquals("http://localhost:4200/login?returnUrl=%2Fhome", browser.getCurrentUrl());
         loginPage.loginAs("aa", "aa");
         homePage.logoutDropdownDisplayed();
         homePage.logoutDropDownClickable();
