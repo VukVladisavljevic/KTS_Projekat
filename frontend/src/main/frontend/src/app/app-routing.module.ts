@@ -22,12 +22,14 @@ import { AnonymousGuard } from './shared/guards/anonymous.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
 import { ControllerGuard } from './shared/guards/controller.guard';
 import { JwtService } from './services/auth/jwt.service';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent, canActivate: [AnonymousGuard]},
   { path: 'register', component: RegistrationComponent, canActivate: [AnonymousGuard]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'timetable', component: TimetableComponent },
   { path: 'tickets', component: TicketComponent},
   { path: 'addpricelist', component: AddPricelistDialogComponent, canActivate: [AdminGuard, ControllerGuard]},

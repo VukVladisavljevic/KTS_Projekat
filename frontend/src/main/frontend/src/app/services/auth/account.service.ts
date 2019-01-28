@@ -1,7 +1,7 @@
 
 import {throwError as observableThrowError, Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Account} from "../../models/account";
 import {JwtToken} from "../../models/jwt-token";
 // errors
@@ -41,8 +41,9 @@ export class AccountService {
     return observableThrowError(new AppError(response));
   }
 
-  public getCurrentUser(){
-    return this.http.get('http://localhost:8080/api/current_user');
+  public getCurrentUser(username : String){
+    let head = new HttpHeaders({"Authentication-Token" : this.jwtService.getToken()});
+    return this.http.get('http://localhost:8080/api/current_user/' + username, {headers: head});
   }
 
   public changePassword(passwordChange){
@@ -50,7 +51,7 @@ export class AccountService {
   }
 
   public changeProfile(account){
-    return this.http.post('http://localhost:8080/api/profile', account);
+    return this.http.post('http://localhost:8080/api/change_profile', account);
   }
 
   public getAllUsers(){

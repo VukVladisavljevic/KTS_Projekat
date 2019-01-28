@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { RouterModule } from '@angular/router';
 import { TimetableComponent} from './timetable/timetable.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
@@ -57,6 +57,10 @@ import { AdminGuard } from './shared/guards/admin.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AnonymousGuard } from './shared/guards/anonymous.guard';
 import { ControllerGuard } from './shared/guards/controller.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
+
 
 @NgModule({
   declarations: [
@@ -87,7 +91,8 @@ import { ControllerGuard } from './shared/guards/controller.guard';
     DailyReportsComponent,
     MonthlyReportsComponent,
     YearlyReportsComponent,
-    ReportsComponent
+    ReportsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +123,16 @@ import { ControllerGuard } from './shared/guards/controller.guard';
     ToasterModule
   ],
   providers: [
-    HttpClientModule, JwtService, AuthService, GoogleMapsAPIWrapper, AdminGuard, AuthGuard, AnonymousGuard, ControllerGuard, { provide: MatDialogRef, useValue: {} }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
+    HttpClientModule, AuthService, JwtService, GoogleMapsAPIWrapper, AdminGuard, AuthGuard, AnonymousGuard, ControllerGuard, { provide: MatDialogRef, useValue: {} }
 , { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
   bootstrap: [AppComponent],

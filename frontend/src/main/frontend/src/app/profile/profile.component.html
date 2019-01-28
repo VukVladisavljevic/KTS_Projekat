@@ -1,0 +1,114 @@
+<div class="container" style="align-content: center; padding-top: 25px;">
+  <form [formGroup]="myForm" (ngSubmit)="changeProfile()" *ngIf="profile">
+    <table class="table">
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>Username:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+            <input
+            formControlName="username"
+            id="username"
+            placeholder="username..."
+            type="text"
+            class="form-control input" 
+            disabled/>
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>First name:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+            <div class="form-group">
+              <input
+              formControlName="firstName"
+              id="firstName"
+              placeholder="first name..."
+              type="text"
+              class="form-control input" 
+              />
+              <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger">
+                <div id="firstNameRequiredError" *ngIf="firstName.errors.required">
+                  The first name is required!
+                </div>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>Last name:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+            <div class="form-group">
+              <input
+                formControlName="lastName"
+                id="lastName"
+                placeholder="last name..."
+                type="text"
+                class="form-control input" 
+                />
+                <div *ngIf="lastName.touched && lastName.invalid" class="alert alert-danger">
+                  <div id="lastNameRequiredError" *ngIf="lastName.errors.required">
+                    The last name is required!
+                  </div>
+                </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>Email:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+          <div class="form-group">
+            <input
+              formControlName="email"
+              id="email"
+              placeholder="email..."
+              type="text"
+              class="form-control input" 
+              />
+            <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+              <div id="emailRequiredError" *ngIf="email.errors.required; else emailPattern">
+                The email is required!
+              </div>
+              <ng-template #emailPattern>
+                <ng-container *ngIf="email.errors.email">
+                  <div id="emailValidError">
+                    Please provide a valid email address.
+                  </div>
+                </ng-container>
+              </ng-template>
+            </div>
+          </div>
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>Old password:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+          <input
+            formControlName="password"
+            id="password"
+            placeholder="Leave empty to keep old password!"
+            type="password"
+            class="form-control input" 
+            />
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>New password:</p></th>
+          <th style="text-align: center; vertical-align: middle;">
+          <input
+            formControlName="newPassword"
+            id="newPassword"
+            placeholder="Leave empty to keep old password!"
+            type="password"
+            class="form-control input" 
+            />
+          </th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;"><p>Tickets bought:</p></th>
+          <th style="text-align: center; vertical-align: middle;"><p>{{profile.ticketsBought}}</p></th>
+        </tr>
+        <tr>
+          <th style="text-align: center; vertical-align: middle;" colspan="2"><button class="btn btn-info" type="submit">Change profile</button></th>
+        </tr>
+    </table>
+  </form>
+  
+</div>

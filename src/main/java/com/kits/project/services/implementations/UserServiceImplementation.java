@@ -3,14 +3,20 @@ package com.kits.project.services.implementations;
 import com.kits.project.DTOs.UserDTO;
 import com.kits.project.exception.BadRequestException;
 import com.kits.project.exception.NotFoundException;
+import com.kits.project.model.AccountAuthority;
 import com.kits.project.model.User;
 import com.kits.project.repositories.UserRepository;
 import com.kits.project.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -97,5 +103,4 @@ public class UserServiceImplementation implements UserServiceInterface {
         ArrayList<User> allUsers = this.userRepository.findAll();
         return allUsers;
     }
-
 }
