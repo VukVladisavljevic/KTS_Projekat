@@ -128,10 +128,6 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
       useClass: JwtInterceptor,
       multi: true
     },
-    {
-      provide: LocationStrategy,
-      useClass: HashLocationStrategy
-    },
     HttpClientModule, AuthService, JwtService, GoogleMapsAPIWrapper, AdminGuard, AuthGuard, AnonymousGuard, ControllerGuard, { provide: MatDialogRef, useValue: {} }
 , { provide: MAT_DIALOG_DATA, useValue: [] }
   ],
