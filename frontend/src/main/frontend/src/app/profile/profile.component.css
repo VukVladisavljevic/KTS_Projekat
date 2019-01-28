@@ -1,0 +1,12 @@
+.center {
+    position: relative;
+    left: 45%;
+}
+
+.alert {
+    top: 5px;
+    bottom: -20px;
+    padding: 0 !important;
+    left: 5%;
+    max-width: 90%;
+}
