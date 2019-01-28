@@ -173,6 +173,8 @@ public class RegistrationPage {
         this.username.sendKeys(username);
         this.password.sendKeys(password);
         this.confirmPass.sendKeys(confirmPassword);
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(registerButton));
         this.registerButton.click();
     }
 }
