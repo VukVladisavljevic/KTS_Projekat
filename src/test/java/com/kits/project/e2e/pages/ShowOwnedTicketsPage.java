@@ -17,8 +17,11 @@ public class ShowOwnedTicketsPage {
     private WebElement ticketsTable;
 
 
-    @FindBy(css = "button.btn.btn-danger")
+    @FindBy(id = "closeButton")
     private WebElement closeButton;
+
+    @FindBy(xpath = "//th[4]")
+    private WebElement modalTable;
 
     public WebElement getCloseButton() {
         return closeButton;
@@ -59,6 +62,16 @@ public class ShowOwnedTicketsPage {
 
     public void ensureIsCloseButtonDisplayed() {
         (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.visibilityOf(this.closeButton));
+                .until(ExpectedConditions.visibilityOf(closeButton));
+    }
+
+    public void ensureIsCloseButtonClickable() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(closeButton));
+    }
+
+    public void ensureIsModalVisible() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(modalTable));
     }
 }

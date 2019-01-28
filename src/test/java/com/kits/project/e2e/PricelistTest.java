@@ -27,7 +27,7 @@ public class PricelistTest {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
-        browser.get("http://localhost:4200/pricelist");
+        browser.get("http://localhost:4200/login");
         pricelistPage = PageFactory.initElements(browser, PricelistPage.class);
         currentPricelistPage = PageFactory.initElements(browser, CurrentPricelistPage.class);
         loginPage = PageFactory.initElements(browser, LoginPage.class);
@@ -38,9 +38,10 @@ public class PricelistTest {
     public void addNewPricelist() {
 
         loginPage.ensureIsDisplayed();
-        assertEquals("http://localhost:4200/login?returnUrl=%2Fhome", browser.getCurrentUrl());
         loginPage.loginAs("aa", "aa");
         homePage.ensureBusIsVisible();
+        assertEquals("http://localhost:4200/home", browser.getCurrentUrl());
+
         homePage.priceListLinkIsDisplayed();
 
         homePage.getShowPriceListLink().click();

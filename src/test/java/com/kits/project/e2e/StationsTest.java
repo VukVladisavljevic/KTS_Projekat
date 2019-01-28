@@ -26,7 +26,7 @@ public class StationsTest {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
-        browser.get("http://localhost:4200/stations");
+        browser.get("http://localhost:4200/login");
         stationsPage = PageFactory.initElements(browser, StationsPage.class);
         homePage = PageFactory.initElements(browser, HomePage.class);
         loginPage = PageFactory.initElements(browser, LoginPage.class);
@@ -35,9 +35,10 @@ public class StationsTest {
     @Test
     public void addStationTest() {
         loginPage.ensureIsDisplayed();
-        assertEquals("http://localhost:4200/login?returnUrl=%2Fhome", browser.getCurrentUrl());
         loginPage.loginAs("aa", "aa");
         homePage.ensureBusIsVisible();
+        assertEquals("http://localhost:4200/home", browser.getCurrentUrl());
+
         homePage.stationsLinkIsDisplayed();
         homePage.getStationsLink().click();
         stationsPage.mapDisplayed();

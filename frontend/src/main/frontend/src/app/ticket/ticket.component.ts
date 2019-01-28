@@ -68,7 +68,7 @@ export class TicketComponent implements OnInit {
   openOwnedTicketsDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {

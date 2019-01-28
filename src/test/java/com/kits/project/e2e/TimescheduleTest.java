@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,7 +25,7 @@ public class TimescheduleTest {
 
     @Before
     public void setupSelenium() {
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
         browser = new ChromeDriver();
         //    browser.manage().window().maximize();
         browser.get("http://localhost:4200/login");
@@ -78,10 +79,14 @@ public class TimescheduleTest {
 
         addTimeSchedulePage.getDialogDoneButton().click();
 
+        (new WebDriverWait(browser, 10))
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.id("timeSchedule")));
         //check number after addition
         mainTimeschedulePage.ensureShowButtonVisible();
         mainTimeschedulePage.ensureShowButtonClickable();
-        mainTimeschedulePage.getShowTimeScheduleButton().click();
+        Actions act = new Actions(browser);
+        act.moveToElement(mainTimeschedulePage.getShowTimeScheduleButton()).click().perform();
 
         showTimeSchedulesPage.ensureTableVisible();
         int afterAdding = showTimeSchedulesPage.getStationsTableSize();

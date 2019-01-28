@@ -1,13 +1,12 @@
 package com.kits.project.e2e.pages;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -24,12 +23,37 @@ public class MainTicketsPage {
     @FindBy(id = "ticketType")
     private WebElement typeSelect;
 
+    @FindBy(xpath = "//input")
+    private WebElement usernameInput;
+
+    @FindBy(css="button.btn.btn-light")
+    private WebElement searchUser;
+
+    @FindBy()
+    private WebElement foundTicketsTable;
+
     public WebElement getBuyButton() {
         return buyButton;
     }
 
     public void setBuyButton(WebElement buyButton) {
         this.buyButton = buyButton;
+    }
+
+    public WebElement getUsernameInput() {
+        return usernameInput;
+    }
+
+    public void setUsernameInput(WebElement usernameInput) {
+        this.usernameInput = usernameInput;
+    }
+
+    public WebElement getSearchUser() {
+        return searchUser;
+    }
+
+    public void setSearchUser(WebElement searchUser) {
+        this.searchUser = searchUser;
     }
 
     public WebElement getListOwnedButton() {
@@ -72,6 +96,11 @@ public class MainTicketsPage {
                 .until(ExpectedConditions.visibilityOf(listOwnedButton));
     }
 
+    public void ensureIsControllerFieldVisible() {
+        (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.visibilityOf(searchUser));
+    }
+
     public enum Type {
         SINGLE, MONTHLY, YEARLY;
     }
@@ -112,7 +141,7 @@ public class MainTicketsPage {
         alert.accept();
     }
 
-    private Alert waitForAlert(WebDriver driver) throws InterruptedException {
+    public Alert waitForAlert(WebDriver driver) throws InterruptedException {
         int i=0;
         while(i++<5)
         {
@@ -129,4 +158,11 @@ public class MainTicketsPage {
         }
         return null;
     }
+
+    public int numberOfTickets() {
+        (new WebDriverWait(driver, 5))
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("tr"))));
+        return this.driver.findElements(By.cssSelector("tr")).size();
+    }
+
 }

@@ -23,4 +23,4 @@
 -- insert into tickets(user_id, start_time, end_time, ticket_Type, active) values(789, '2018-4-6', '2018-4-6', "SINGLE", TRUE)
 
 
---SELECT * FROM authority;
+SELECT * FROM authority;

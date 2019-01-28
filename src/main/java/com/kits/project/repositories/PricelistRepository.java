@@ -12,8 +12,7 @@ import java.util.Date;
 
 
 public interface PricelistRepository  extends JpaRepository<Pricelist, Long> {
-
-    @Query("SELECT p FROM Pricelist p WHERE ?1 BETWEEN p.startDate AND p.endDate")
+    @Query(value = "SELECT * FROM pricelist WHERE (CURTIME() BETWEEN startdate AND enddate) ORDER BY FIELD(ticket_type, 'SINGLE','MONTHLY', 'YEARLY') ASC", nativeQuery = true)
     ArrayList<Pricelist> getCurrent(Date current);
 
     @Query("SELECT p FROM Pricelist p WHERE (?1 BETWEEN p.startDate AND p.endDate OR ?2 BETWEEN p.startDate AND p.endDate) AND ?3 = p.ticketType")

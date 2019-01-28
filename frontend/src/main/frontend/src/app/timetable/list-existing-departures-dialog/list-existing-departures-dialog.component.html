@@ -1,4 +1,4 @@
-<div style="min-height: 500px; max-height: 500px;">
+<div>
 <h2 style="text-align: center; vertical-align: middle;" mat-dialog-title>Time Schedule</h2>
 
   <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="day" >
@@ -25,16 +25,12 @@
       <tbody>
       <tr *ngFor="let item of departures; index as i">
         <td style=" text-align: center; vertical-align: middle; width: 100px">{{item}}</td>
-        <td style="text-align: center; vertical-align: middle;"><button (click)="removeDeparture(i)"> <img style="font-size: 0.73em;" alt="delete" src="../../../assets/icons/delete_icon.ico"></button></td>
+        <td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger" (click)="removeDeparture(i)"><span class="glyphicon glyphicon-trash"></span></button></td>
       </tr>
       </tbody>
     </table>
-
+  <button class="btn btn-secondary"(click)="close()">Close</button>
 
 </mat-dialog-content>
-
 </div>
 
-<mat-dialog-actions>
-  <button class="mat-raised-button"(click)="close()">Close</button>
-</mat-dialog-actions>

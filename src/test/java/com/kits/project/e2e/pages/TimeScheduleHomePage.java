@@ -14,7 +14,7 @@ public class TimeScheduleHomePage {
     @FindBy(xpath="/html/body/app-root/app-timetable/div/table/tbody/tr[1]/td[2]/button")
     private WebElement addTimeScheduleButton;
 
-    @FindBy(xpath="/html/body/app-root/app-timetable/div/table/tbody/tr[1]/td[3]/button")
+    @FindBy(xpath="//td[3]/button")
     private WebElement showTimeScheduleButton;
 
     public TimeScheduleHomePage(WebDriver driver) {

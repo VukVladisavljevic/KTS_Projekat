@@ -20,10 +20,8 @@
       <ngb-timepicker style="font-size:12px; display: inline-block;text-align: center; vertical-align: middle;"  [(ngModel)]="time"></ngb-timepicker>
     </div>
       <hr>
-
+    <button id="closeButton" class="btn btn-secondary" (click)="close()">Close</button>
+    <button id="doneButton" class="btn btn-primary" (click)="save()">Save</button>
   </mat-dialog-content>
 </div>
-<mat-dialog-actions style="text-align: center; vertical-align: middle;">
-  <button class="mat-raised-button" (click)="close()">Close</button>
-  <button class="mat-raised-button" (click)="save()">Save</button>
-</mat-dialog-actions>
+
