@@ -3,6 +3,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { RequestDate } from '../../models/requestDate';
 import { NgbDateISOParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 import { ReportsService } from '../../services/reports.service';
+import { Report } from '../../models/report';
 
 @Component({
   selector: 'app-reports',
@@ -14,7 +15,7 @@ export class ReportsComponent implements OnInit {
   private endDate;
   private maxDate;
   private today;
-  private total = 0.0;
+  private report = new Report(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   constructor(private reportsService: ReportsService) {
     let td = new Date();
     this.startDate = new NgbDate(td.getFullYear(), td.getMonth()+1, td.getDate());
@@ -40,7 +41,7 @@ export class ReportsComponent implements OnInit {
       return;
     }
     this.reportsService.getReports(requestDate).subscribe(data => {
-      this.total = data;
+      this.report = data;
     });
   }
 }
