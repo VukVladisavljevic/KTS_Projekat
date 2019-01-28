@@ -1,6 +1,9 @@
 <div class="container" style="align-content: center; padding-top: 25px;">
   <form [formGroup]="myForm" (ngSubmit)="changeProfile()" *ngIf="profile">
-    <table class="table">
+    <table class="table table-dark">
+      <tr>
+        <th colspan="2"></th>
+      </tr>
         <tr>
           <th style="text-align: center; vertical-align: middle;"><p>Username:</p></th>
           <th style="text-align: center; vertical-align: middle;">

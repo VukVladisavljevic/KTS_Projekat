@@ -84,7 +84,7 @@
                 type="text"
                 class="form-control input">
             </div>
-            <div *ngIf="username.pending" class="alert alert-warning">
+            <div *ngIf="!username.valid && !username.invalid" class="alert alert-warning">
               Checking username availability...
             </div>
             <div id="usernameAvailable" *ngIf="username.valid" class="alert alert-success">

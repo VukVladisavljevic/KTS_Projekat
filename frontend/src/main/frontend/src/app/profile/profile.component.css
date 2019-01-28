@@ -10,3 +10,15 @@
     left: 5%;
     max-width: 90%;
 }
+
+.table {
+    border-radius: 40px;
+}
+
+tr {
+    border: 0px;
+}
+
+.table td, .table th {
+    border: none;
+}
