@@ -11,6 +11,9 @@ INSERT INTO account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) VALUES (55, 1, 2);
 insert into users(ID, USERNAME, PASSWORD, CONFIRMED, EMAIL, LAST_NAME, ACTIVATION_ID, FIRST_NAME) values(799, "jjjjj", "jjjjj", false, "mgr36995@gmail.com", "Jovic", "JOVA2", "Jova");
 insert into account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) values(69,799,2);
 
+insert into users(ID, USERNAME, PASSWORD, CONFIRMED, EMAIL, LAST_NAME, ACTIVATION_ID, FIRST_NAME) values(2, 'controller', 'inYS7fWOHPhxQCtd0Og2gVYnbhwFBUsHaAOek5QAKSQtWItRC', false, 'email', 'Ime', 'HSAHA', 'aa');
+insert into account_authority(ID, ACCOUNT_ID, AUTHORITY_ID) values(22,2,3);
+
 INSERT INTO stations(ID, ADDRESS, LAT, LNG, NAME, ACTIVE) VALUES (4, 'Bulevar Oslobodjenja', 45.264008, 19.823417, '8', 1);
 INSERT INTO stations(ID, ADDRESS, LAT, LNG, NAME, ACTIVE) VALUES (5, 'Bulevar Oslobodjenja', 45.252671, 19.836873, '9', 1);
 INSERT INTO stations(ID, ADDRESS, LAT, LNG, NAME, ACTIVE) VALUES (7, 'Bulevar Oslobodjenja', 45.261041, 19.832232, '10', 1);

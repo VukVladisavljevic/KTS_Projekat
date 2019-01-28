@@ -26,24 +26,35 @@ describe('LiveLocationService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  fit('should be created', () => {
     expect(locationService).toBeTruthy();
   });
 
 
-  it('should get all tickets', () => {
+  fit('should get all lines', () => {
 
     locationService.getLines().then(response => {
-      console.log(response);
+      expect(response).toBeDefined();
+      expect(response[0].name).toBe("A1");
+      expect(response[1].name).toBe("A2");
     });
 
     const urlPath = "http://localhost:8080/api/lines";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
 
+    const retValAdd = [
+      {
+        "name": "A1"
+      },
+      {
+        "name": "A2"
+      }
+    ];
 
+    expect(retValAdd.length).toBe(2);
+    req.flush(retValAdd);
     httpMock.verify();
-
   });
 });
 

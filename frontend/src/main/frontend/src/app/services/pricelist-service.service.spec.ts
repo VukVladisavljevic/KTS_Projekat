@@ -37,7 +37,7 @@ describe('PricelistService', () => {
 
 
 
-  it('should be created', () => {
+  fit('should be created', () => {
     const service: PricelistService = TestBed.get(PricelistService);
     expect(service).toBeTruthy();
   });
@@ -53,17 +53,20 @@ describe('PricelistService', () => {
     };
 
     priceListService.addPricelist(pricelist).then(data => {
-      //expect(data.ticketType).toBe(pricelist.ticketType);
+      expect(data.startDate).toBe(pricelist.startDate);
+      expect(data.endDate).toBe(pricelist.endDate);
+      expect(data.ticketType).toBe(pricelist.ticketType);
+      expect(data.price).toBe(pricelist.price);
     });
 
     const urlPath = "http://localhost:8080/api/pricelist/create";
     const req = httpMock.expectOne({ method: 'POST', url: urlPath });
     expect(req.request.method).toBe('POST');
     const retValAdd = {
-      "startDate": !null,
-      "endDate": !null,
-      "ticketType": !null,
-      "price" : !null
+      "startDate": "start",
+      "endDate": "end",
+      "ticketType": "1",
+      "price" : 22.5
     };
 
     req.flush(retValAdd);
@@ -76,29 +79,59 @@ describe('PricelistService', () => {
   fit('should get all pricelists', () => {
 
     priceListService.getAllPricelists().then(data => {
-      expect(data).toBe(!null);
+      expect(data[0].startDate).toBe("01.02.2019")
+      expect(data[0].endDate).toBe("30.02.2019")
+      expect(data[0].ticketType).toBe("1")
+      expect(data[0].price).toBe(22.5)
+
+      expect(data[1].startDate).toBe("01.01.2019")
+      expect(data[1].endDate).toBe("31.01.2019")
+      expect(data[1].ticketType).toBe("1")
+      expect(data[1].price).toBe(22.5)
     });
+
 
     const urlPath = "http://localhost:8080/api/pricelist/getall";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
 
+    const retValAdd = [{
+      "startDate": "01.02.2019",
+      "endDate": "30.02.2019",
+      "ticketType": "1",
+      "price" : 22.5
+    }, {
+      "startDate": "01.01.2019",
+      "endDate": "31.01.2019",
+      "ticketType": "1",
+      "price" : 22.5
+    } ];
+    req.flush(retValAdd);
     httpMock.verify();
 
   });
 
-  fit('should get all pricelists', () => {
+  fit('should get current pricelist', () => {
 
     priceListService.getCurrentPricelist().then(data => {
-      expect(data).toBe(!null);
+      expect(data[0].startDate).toBe("01.02.2019")
+      expect(data[0].endDate).toBe("30.02.2019")
+      expect(data[0].ticketType).toBe("1")
+      expect(data[0].price).toBe(22.5)
     });
 
     const urlPath = "http://localhost:8080/api/pricelist/getcurrent";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
+    const retValAdd = [{
+      "startDate": "01.02.2019",
+      "endDate": "30.02.2019",
+      "ticketType": "1",
+      "price" : 22.5
+    }];
 
+    req.flush(retValAdd);
     httpMock.verify();
-
   });
 });
 

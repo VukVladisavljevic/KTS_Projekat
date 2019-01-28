@@ -20,20 +20,20 @@ describe('ReportsService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  fit('should be created', () => {
     const service: ReportsService = TestBed.get(ReportsService);
     expect(service).toBeTruthy();
   });
 
-  it('should return a report', () => {
+  fit('should return a report', () => {
     const requestDate = new RequestDate(new Date(2018, 1, 1), new Date(2018, 5, 5))
 
     reportsService.getReports(requestDate)
       .subscribe((response : any) => {
         expect(response.toBeTruthy());
       });
-    const httpRequest = httpMock.expectOne('/api/reports/get_total');
-    expect(httpRequest.request.method).toEqual('GET');
+    const httpRequest = httpMock.expectOne('http://localhost:8080/api/reports/get_total');
+    expect(httpRequest.request.method).toEqual('POST');
     //httpRequest.flush(requestDate);
   });
 });
