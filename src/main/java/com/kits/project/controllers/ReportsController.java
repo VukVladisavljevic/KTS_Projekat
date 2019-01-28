@@ -1,9 +1,11 @@
 package com.kits.project.controllers;
 
+import com.kits.project.DTOs.ReportDTO;
 import com.kits.project.DTOs.RequestDateDTO;
 import com.kits.project.exception.BadRequestException;
 import com.kits.project.model.Pricelist;
 import com.kits.project.model.Ticket;
+import com.kits.project.model.TicketType;
 import com.kits.project.services.interfaces.PricelistServiceInterface;
 import com.kits.project.services.interfaces.TicketServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,37 +37,46 @@ public class ReportsController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Float> getTotal(@RequestBody RequestDateDTO requestDateDTO) {
+    public ResponseEntity<ReportDTO> getTotal(@RequestBody RequestDateDTO requestDateDTO) {
         float total = 0;
-        Date sDate = requestDateDTO.startDate;
-        Date eDate = requestDateDTO.endDate;
-        ArrayList<Pricelist> allPricelist = pricelistServiceInterface.getAllPricelists();
-        List<Ticket> allTickets = ticketServiceInterface.getAllTickets();
+        float totalSingle = 0;
+        float totalDaily = 0;
+        float totalMonthly = 0;
+        float totalYearly = 0;
+        List<Ticket> listSingle =this.ticketServiceInterface.getAllTypeTicketsBetween(requestDateDTO.startDate, requestDateDTO.endDate, TicketType.SINGLE);
+        List<Ticket> listMonthly =this.ticketServiceInterface.getAllTypeTicketsBetween(requestDateDTO.startDate, requestDateDTO.endDate, TicketType.MONTHLY);
+        List<Ticket> listDaily =this.ticketServiceInterface.getAllTypeTicketsBetween(requestDateDTO.startDate, requestDateDTO.endDate, TicketType.DAILY);
+        List<Ticket> listYearly =this.ticketServiceInterface.getAllTypeTicketsBetween(requestDateDTO.startDate, requestDateDTO.endDate, TicketType.YEARLY);
+        float single = listSingle.size();
+        float daily = listDaily.size();
+        float monthly = listMonthly.size();
+        float yearly = listYearly.size();
+        float noTotal = single + daily + monthly + yearly;
 
-
-        long diffInMillies = Math.abs(eDate.getTime() - sDate.getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-        Calendar cal = Calendar.getInstance();
-
-        for(int i = 0; i < diff+1; i++) {
-            ArrayList<Pricelist> currentPricelist = new ArrayList<>();
-            for(Pricelist p : allPricelist) {
-                if(p.getStartDate().compareTo(sDate) <= 0 && p.getEndDate().compareTo(sDate) >= 0)
-                    currentPricelist.add(p);
-            }
-
-            for(Ticket t : allTickets) {
-                for(Pricelist cp : currentPricelist) {
-                    if(cp.getTicketType().equals(t.getTicketType()) && t.getStartTime().compareTo(sDate) == 0)
-                        total += cp.getPrice();
-                }
-            }
-
-            cal.setTime(sDate);
-            cal.add(Calendar.DATE, 1);
-            sDate = cal.getTime();
+        for(Ticket t : listSingle) {
+            total += t.getPrice();
+            totalSingle += t.getPrice();
         }
 
-        return new ResponseEntity(total, HttpStatus.OK);
+        for(Ticket t : listMonthly) {
+            total += t.getPrice();
+            totalMonthly += t.getPrice();
+        }
+
+        for(Ticket t : listDaily) {
+            total += t.getPrice();
+            totalDaily += t.getPrice();
+        }
+
+        for(Ticket t : listYearly) {
+            total += t.getPrice();
+            totalYearly += t.getPrice();
+        }
+
+        float avgPerDay = total/noTotal;
+
+        ReportDTO report = new ReportDTO(noTotal, total, avgPerDay, single, totalSingle, daily, totalDaily, monthly, totalMonthly, yearly, totalYearly);
+
+        return new ResponseEntity(report, HttpStatus.OK);
     }
 }

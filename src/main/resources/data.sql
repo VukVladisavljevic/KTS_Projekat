@@ -36,4 +36,4 @@ insert into timeschedule_saturday_schedule(timeschedule_id, saturday_schedule) v
 insert into transport(id, station_order, line_idline, station_id) values (1, 1, 2, 4);
 
 
---SELECT * FROM authority;
+SELECT * FROM authority;
