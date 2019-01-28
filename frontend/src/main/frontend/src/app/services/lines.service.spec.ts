@@ -27,7 +27,7 @@ describe('LinesService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
+  fit('should be created', () => {
     expect(linesService).toBeTruthy();
   });
 
@@ -37,18 +37,17 @@ describe('LinesService', () => {
     const line: LineModel = new LineModel("A1", null);
 
     linesService.addLine(line).then(data => {
+      expect(data).toBeDefined();
       expect(data.name).toBe(line.name);
     });
 
     const urlPath = "http://localhost:8080/api/line/create";
     const req = httpMock.expectOne({ method: 'POST', url: urlPath });
     expect(req.request.method).toBe('POST');
-    // const retValAdd = {
-    //   "time":"22:00",
-    //   "dayOfWeek":"1",
-    //   "lineName":"A1"
-    // };
-    // req.flush(retValAdd);
+    const retValAdd = {
+      "name":"A1"
+    };
+    req.flush(retValAdd);
     httpMock.verify();
 
   });
@@ -57,13 +56,26 @@ describe('LinesService', () => {
   fit('should get all lines', () => {
 
     linesService.getLines().then(response => {
-      expect(response).toBe(!null);
+      expect(response).toBeDefined();
+      expect(response[0].name).toBe("A1");
+      expect(response[1].name).toBe("A2");
     });
 
     const urlPath = "http://localhost:8080/api/lines";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
 
+    const retValAdd = [
+      {
+        "name": "A1"
+      },
+      {
+        "name": "A2"
+      }
+    ];
+
+    expect(retValAdd.length).toBe(2);
+    req.flush(retValAdd);
     httpMock.verify();
   });
 
@@ -75,8 +87,8 @@ describe('LinesService', () => {
       "idLine":0
     };
 
-    linesService.deleteLine( line).then(response => {
-       expect(response).toBe(!null);
+    linesService.deleteLine(line).then(response => {
+        expect(response).toBeDefined();
     });
 
 
@@ -84,7 +96,12 @@ describe('LinesService', () => {
     const req = httpMock.expectOne({ method: 'DELETE', url: urlPath });
     expect(req.request.method).toBe('DELETE');
 
+    const retValAdd =
+      {
+        "idLine": "0"
+      };
 
+    req.flush(retValAdd);
     httpMock.verify();
 
   });

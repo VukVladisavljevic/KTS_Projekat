@@ -24,7 +24,7 @@ public class LinesTest {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
-        browser.get("http://localhost:4200/lines");
+        browser.get("http://localhost:4200/login");
         linesPage = PageFactory.initElements(browser, LinesPage.class);
         homePage = PageFactory.initElements(browser, HomePage.class);
         loginPage = PageFactory.initElements(browser, LoginPage.class);
@@ -33,9 +33,10 @@ public class LinesTest {
     @Test
     public void addNewLineTest() {
         loginPage.ensureIsDisplayed();
-        assertEquals("http://localhost:4200/login?returnUrl=%2Fhome", browser.getCurrentUrl());
         loginPage.loginAs("aa", "aa");
         homePage.ensureBusIsVisible();
+        assertEquals("http://localhost:4200/home", browser.getCurrentUrl());
+
         homePage.linesLinkIsDisplayed();
         homePage.getLinesLink().click();
         assertEquals("http://localhost:4200/lines", browser.getCurrentUrl());

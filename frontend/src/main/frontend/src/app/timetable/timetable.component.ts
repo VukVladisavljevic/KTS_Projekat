@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angula
 import {AddDepartureDialogComponent} from './add-departure-dialog/add-departure-dialog.component';
 import {ListExistingDeparturesDialogComponent} from './list-existing-departures-dialog/list-existing-departures-dialog.component';
 import {Departure} from '../models/departure';
+import {JwtService} from "../services/auth/jwt.service";
 
 @Component({
   selector: 'app-timetable',
@@ -16,7 +17,10 @@ export class TimetableComponent implements OnInit {
 
   scheduleItems: TimeScheduleItemModel[];
 
-  constructor(private dialog: MatDialog, private router: Router, private scheduleService: TimeScheduleService) {
+  constructor(private dialog: MatDialog,
+              private router: Router,
+              private scheduleService: TimeScheduleService,
+              protected jwtService: JwtService) {
 
   }
 
@@ -44,7 +48,7 @@ export class TimetableComponent implements OnInit {
   openDeparturesListDialog(item): void {
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {

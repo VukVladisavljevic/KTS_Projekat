@@ -62,30 +62,59 @@ describe('TimeScheduleServiceService', () => {
   fit('should get all time schedules', () => {
 
     timetableService.getTimeSchedules().then(response => {
-      expect(response).toBe(!null);
+      let data = response;
+      expect(data[0].time).toBe("21:00");
+      expect(data[1].time).toBe("22:00");
     });
 
     const urlPath = "http://localhost:8080/api/lines";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
 
+    const retValAdd = [
+      {
+        "time": "21:00",
+        "dayOfWeek": "1",
+        "lineName": "A1"
+      },
+      {
+        "time": "22:00",
+        "dayOfWeek": "1",
+        "lineName": "A1"
+      }
+    ];
+
+    expect(retValAdd.length).toBe(2);
+    req.flush(retValAdd);
     httpMock.verify();
   });
 
   fit('should get all departures for line', () => {
 
     timetableService.getDepartures("A1", "1").then(response => {
-      console.log(response)
-      // expect(response).toBe(!null);
+      let data = response;
+      expect(data[0].time).toBe("21:00");
+      expect(data[1].time).toBe("22:00");
     });
 
 
     const urlPath = "http://localhost:8080/api/time-schedule/line/A1/1";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
-    const retValAdd = [Departure];
+    const retValAdd = [
+      {
+        "time": "21:00",
+        "dayOfWeek": "1",
+        "lineName": "A1"
+      },
+      {
+        "time": "22:00",
+        "dayOfWeek": "1",
+        "lineName": "A1"
+      }
+    ];
 
-    expect(retValAdd.length).toBe(1);
+    expect(retValAdd.length).toBe(2);
     req.flush(retValAdd);
 
     httpMock.verify();
@@ -95,14 +124,15 @@ describe('TimeScheduleServiceService', () => {
   fit('should delete added departure', () => {
 
     timetableService.deleteDeparture("A1", "1", 0).then(response => {
-      // expect(response).toBe(!null);
+      let data = response;
+      //console.log(data);
+      expect(data[0].lineName).toBe("A1");
     });
 
 
     const urlPath = "http://localhost:8080/api/time-schedule/line/A1/1/0";
     const req = httpMock.expectOne({ method: 'DELETE', url: urlPath });
     expect(req.request.method).toBe('DELETE');
-
 
     httpMock.verify();
 

@@ -13,7 +13,7 @@ public class ShowTimeSchedulesPage {
 
     private WebDriver driver;
 
-    @FindBy(xpath = "/html/body/div[1]/div[2]/div/mat-dialog-container/app-list-existing-departures-dialog/mat-dialog-actions/button")
+    @FindBy(xpath = "//mat-dialog-content/button")
     private WebElement dialogCloseButton;
 
     @FindBy(xpath = "/html/body/div[1]/div[2]/div/mat-dialog-container/app-list-existing-departures-dialog/div/mat-dialog-content/table/tbody/tr[1]/td[2]/button")

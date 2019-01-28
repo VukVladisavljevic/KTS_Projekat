@@ -23,7 +23,7 @@ public class PricelistPage {
     @FindBy(xpath = "//div[4]/input")
     private WebElement price;
 
-    @FindBy(css = "button.mat-raised-button")
+    @FindBy(css = "button.btn.btn-secondary")
     private WebElement closeModal;
 
     public PricelistPage(WebDriver driver) {

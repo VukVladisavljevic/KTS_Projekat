@@ -23,7 +23,7 @@ public class LoginTest {
     public void setupSelenium() {
 //        System.setProperty("webdriver.chrome.driver", "chromedriver");
 
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
 
 
         browser = new ChromeDriver();

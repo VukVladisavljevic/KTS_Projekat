@@ -25,7 +25,7 @@ public class LinesMapTest {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
         browser = new ChromeDriver();
         browser.manage().window().maximize();
-        browser.get("http://localhost:4200/");
+        browser.get("http://localhost:4200/home");
         linesPage = PageFactory.initElements(browser, LinesMapPage.class);
         homePage = PageFactory.initElements(browser, HomePage.class);
     }

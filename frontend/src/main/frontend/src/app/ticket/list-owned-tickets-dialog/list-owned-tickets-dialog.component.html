@@ -1,9 +1,9 @@
-<div style="min-height: 500px; max-height: 500px;">
+<div>
 <h2 style="text-align: center; vertical-align: middle;" mat-dialog-title>Owned Tickets</h2>
 
 <mat-dialog-content>
 
-    <table id="ticketsTable" class="table table-hover table-dark">
+    <table id="ticketsTable" class="table table-striped">
       <thead>
       <tr>
         <th style="text-align: center; vertical-align: middle; width: 100px">Ticket Type</th>
@@ -29,9 +29,8 @@
       </tr>
       </tbody>
     </table>
+    <button id="closeButton" class="btn btn-secondary" (click)="close()">Close</button>
 </mat-dialog-content>
 </div>
 
-<mat-dialog-actions>
-  <button id="closeButton" class="btn btn-danger"(click)="close()">Close</button>
-</mat-dialog-actions>
+

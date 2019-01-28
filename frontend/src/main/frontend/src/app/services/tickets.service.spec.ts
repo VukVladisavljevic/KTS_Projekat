@@ -38,11 +38,13 @@ describe('TicketsService', () => {
       "ticketType":"oneUse",
       "startTime":null,
       "endTime":null,
-      "active":null
+      "active":null,
+      "price":null
     };
 
     ticketsService.buyOneWayTicket(oneUseTicket).then(data => {
-      expect(data.active).toBe(!null);
+      expect(data.token).toBe("token1");
+      expect(data.ticketType).toBe("oneUse");
     });
 
     // ticketsService.getOwnedTickets("token1")
@@ -57,7 +59,8 @@ describe('TicketsService', () => {
       "ticketType":"oneUse",
       "startTime":!null,
       "endTime":!null,
-      "active":!null
+      "active":!null,
+      "price":null
     };
     req.flush(retValAdd);
 
@@ -72,15 +75,14 @@ describe('TicketsService', () => {
       "ticketType":"Monthly",
       "startTime":null,
       "endTime":null,
-      "active":null
+      "active":null,
+      "price":null
     };
 
     ticketsService.buyMultipleUseTicket(multipleUseTicket).then(data => {
-      expect(data.active).toBe(!null);
+      expect(data.active).toBe(true);
+      expect(data.token).toBe("token1");
     });
-
-    // ticketsService.getOwnedTickets("token1")
-
 
     const urlPath = "http://localhost:8080/api/ticket/createMultipleUse";
     const req = httpMock.expectOne({ method: 'POST', url: urlPath });
@@ -91,7 +93,8 @@ describe('TicketsService', () => {
       "ticketType":"Monthly",
       "startTime":!null,
       "endTime":!null,
-      "active":!null
+      "active":!null,
+      "price":null
     };
     req.flush(retValAdd);
 
@@ -106,15 +109,13 @@ describe('TicketsService', () => {
       "ticketType":"Yearly",
       "startTime":null,
       "endTime":null,
-      "active":null
+      "active":null,
+      "price":null
     };
 
     ticketsService.buyMultipleUseTicket(multipleUseTicket).then(data => {
       expect(data.active).toBe(!null);
     });
-
-    // ticketsService.getOwnedTickets("token1")
-
 
     const urlPath = "http://localhost:8080/api/ticket/createMultipleUse";
     const req = httpMock.expectOne({ method: 'POST', url: urlPath });
@@ -125,7 +126,8 @@ describe('TicketsService', () => {
       "ticketType":"Yearly",
       "startTime":!null,
       "endTime":!null,
-      "active":!null
+      "active":!null,
+      "price":null
     };
     req.flush(retValAdd);
 
@@ -140,7 +142,8 @@ describe('TicketsService', () => {
       "ticketType":"oneUse",
       "startTime":null,
       "endTime":null,
-      "active":null
+      "active":null,
+      "price":null
     };
 
     ticketsService.activateTicket(oneUseTicket).then(data => {
@@ -159,7 +162,8 @@ describe('TicketsService', () => {
       "ticketType":"oneUse",
       "startTime":!null,
       "endTime":!null,
-      "active":true
+      "active":true,
+      "price":null
     };
     req.flush(retValAdd);
 

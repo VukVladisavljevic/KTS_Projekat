@@ -39,14 +39,19 @@ describe('StationsService', () => {
   fit('should add one station', () => {
 
 
-    stationService.addStation("A1").then(data => {
-      expect(data).toBe(!null);
+    stationService.addStation("stanica1").then(data => {
+      expect(data).toBeDefined();
     });
 
     const urlPath = "http://localhost:8080/api/station";
     const req = httpMock.expectOne({ method: 'POST', url: urlPath });
     expect(req.request.method).toBe('POST');
+    const retValAdd = {
+      "name":"stanica1",
+      "address": "adresa1"
+    }
 
+    req.flush(retValAdd);
     httpMock.verify();
 
   });
@@ -54,13 +59,21 @@ describe('StationsService', () => {
   fit('should get all stations', () => {
 
     stationService.getStations().then(data => {
-      expect(data).toBe(!null);
+      expect(data[0].name).toBe("stanica1");
+      expect(data[1].name).toBe("stanica2");
     });
 
     const urlPath = "http://localhost:8080/api/stations";
     const req = httpMock.expectOne({ method: 'GET', url: urlPath });
     expect(req.request.method).toBe('GET');
-
+    const retValAdd = [{
+      "name":"stanica1",
+      "address":"adresa1"
+    },
+      {"name":"stanica2",
+      "address":"adresa2"
+      }];
+    req.flush(retValAdd);
     httpMock.verify();
 
   });

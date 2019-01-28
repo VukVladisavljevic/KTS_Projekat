@@ -19,7 +19,7 @@ public class AddTimeSchedulePage {
     @FindBy(xpath = "/html/body/div[1]/div[2]/div/mat-dialog-container/app-add-departure-dialog/mat-dialog-actions/button[1]")
     private WebElement dialogCloseButton;
 
-    @FindBy(xpath = "/html/body/div[1]/div[2]/div/mat-dialog-container/app-add-departure-dialog/mat-dialog-actions/button[2]")
+    @FindBy(id = "doneButton")
     private WebElement dialogDoneButton;
 
     @FindBy(xpath = "/html/body/div[1]/div[2]/div/mat-dialog-container/app-add-departure-dialog/div/mat-dialog-content/div[1]/label[1]")
